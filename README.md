@@ -1,11 +1,10 @@
 ### basic setup
 > commands to run are prefixed with $
-> wsl should be installed via microsoft store
 
 1. $ sudo pacman -Syyuu (assuming keyring correct configuration)
 2. $ sudo pacman -S reflector
 3. use reflector to sort mirrorlist
-4. $ sudo pacman -S ripgrep fd base-devel docker docker-compose zsh git openssh glibc libffi libyaml openssl zlib fzf unzip tar zip python python-pipx postgresql sqlite cmake ninja rustup vim wget gzip tar curl man-db less tree man-pages
+4. $ sudo pacman -S neovim ripgrep fd base-devel docker docker-compose zsh git openssh glibc libffi libyaml openssl zlib fzf unzip tar zip python python-pipx postgresql sqlite cmake ninja rustup vim wget gzip tar curl man-db less tree man-pages
     - also install some openjdk
 5. $ rustup default stable (to install the stable toolchain and default it)
 6. generate ssh keys:
@@ -18,15 +17,3 @@
     - $ git clone https://github.com/zsh-users/zsh-syntax-highlighting.git $ZSH_CUSTOM/plugins/zsh-syntax-highlighting
     - these are already on zshrc plugins table, as well as asdf
 11. $ cp vimrc ~/.vimrc && cp zshrc ~/.zshrc && mkdir ~/.config && cp -r nvim ~/.config
-12. setup postgresql:
-    - $ sudo su postgres
-    - $ initdb -D /var/lib/postgres/data
-    - $ exit
-    - $ sudo systemctl enable postgresql
-    - $ sudo systemctl start postgresql
-    - $ sudo su postgres
-    - $ createuser --interactive
-        - use your account name
-        - give it privileges (y)
-    - $ exit
-    - $ createdb \<your-account-name\>
