@@ -83,14 +83,6 @@ lspconfig.solargraph.setup({
 	},
 })
 
-lspconfig.quick_lint_js.setup({
-	filetypes = {
-		"javascript",
-	},
-	on_attach = on_attach,
-	capabilities = capabilities,
-})
-
 lspconfig.jdtls.setup({
 	cmd = {
 		"jdtls",
@@ -107,6 +99,7 @@ lspconfig.jdtls.setup({
 })
 
 local servers = {
+	"angularls",
 	"clangd",
 	"html",
 	"rust_analyzer",

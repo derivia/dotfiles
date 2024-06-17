@@ -19,6 +19,9 @@ mason.setup({
 
 masontools.setup({
 	ensure_installed = {
+		-- Angular
+		"angular-language-server", -- LSP
+
 		-- C/C++
 		"clangd", -- lsp
 		"clang-format", -- formatter
@@ -27,13 +30,12 @@ masontools.setup({
 		"lua-language-server", -- lsp
 		"stylua", -- formatter
 
-    -- Java
-    "checkstyle", -- formatter
-    "jdtls", -- lsp
+		-- Java
+		"checkstyle", -- formatter
+		"jdtls", -- lsp
 
 		-- Javascript
 		"prettierd", -- formatter
-		"quick-lint-js", -- lint
 		"typescript-language-server", -- lsp
 
 		-- HTML
