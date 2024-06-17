@@ -16,7 +16,7 @@ vim.opt.fileencoding = "utf-8"
 vim.opt.hlsearch = true
 -- disables moving while searching
 vim.opt.incsearch = false
--- disables the mouse everywhere
+-- enables the mouse everywhere
 vim.opt.mouse = "a"
 -- disables the mode showing at the status bar
 vim.opt.showmode = false
@@ -32,7 +32,7 @@ vim.opt.pumheight = 10
 vim.opt.cmdheight = 1
 -- makes indenting smarter (i guess)
 vim.opt.smartindent = true
--- makes splitted windows to be keept on the current window
+-- makes splitted windows to be kept on the current window
 vim.opt.splitbelow = true
 vim.opt.splitright = true
 -- disables swap file creation
