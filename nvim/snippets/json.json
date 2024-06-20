@@ -1,1 +1,1 @@
-{"tsdev":{"body":"\"dev\": \"ts-node-dev --ignore-watch node_modules --respawn --transpile-only src\/server.ts\"","prefix":"tsdev"}}
+{"tsdev":{"body":"\"dev\": \"ts-node-dev --ignore-watch node_modules --respawn --transpile-only src\/app.ts\"","prefix":"tsdev"}}
