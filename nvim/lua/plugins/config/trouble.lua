@@ -9,7 +9,7 @@ plugin.setup({
 	open_no_results = true,
 	follow = false,
 	focus = true,
-	indent_guides = true,
+	indent_guides = false,
 	max_items = 200,
 	multiline = true,
 	preview = {
