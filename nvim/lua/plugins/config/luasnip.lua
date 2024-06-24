@@ -5,4 +5,11 @@ if not status_ok then
 end
 
 local snippetDir = vim.fn.stdpath("config") .. "/snippets"
-require("luasnip.loaders.from_vscode").lazy_load( { paths = { snippetDir } })
+
+plugin.filetype_extend("javascript", { "javascriptreact" })
+plugin.filetype_extend("javascript", { "html" })
+plugin.filetype_extend("typescript", { "typescriptreact" })
+plugin.filetype_extend("typescript", { "html" })
+
+require("luasnip.loaders.from_vscode").lazy_load()
+require("luasnip.loaders.from_vscode").lazy_load({ paths = { snippetDir } })

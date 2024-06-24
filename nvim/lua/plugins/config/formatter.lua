@@ -117,6 +117,10 @@ plugin.setup({
 			require("formatter.filetypes.typescript").prettierd,
 			prettierd_config,
 		},
+		typescriptreact = {
+			require("formatter.filetypes.typescriptreact").prettierd,
+			prettierd_config,
+		},
 		["*"] = {
 			require("formatter.filetypes.any").remove_trailing_whitespace,
 		},
