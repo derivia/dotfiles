@@ -99,7 +99,6 @@ lspconfig.jdtls.setup({
 })
 
 local servers = {
-	"angularls",
 	"clangd",
 	"html",
 	"rust_analyzer",

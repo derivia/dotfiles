@@ -25,7 +25,7 @@ kanagawa.setup({
 			sumiInk3 = "#1D1D28",
 			sumiInk4 = "#2A2A44",
 			sumiInk5 = "#2C2C44",
-			fujiGray = "#929994", -- brighter comments because they are important
+			fujiGray = "#929994",
 		},
 		-- askdoaowkdoakw
 		theme = { wave = {} },
