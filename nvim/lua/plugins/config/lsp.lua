@@ -83,21 +83,6 @@ lspconfig.solargraph.setup({
 	},
 })
 
-lspconfig.jdtls.setup({
-	cmd = {
-		"jdtls",
-		"-configuration",
-		vim.fn.expand("$HOME/.cache/jdtls/config"),
-		"-data",
-		vim.fn.expand("$HOME/.cache/jdtls/workspace"),
-	},
-	filetypes = {
-		"java",
-	},
-	on_attach = on_attach,
-	capabilities = capabilities,
-})
-
 local servers = {
 	"clangd",
 	"html",

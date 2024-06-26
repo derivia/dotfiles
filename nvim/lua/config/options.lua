@@ -48,8 +48,9 @@ vim.opt.shiftwidth = 2
 vim.opt.tabstop = 2
 -- highlights the current line
 vim.opt.cursorline = true
--- show relative numbers and real line numbers
+-- show current line number
 vim.opt.number = true
+-- show other lines than current relative numbered
 vim.opt.relativenumber = true
 -- disables wrapping
 vim.opt.wrap = false
