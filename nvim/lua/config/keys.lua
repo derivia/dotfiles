@@ -3,13 +3,10 @@ local opts = { noremap = true, silent = true }
 -- shorter function name
 local keymap = vim.api.nvim_set_keymap
 
--- remapping space as leader key
+-- space as leader key
 keymap("", "<Space>", "<Nop>", opts)
 vim.g.mapleader = " "
 vim.g.mapolocalleader = " "
-
--- faster save
-keymap("n", "<C-s>", ":w<CR>", opts)
 
 -- unmapping some keys
 keymap("", "<leader>lo", "<Nop>", opts)
@@ -24,7 +21,7 @@ keymap("", "<S-j>", "<Nop>", opts)
 keymap("n", "n", "nzz", opts)
 keymap("n", "N", "Nzz", opts)
 
--- how to move windows around
+-- to move windows around
 -- <C-w><shift-direction>
 -- as example: <C-w>L
 -- moves the current focused window to the right

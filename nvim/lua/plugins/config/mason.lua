@@ -30,10 +30,6 @@ masontools.setup({
 		"lua-language-server", -- lsp
 		"stylua", -- formatter
 
-		-- Java
-		"checkstyle", -- formatter
-		"jdtls", -- lsp
-
 		-- Javascript
 		"prettierd", -- formatter
 		"typescript-language-server", -- lsp
