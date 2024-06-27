@@ -42,8 +42,9 @@ set complete-=i
 set complete=.,w,b,u,t
 set modelines=0
 set nomodeline
+set background=dark
 syntax on
-colorscheme slate
+colorscheme gruvbox
 nnoremap $ $l
 
 " stuff to ignore when tab completing
