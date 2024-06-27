@@ -73,6 +73,9 @@ keymap("n", "<C-f>", ":Format<CR>", opts)
 
 -- makes so $ goes one more after the last character
 keymap("n", "$", "$l", opts)
+-- but one less when visual mode
+keymap("v", "$", "$h", opts)
+keymap("x", "$", "$h", opts)
 
 -- stylua: ignore start
 -- open man pages on new windows

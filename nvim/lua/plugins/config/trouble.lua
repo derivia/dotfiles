@@ -16,14 +16,6 @@ plugin.setup({
 		type = "main",
 		scratch = true,
 	},
-	icons = {
-		indent = {
-			middle = " ",
-			last = " ",
-			top = " ",
-			ws = "│  ",
-		},
-	},
 	modes = {
 		diagnostics = {
 			groups = {

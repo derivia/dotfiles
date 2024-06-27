@@ -3,7 +3,7 @@ require("lazy").setup({
 	{ "nvim-lua/plenary.nvim" },
 
 	-- Colorscheme(s)
-	{ "rebelot/kanagawa.nvim", lazy = false, priority = 1000 },
+	{ "overcache/NeoSolarized", lazy = false, priority = 1000 },
 
 	-- Formatting code with C-f
 	{ "mhartington/formatter.nvim" },
