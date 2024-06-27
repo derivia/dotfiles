@@ -13,7 +13,7 @@ local filetype = {
 
 plugin.setup({
 	options = {
-		theme = "solarized",
+		theme = "gruvbox",
 		refresh = {
 			statusline = 1000,
 			tabline = 1000,
