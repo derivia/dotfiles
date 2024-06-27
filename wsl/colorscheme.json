@@ -11,16 +11,16 @@
     "brightYellow": "#FABD2F",
     "black": "#282828",
     "blue": "#458588",
-    "cyan": "#686D7A",
+    "cyan": "#689D6A",
     "green": "#98971A",
     "purple": "#B16286",
     "red": "#CC241D",
     "white": "#A89984",
     "yellow": "#D79921",
-    "foreground": "#EBDBB2",
     "cursorColor": "#EBDBB2",
+    "foreground": "#EBDBB2",
     "selectionBackground": "#665C54",
-    "name": "Gruvbox"
+    "name": "GruvboxDark"
   },
   {
     "background": "#1F1F28",
@@ -40,8 +40,8 @@
     "red": "#C34043",
     "white": "#C8C093",
     "yellow": "#C0A36E",
-    "foreground": "#DCD7BA",
     "cursorColor": "#C8C093",
+    "foreground": "#DCD7BA",
     "selectionBackground": "#2D4F67",
     "name": "Kanagawa Wave"
   }
