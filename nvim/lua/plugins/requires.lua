@@ -1,6 +1,6 @@
 local config = "plugins.config."
 
-require(config .. "colorscheme")
+require(config .. "colorbuddy")
 
 require(config .. "actions")
 require(config .. "bufferline")
