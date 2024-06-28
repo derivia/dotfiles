@@ -3,7 +3,7 @@ require("lazy").setup({
 	{ "nvim-lua/plenary.nvim" },
 
 	-- Colorscheme(s)
-	{ "ellisonleao/gruvbox.nvim", lazy = false, priority = 1000 },
+	{ "tjdevries/colorbuddy.nvim", lazy = false, priority = 1000 },
 
 	-- Formatting code with C-f
 	{ "mhartington/formatter.nvim" },
