@@ -7,7 +7,7 @@ generate_random_name() {
 
 # check if argument is provided
 if [ $# -ne 1 ]; then
-    echo "Usage: $0 <extension>"
+    echo "Usage: randomize <extension>"
     exit 1
 fi
 
