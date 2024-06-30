@@ -16,8 +16,8 @@ opt.completeopt = { "menuone", "noselect" }
 opt.fileencoding = "utf-8"
 -- highlights matches on search pattern
 opt.hlsearch = true
--- disables moving while searching
-opt.incsearch = false
+-- moving while searching
+opt.incsearch = true
 -- enables the mouse everywhere
 opt.mouse = "a"
 -- disables the mode showing at the status bar
