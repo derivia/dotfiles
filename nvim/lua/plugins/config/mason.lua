@@ -2,7 +2,6 @@ local status_ok_mason, mason = pcall(require, "mason")
 local status_ok_masontools, masontools = pcall(require, "mason-tool-installer")
 
 if not status_ok_mason and status_ok_masontools then
-	vim.notify("mason failed to start.")
 	return
 end
 

@@ -1,19 +1,29 @@
 local config = "plugins.config."
+local plugins = {
+	"actions",
+	"cmp",
+	"colorizer",
+	"comment",
+	"formatter",
+	"lsp",
+	"lualine",
+	"luasnip",
+	"mason",
+	"mini",
+	"mkdnflow",
+	"nvimtree",
+	"telescope",
+	"toggleterm",
+	"trouble",
+}
 
-require(config .. "colorbuddy")
+-- load colorbuddy first
+pcall(require, config .. "colorbuddy")
 
-require(config .. "actions")
-require(config .. "cmp")
-require(config .. "colorizer")
-require(config .. "comment")
-require(config .. "formatter")
-require(config .. "lsp")
-require(config .. "lualine")
-require(config .. "luasnip")
-require(config .. "mason")
-require(config .. "mini")
-require(config .. "mkdnflow")
-require(config .. "nvimtree")
-require(config .. "telescope")
-require(config .. "toggleterm")
-require(config .. "trouble")
+for _, plugin in ipairs(plugins) do
+	local status_ok, mod = pcall(require, config .. plugin)
+	if not status_ok then
+		vim.notify("plugin [" .. plugin .. "] failed to start")
+	end
+end
+

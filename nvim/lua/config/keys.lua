@@ -95,7 +95,6 @@ vim.keymap.set({ "n", "x" }, "<leader>sa", function() require("scissors").addNew
 -- close tab and go to another buffer, if there's one.
 local status_ok_br, br = pcall(require, "mini.bufremove")
 if not status_ok_br then
-	vim.notify("failed loading bufremove")
 	return
 end
 -- code from LazyVim.editor.lua
