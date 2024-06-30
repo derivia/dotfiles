@@ -1,3 +1,4 @@
+-- close nvimtree if it is the only opened window after quitting a window
 vim.api.nvim_create_autocmd("QuitPre", {
 	callback = function()
 		local invalid_win = {}
