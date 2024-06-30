@@ -32,10 +32,6 @@ keymap("n", "<C-j>", "<C-w>j", opts)
 keymap("n", "<C-k>", "<C-w>k", opts)
 keymap("n", "<C-l>", "<C-w>l", opts)
 
--- buffer navigation
-keymap("n", "<S-l>", ":bnext<CR>", opts)
-keymap("n", "<S-h>", ":bprevious<CR>", opts)
-
 -- resize the current window
 keymap("n", "<S-Up>", ":resize +2<CR>", opts)
 keymap("n", "<S-Down>", ":resize -2<CR>", opts)
@@ -60,6 +56,7 @@ keymap("x", "<A-l>", ">gv", opts)
 -- telescope
 keymap("n", "<leader>ff", ":Telescope find_files<CR>", opts)
 keymap("n", "<leader>fg", ":Telescope live_grep<CR>", opts)
+keymap("n", "<leader>fo", ":Telescope buffers<CR>", opts)
 keymap("n", "<leader>fr", ":Telescope oldfiles<CR>", opts)
 
 -- nvimtree

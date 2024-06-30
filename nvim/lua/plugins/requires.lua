@@ -3,7 +3,6 @@ local config = "plugins.config."
 require(config .. "colorbuddy")
 
 require(config .. "actions")
-require(config .. "bufferline")
 require(config .. "cmp")
 require(config .. "colorizer")
 require(config .. "comment")
