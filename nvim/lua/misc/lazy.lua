@@ -101,6 +101,9 @@ require("lazy").setup({
 	{ "numToStr/Comment.nvim" },
 	{ "JoosepAlviste/nvim-ts-context-commentstring" },
 
+	-- Show color background preview on HEX colors
+	{ "norcalli/nvim-colorizer.lua" },
+
 	-- Add status line below
 	{ "nvim-lualine/lualine.nvim", lazy = false },
 })

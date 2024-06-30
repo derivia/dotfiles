@@ -86,6 +86,7 @@ lspconfig.solargraph.setup({
 local servers = {
 	"clangd",
 	"html",
+	"prismals",
 	"rust_analyzer",
 	"tsserver",
 }
