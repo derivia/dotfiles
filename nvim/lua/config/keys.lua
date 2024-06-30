@@ -32,6 +32,10 @@ keymap("n", "<C-j>", "<C-w>j", opts)
 keymap("n", "<C-k>", "<C-w>k", opts)
 keymap("n", "<C-l>", "<C-w>l", opts)
 
+-- buffer navigation
+keymap("n", "<S-l>", ":bnext<CR>", opts)
+keymap("n", "<S-h>", ":bprevious<CR>", opts)
+
 -- resize the current window
 keymap("n", "<S-Up>", ":resize +2<CR>", opts)
 keymap("n", "<S-Down>", ":resize -2<CR>", opts)
@@ -61,9 +65,6 @@ keymap("n", "<leader>fr", ":Telescope oldfiles<CR>", opts)
 
 -- nvimtree
 keymap("n", "<leader>e", ":NvimTreeToggle<CR>", opts)
-
--- actions preview
-vim.keymap.set({ "v", "n" }, "<leader>ca", require("actions-preview").code_actions, opts)
 
 -- format file using formatter.nvim
 keymap("n", "<C-f>", ":Format<CR>", opts)
@@ -97,6 +98,7 @@ local status_ok_br, br = pcall(require, "mini.bufremove")
 if not status_ok_br then
 	return
 end
+
 -- code from LazyVim.editor.lua
 vim.keymap.set("n", "<C-x>", function()
 	if vim.bo.modified then

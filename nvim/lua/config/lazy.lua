@@ -66,9 +66,6 @@ require("lazy").setup({
 	{ "williamboman/mason.nvim" },
 	{ "WhoIsSethDaniel/mason-tool-installer.nvim" },
 
-	-- Live actions previews
-	{ "aznhe21/actions-preview.nvim" },
-
 	-- See some pretty diagnostics
 	{ "folke/trouble.nvim" },
 
@@ -93,6 +90,9 @@ require("lazy").setup({
 		event = "InsertEnter",
 		opts = { disable_filetype = { "TelescopePrompt", "spectre_panel", "markdown" } },
 	},
+
+	-- Buffers on top
+	{ "akinsho/bufferline.nvim" },
 
 	-- Comment out and uncomment
 	{ "numToStr/Comment.nvim" },

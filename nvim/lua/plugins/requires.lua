@@ -1,6 +1,6 @@
 local config = "plugins.config."
 local plugins = {
-	"actions",
+	"bufferline",
 	"cmp",
 	"colorizer",
 	"comment",
@@ -21,9 +21,8 @@ local plugins = {
 pcall(require, config .. "colorbuddy")
 
 for _, plugin in ipairs(plugins) do
-	local status_ok, mod = pcall(require, config .. plugin)
+	local status_ok, _ = pcall(require, config .. plugin)
 	if not status_ok then
 		vim.notify("plugin [" .. plugin .. "] failed to start")
 	end
 end
-
