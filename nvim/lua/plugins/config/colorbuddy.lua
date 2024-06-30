@@ -11,6 +11,7 @@ plugin.colorscheme("color-test")
 local color = plugin.Color
 local group = plugin.Group
 local c = plugin.colors
+local s = plugin.styles
 
 -- background colors
 local bg = "#282828"
@@ -37,36 +38,50 @@ color.new("violet", "#957FB7")
 color.new("water", "#75B1C9")
 color.new("white", "#F5F5F5")
 
--- lsp & other semantic tokens
-group.new("@function", c.water)
-group.new("@keyword", c.violet)
-group.new("@module", c.white)
-group.new("@variable", c.palebrown)
+-- colorbuddy group syntax:
+-- (<name>, <fg-color>?, <bg-color>?, <style>?)
 
-group.new("@lsp.typemod.interface", c.water)
-group.new("@lsp.typemod.macro", c.water)
-group.new("@lsp.typemod.member", c.water)
-group.new("@lsp.typemod.variable", c.palebrown)
+-- lsp & other semantic tokens
+group.new("@function", c.water, nil, nil)
+group.new("@keyword", c.violet, nil, nil)
+group.new("@module", c.white, nil, nil)
+group.new("@variable", c.palebrown, nil, nil)
+
+group.new("@lsp.typemod.interface", c.water, nil, nil)
+group.new("@lsp.typemod.macro", c.water, nil, nil)
+group.new("@lsp.typemod.member", c.water, nil, nil)
+group.new("@lsp.typemod.variable", c.palebrown, nil, nil)
 
 -- vim highlight groups
-group.new("StorageClass", c.violet)
-group.new("Boolean", c.palebrown)
-group.new("Comment", c.lightgray)
-group.new("Constant", c.palebrown)
-group.new("CursorLineNr", c.hay)
-group.new("Define", c.water)
-group.new("Directory", c.palebrown)
-group.new("Error", c.maple)
-group.new("Function", c.water)
-group.new("Import", c.palebrown)
-group.new("Include", c.palebrown)
-group.new("LineNr", c.lightgray)
-group.new("MatchParen", c.salmon)
-group.new("Number", c.sakura)
-group.new("Operator", c.carp)
-group.new("Repeat", c.water)
-group.new("Special", c.salmon)
-group.new("SpecialChar", c.salmon)
-group.new("Statement", c.water)
-group.new("String", c.spring)
-group.new("WarningMsg", c.camel)
+group.new("Boolean", c.palebrown, nil, nil)
+group.new("Comment", c.lightgray, nil, nil)
+group.new("Constant", c.palebrown, nil, nil)
+group.new("CursorLineNr", c.hay, nil, nil)
+group.new("Define", c.water, nil, nil)
+group.new("Directory", c.palebrown, nil, nil)
+group.new("Error", c.maple, nil, nil)
+group.new("Function", c.water, nil, nil)
+group.new("Import", c.palebrown, nil, nil)
+group.new("Include", c.palebrown, nil, nil)
+group.new("LineNr", c.lightgray, nil, nil)
+group.new("MatchParen", c.salmon, nil, nil)
+group.new("Number", c.sakura, nil, nil)
+group.new("Operator", c.carp, nil, nil)
+group.new("Repeat", c.water, nil, nil)
+group.new("Special", c.salmon, nil, nil)
+group.new("SpecialChar", c.salmon, nil, nil)
+group.new("Statement", c.water, nil, nil)
+group.new("StorageClass", c.violet, nil, nil)
+group.new("String", c.spring, nil, nil)
+group.new("Title", c.caramel, nil, nil)
+group.new("WarningMsg", c.camel, nil, nil)
+
+-- markdown specific highlighting groups
+group.new("markdownCodeBlock", c.spring, nil, nil)
+group.new("markdownError", c.white, nil, nil)
+group.new("markdownLinkText", c.camel, nil, nil)
+group.new("markdownh1", c.water, nil, nil)
+group.new("markdownh2", c.water, nil, nil)
+group.new("markdownh3", c.water, nil, nil)
+group.new("markdownh4", c.water, nil, nil)
+group.new("markdownh5", c.water, nil, nil)
