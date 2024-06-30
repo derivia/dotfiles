@@ -14,19 +14,6 @@ require("lazy").setup({
 	-- Toggable terminals
 	{ "akinsho/toggleterm.nvim", config = true },
 
-	-- Telescope related plugins
-	{
-		"nvim-telescope/telescope.nvim",
-		dependencies = {
-			{
-				"nvim-telescope/telescope-fzf-native.nvim",
-				build = "cmake -S. -Bbuild -DCMAKE_BUILD_TYPE=Release && cmake --build build --config Release && cmake --install build --prefix build",
-			},
-			"nvim-telescope/telescope-ui-select.nvim",
-		},
-		branch = "0.1.x",
-	},
-
 	-- More icons for neovim
 	{ "nvim-tree/nvim-web-devicons", config = true },
 
@@ -82,7 +69,20 @@ require("lazy").setup({
 	{
 		"windwp/nvim-autopairs",
 		event = "InsertEnter",
-		opts = { disable_filetype = { "TelescopePrompt", "spectre_panel", "markdown" } },
+		opts = { disable_filetype = { "markdown" } },
+	},
+
+	-- Telescope related plugins
+	{
+		"nvim-telescope/telescope.nvim",
+		dependencies = {
+			{
+				"nvim-telescope/telescope-fzf-native.nvim",
+				build = "cmake -S. -Bbuild -DCMAKE_BUILD_TYPE=Release && cmake --build build --config Release && cmake --install build --prefix build",
+			},
+			"nvim-telescope/telescope-ui-select.nvim",
+		},
+		branch = "0.1.x",
 	},
 
 	-- Buffers on top

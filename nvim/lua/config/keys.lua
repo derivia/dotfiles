@@ -57,12 +57,6 @@ keymap("x", "<A-k>", ":move '<-2<CR>gv-gv", opts)
 keymap("x", "<A-h>", "<gv", opts)
 keymap("x", "<A-l>", ">gv", opts)
 
--- telescope
-keymap("n", "<leader>ff", ":Telescope find_files<CR>", opts)
-keymap("n", "<leader>fg", ":Telescope live_grep<CR>", opts)
-keymap("n", "<leader>fo", ":Telescope buffers<CR>", opts)
-keymap("n", "<leader>fr", ":Telescope oldfiles<CR>", opts)
-
 -- nvimtree
 keymap("n", "<leader>e", ":NvimTreeToggle<CR>", opts)
 
@@ -82,6 +76,12 @@ keymap("n", "<C-m>j", ':execute "sp | wincmd j | hide Man " . input("section num
 
 -- trouble configuration
 keymap("n", "<leader>xx", ":Trouble diagnostics toggle<CR>", opts)
+
+-- telescope
+keymap("n", "<leader>ff", ":Telescope find_files<CR>", opts)
+keymap("n", "<leader>fg", ":Telescope live_grep<CR>", opts)
+keymap("n", "<leader>fo", ":Telescope buffers<CR>", opts)
+keymap("n", "<leader>fr", ":Telescope oldfiles<CR>", opts)
 
 -- scissors configuration
 vim.keymap.set("n", "<leader>se", function() require("scissors").editSnippet() end)
