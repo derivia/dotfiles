@@ -13,6 +13,8 @@ local filetype = {
 plugin.setup({
 	options = {
 		theme = "gruvbox",
+		component_separators = { left = "", right = "" },
+		section_separators = { left = "", right = "" },
 		refresh = {
 			statusline = 1000,
 			tabline = 1000,

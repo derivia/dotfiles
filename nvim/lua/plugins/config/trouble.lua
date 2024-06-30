@@ -11,6 +11,14 @@ plugin.setup({
 	indent_guides = false,
 	max_items = 200,
 	multiline = true,
+	icons = {
+		indent = {
+			middle = " ",
+			last = " ",
+			top = " ",
+			ws = "│  ",
+		},
+	},
 	preview = {
 		type = "main",
 		scratch = true,
