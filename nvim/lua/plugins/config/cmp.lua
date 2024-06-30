@@ -1,11 +1,10 @@
 local status_ok_cmp, cmp = pcall(require, "cmp")
 local status_ok_luasnip, luasnip = pcall(require, "luasnip")
+local status_ok_context, context = pcall(require, "cmp.config.context")
 
-if not status_ok_luasnip and status_ok_cmp then
+if not status_ok_luasnip and status_ok_cmp and status_ok_context then
 	return
 end
-
-local cmp_autopairs = require("nvim-autopairs.completion.cmp")
 
 local has_words_before = function()
 	unpack = unpack or table.unpack
@@ -13,10 +12,17 @@ local has_words_before = function()
 	return col ~= 0 and vim.api.nvim_buf_get_lines(0, line - 1, line, true)[1]:sub(col, col):match("%s") == nil
 end
 
+local truncate = function(str, len)
+	if #str <= len then
+		return str
+	end
+
+	return str:sub(1, len - 1) .. "…"
+end
+
 cmp.setup({
 	enabled = function()
 		-- disable completion in comments
-		local context = require("cmp.config.context")
 		-- keep command mode completion enabled when cursor is in a comment
 		if vim.api.nvim_get_mode().mode == "c" then
 			return true
@@ -27,20 +33,27 @@ cmp.setup({
 	-- taken from https://github.com/hrsh7th/nvim-cmp/issues/980
 	formatting = {
 		format = function(_, vim_item)
-			local label = vim_item.abbr
-			local trunc = vim.fn.strcharpart(label, 0, 16)
-			if trunc ~= label then
-				vim_item.abbr = trunc .. "..."
-			elseif string.len(label) < 16 then
-				local padding = string.rep(" ", 16 - string.len(label))
-				vim_item.abbr = label .. padding
+			local max_width
+			local cols = vim.o.columns
+
+			if cols > 90 then
+				max_width = math.floor(cols * 0.6)
+			else
+				max_width = math.floor(cols * 0.4)
 			end
+
+			if vim_item.menu then
+				max_width = max_width / 1.5
+				vim_item.menu = truncate(vim_item.menu, max_width)
+			end
+
+			vim_item.abbr = truncate(vim_item.abbr, max_width)
 			return vim_item
 		end,
 	},
 	snippet = {
 		expand = function(args)
-			require("luasnip").lsp_expand(args.body)
+			luasnip.lsp_expand(args.body)
 		end,
 	},
 	window = {
@@ -54,8 +67,8 @@ cmp.setup({
 		}),
 	},
 	mapping = cmp.mapping.preset.insert({
-		["<C-j>"] = cmp.mapping.scroll_docs(4),
-		["<C-k>"] = cmp.mapping.scroll_docs(-4),
+		["<C-j>"] = cmp.mapping.scroll_docs(2),
+		["<C-k>"] = cmp.mapping.scroll_docs(-2),
 		["<C-Space>"] = cmp.mapping.complete(),
 		["<C-e>"] = cmp.mapping.abort(),
 		["<CR>"] = cmp.mapping.confirm({ select = false }),
@@ -112,5 +125,3 @@ cmp.setup.cmdline(":", {
 		{ name = "cmdline" },
 	}),
 })
-
-cmp.event:on("confirm_done", cmp_autopairs.on_confirm_done())

@@ -83,12 +83,6 @@ keymap("n", "<C-m>j", ':execute "sp | wincmd j | hide Man " . input("section num
 -- trouble configuration
 keymap("n", "<leader>xx", ":Trouble diagnostics toggle<CR>", opts)
 
--- spectre configuration
-vim.keymap.set("n", "<leader>S", '<cmd>lua require("spectre").toggle()<CR>', opts)
-vim.keymap.set("n", "<leader>sw", '<cmd>lua require("spectre").open_visual({select_word=true})<CR>', opts)
-vim.keymap.set("v", "<leader>sw", '<esc><cmd>lua require("spectre").open_visual()<CR>', opts)
-vim.keymap.set("n", "<leader>sp", '<cmd>lua require("spectre").open_file_search({select_word=true})<CR>', opts)
-
 -- scissors configuration
 vim.keymap.set("n", "<leader>se", function() require("scissors").editSnippet() end)
 vim.keymap.set({ "n", "x" }, "<leader>sa", function() require("scissors").addNewSnippet() end)

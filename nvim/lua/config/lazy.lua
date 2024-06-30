@@ -8,9 +8,6 @@ require("lazy").setup({
 	-- Formatting code with C-f
 	{ "mhartington/formatter.nvim" },
 
-	-- Project renaming plugin
-	{ "nvim-pack/nvim-spectre", config = true },
-
 	-- Note working
 	{ "jakewvincent/mkdnflow.nvim" },
 
@@ -72,9 +69,6 @@ require("lazy").setup({
 	-- Better ruby/rails development
 	{ "tpope/vim-endwise" },
 	{ "tpope/vim-rails" },
-
-	-- Dim inactive windows
-	{ "levouh/tint.nvim" },
 
 	-- Snippet management
 	{

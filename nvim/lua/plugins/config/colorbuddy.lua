@@ -50,6 +50,7 @@ group.new("@lsp.typemod.interface", c.water, nil, nil)
 group.new("@lsp.typemod.macro", c.water, nil, nil)
 group.new("@lsp.typemod.member", c.water, nil, nil)
 group.new("@lsp.typemod.variable", c.palebrown, nil, nil)
+group.new("@variable.builtin", c.palebrown, nil, nil)
 
 -- vim highlight groups
 group.new("Boolean", c.palebrown, nil, nil)
