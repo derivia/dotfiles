@@ -2,12 +2,6 @@ local status_ok_cmp, cmp = pcall(require, "cmp")
 local status_ok_luasnip, luasnip = pcall(require, "luasnip")
 
 if not status_ok_luasnip and status_ok_cmp then
-	vim.notify("plugin " .. luasnip .. " failed to start.")
-	return
-end
-
-if not status_ok_cmp then
-	vim.notify("plugin " .. cmp .. " failed to start.")
 	return
 end
 

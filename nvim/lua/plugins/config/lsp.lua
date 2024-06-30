@@ -1,7 +1,6 @@
 local status_ok_lspconfig, lspconfig = pcall(require, "lspconfig")
 
 if not status_ok_lspconfig then
-	vim.notify("plugin " .. lspconfig .. " failed to start.")
 	return
 end
 
