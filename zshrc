@@ -45,5 +45,7 @@ alias todos="rg --glob '!{.git,node_modules}' -i '\@\bTODO\b'"
 # default irb to simple-prompt
 alias irb="irb --simple-prompt"
 
+# default to interactive move
+alias mv='mv -i'
 # Should be added on git.config
 # git config --global alias.ls "log --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit"
