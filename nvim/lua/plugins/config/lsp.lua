@@ -1,38 +1,13 @@
 local status_ok_lspconfig, lspconfig = pcall(require, "lspconfig")
+local status_ok_cmp_lsp, cmp_lsp = pcall(require, "cmp_nvim_lsp")
 
-if not status_ok_lspconfig then
+if not status_ok_lspconfig and status_ok_cmp_lsp then
 	return
 end
 
-local util = pcall(require, "lspconfig.util")
+local methods = vim.lsp.protocol.Methods
 
--- rounded border on :LspInfo
-require("lspconfig.ui.windows").default_options.border = "rounded"
-
-local on_attach = function(_, bufnr)
-	local function buf_set_keymap(...)
-		vim.api.nvim_buf_set_keymap(bufnr, ...)
-	end
-	local function buf_set_option(...)
-		---@diagnostic disable-next-line: deprecated
-		vim.api.nvim_buf_set_option(bufnr, ...)
-	end
-
-	buf_set_option("omnifunc", "v:lua.vim.lsp.omnifunc")
-
-	local opts = { noremap = true, silent = true }
-	buf_set_keymap("n", "gD", "<cmd>lua vim.lsp.buf.declaration()<CR>", opts)
-	buf_set_keymap("n", "gd", "<cmd>lua vim.lsp.buf.definition()<CR>", opts)
-	buf_set_keymap("n", "K", "<cmd>lua vim.lsp.buf.hover()<CR>", opts)
-	buf_set_keymap("n", "gi", "<cmd>lua vim.lsp.buf.implementation()<CR>", opts)
-	buf_set_keymap("n", "gK", "<cmd>lua vim.lsp.buf.signature_help()<CR>", opts)
-	buf_set_keymap("n", "gr", "<cmd>lua vim.lsp.buf.references()<CR>", opts)
-	buf_set_keymap("n", "<leader>D", "<cmd>lua vim.lsp.buf.type_definition()<CR>", opts)
-	buf_set_keymap("n", "<leader>rn", "<cmd>lua vim.lsp.buf.rename()<CR>", opts)
-end
-
-local capabilities = vim.lsp.protocol.make_client_capabilities()
-capabilities = require("cmp_nvim_lsp").default_capabilities(capabilities)
+local util = require("lspconfig.util")
 
 vim.lsp.handlers["textDocument/publishDiagnostics"] = vim.lsp.with(vim.lsp.diagnostic.on_publish_diagnostics, {
 	underline = false,
@@ -43,7 +18,7 @@ vim.lsp.handlers["textDocument/publishDiagnostics"] = vim.lsp.with(vim.lsp.diagn
 		},
 	},
 	virtual_text = {
-		spacing = 4,
+		spacing = 2,
 		severity = {
 			vim.diagnostic.severity.WARN,
 			vim.diagnostic.severity.ERROR,
@@ -51,9 +26,39 @@ vim.lsp.handlers["textDocument/publishDiagnostics"] = vim.lsp.with(vim.lsp.diagn
 	},
 })
 
+local on_attach = function(client, bufnr)
+	local function keymap(lhs, rhs, desc, mode)
+		mode = mode or "n"
+		vim.keymap.set(mode, lhs, rhs, { buffer = bufnr, desc = desc })
+	end
+
+	if client.supports_method(methods.textDocument_definition) then
+		keymap("n", "gd", "<cmd>lua vim.lsp.buf.definition()<CR>")
+		keymap("n", "K", "<cmd>lua vim.lsp.buf.hover()<CR>")
+	end
+	if client.supports_method(methods.textDocument_declaration) then
+		keymap("n", "gD", "<cmd>lua vim.lsp.buf.declaration()<CR>")
+	end
+	if client.supports_method(methods.textDocument_signatureHelp) then
+		keymap("n", "gK", "<cmd>lua vim.lsp.buf.signature_help()<CR>")
+	end
+	if client.supports_method(methods.textDocument_implementation) then
+		keymap("n", "gi", "<cmd>lua vim.lsp.buf.implementation()<CR>")
+	end
+	if client.supports_method(methods.textDocument_codeAction) then
+		keymap("n", "ca", "<cmd>lua vim.lsp.buf.code_action()<CR>")
+	end
+end
+
+local capabilities = function()
+	return vim.tbl_deep_extend("force", vim.lsp.protocol.make_client_capabilities(), cmp_lsp.default_capabilities())
+end
+
+require("lspconfig.ui.windows").default_options.border = "rounded"
+
 lspconfig.lua_ls.setup({
-	capabilities = capabilities,
 	on_attach = on_attach,
+	capabilities = capabilities(),
 	on_init = function(client)
 		client.config.settings.Lua = vim.tbl_deep_extend("force", client.config.settings.Lua, {
 			runtime = {
@@ -77,46 +82,15 @@ lspconfig.lua_ls.setup({
 	},
 })
 
-lspconfig.solargraph.setup({
-	capabilities = capabilities,
-	init_options = {
-		formatting = false,
-	},
-})
-
-lspconfig.vtsls.setup({
-	cmd = {
-		"vtsls",
-		"--stdio",
-	},
-	filetypes = {
-		"javascript",
-		"javascriptreact",
-		"javascript.jsx",
-	},
-	settings = {
-		complete_function_calls = true,
-		vtsls = {
-			enableMoveToFileCodeAction = true,
-			autoUseWorkspaceTsdk = true,
-			experimental = {
-				completion = {
-					enableServerSideFuzzyMatch = true,
-				},
-			},
-		},
-	},
-})
-
 local servers = {
 	"clangd",
-	"html",
 	"prismals",
+	"tsserver",
 }
 
 for _, lsp in ipairs(servers) do
 	lspconfig[lsp].setup({
 		on_attach = on_attach,
-		capabilities = capabilities,
+		capabilities = capabilities(),
 	})
 end
