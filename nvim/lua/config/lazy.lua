@@ -97,4 +97,20 @@ require("lazy").setup({
 
 	-- Add status line below
 	{ "nvim-lualine/lualine.nvim", lazy = false },
+}, {
+	ui = { border = "rounded" },
+	change_detection = { notify = false },
+	performance = {
+		rtp = {
+			disabled_plugins = {
+				"gzip",
+				"netrwPlugin",
+				"rplugin",
+				"tarPlugin",
+				"tohtml",
+				"tutor",
+				"zipPlugin",
+			},
+		},
+	},
 })

@@ -64,3 +64,9 @@ opt.virtualedit = "onemore"
 opt.laststatus = 0
 -- disable intro message
 opt.shortmess:append({ I = true })
+
+-- disable health checks for these providers
+vim.g.loaded_python3_provider = 0
+vim.g.loaded_ruby_provider = 0
+vim.g.loaded_perl_provider = 0
+vim.g.loaded_node_provider = 0
