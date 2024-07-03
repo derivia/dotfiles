@@ -4,6 +4,8 @@ if not status_ok_lspconfig then
 	return
 end
 
+local util = pcall(require, "lspconfig.util")
+
 -- rounded border on :LspInfo
 require("lspconfig.ui.windows").default_options.border = "rounded"
 
@@ -82,12 +84,34 @@ lspconfig.solargraph.setup({
 	},
 })
 
+lspconfig.vtsls.setup({
+	cmd = {
+		"vtsls",
+		"--stdio",
+	},
+	filetypes = {
+		"javascript",
+		"javascriptreact",
+		"javascript.jsx",
+	},
+	settings = {
+		complete_function_calls = true,
+		vtsls = {
+			enableMoveToFileCodeAction = true,
+			autoUseWorkspaceTsdk = true,
+			experimental = {
+				completion = {
+					enableServerSideFuzzyMatch = true,
+				},
+			},
+		},
+	},
+})
+
 local servers = {
 	"clangd",
 	"html",
 	"prismals",
-	"rust_analyzer",
-	"tsserver",
 }
 
 for _, lsp in ipairs(servers) do
