@@ -33,6 +33,7 @@ masontools.setup({
 		"prettierd", -- formatter
 		"typescript-language-server", -- lsp
 		"prisma-language-server", -- prisma lsp
+    "vtsls", -- lsp
 
 		-- HTML
 		"html-lsp", -- lsp
