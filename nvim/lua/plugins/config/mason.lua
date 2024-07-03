@@ -18,33 +18,17 @@ mason.setup({
 
 masontools.setup({
 	ensure_installed = {
-		-- Angular
-		"angular-language-server", -- LSP
+		-- lsp
+		"clangd",
+		"lua-language-server",
+		"prisma-language-server",
+		"typescript-language-server",
 
-		-- C/C++
-		"clangd", -- lsp
-		"clang-format", -- formatter
-
-		-- Lua
-		"lua-language-server", -- lsp
-		"stylua", -- formatter
-
-		-- Javascript
-		"prettierd", -- formatter
-		"typescript-language-server", -- lsp
-		"prisma-language-server", -- prisma lsp
-    "vtsls", -- lsp
-
-		-- HTML
-		"html-lsp", -- lsp
-
-		-- Ruby
-		"solargraph", -- lsp
-		"standardrb", -- formatter
-
-		-- Rust
-		"rust-analyzer", -- lsp
+		-- formatter
+		"clang-format",
+		"stylua",
+		"prettierd",
 	},
 	run_on_start = true,
-	start_delay = 256,
+	start_delay = 128,
 })

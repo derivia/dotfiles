@@ -81,38 +81,6 @@ plugin.setup({
 			require("formatter.filetypes.javascriptreact").prettierd,
 			prettierd_config,
 		},
-		ruby = {
-			require("formatter.filetypes.ruby").standardrb,
-			function()
-				return {
-					exe = "standardrb",
-					args = {
-						"--fix",
-						"--format",
-						"quiet",
-						"--stderr",
-						"--stdin",
-						util.escape_path(util.get_current_buffer_file_path()),
-					},
-					stdin = true,
-				}
-			end,
-		},
-		rust = {
-			require("formatter.filetypes.rust").rustfmt,
-			function()
-				return {
-					exe = "rustfmt",
-					args = {
-						"--emit=stdout",
-						util.escape_path(util.get_current_buffer_file_path()),
-						"--",
-						"-",
-					},
-					stdin = true,
-				}
-			end,
-		},
 		typescript = {
 			require("formatter.filetypes.typescript").prettierd,
 			prettierd_config,
