@@ -15,7 +15,6 @@ local plugins = {
 	"telescope",
 	"toggleterm",
 	"trouble",
-	"tscript",
 }
 
 -- load colorbuddy first

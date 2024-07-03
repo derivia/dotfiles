@@ -81,6 +81,8 @@ group.new("String", c.spring, nil, nil)
 group.new("Title", c.caramel, nil, nil)
 group.new("WarningMsg", c.camel, nil, nil)
 group.new("Visual", nil, c.coral, nil)
+group.new("FloatBorder", nil, nil, nil)
+group.new("NormalFloat", nil, c.background, nil)
 
 -- markdown specific
 group.new("markdownCodeBlock", c.spring, nil, nil)
