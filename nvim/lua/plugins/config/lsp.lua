@@ -45,9 +45,6 @@ local on_attach = function(client, bufnr)
 	if client.supports_method(methods.textDocument_implementation) then
 		keymap("n", "gi", "<cmd>lua vim.lsp.buf.implementation()<CR>")
 	end
-	if client.supports_method(methods.textDocument_codeAction) then
-		keymap("n", "ca", "<cmd>lua vim.lsp.buf.code_action()<CR>")
-	end
 end
 
 local capabilities = function()
@@ -85,7 +82,7 @@ lspconfig.lua_ls.setup({
 local servers = {
 	"clangd",
 	"prismals",
-	"tsserver",
+	-- "tsserver",
 }
 
 for _, lsp in ipairs(servers) do

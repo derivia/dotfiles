@@ -1,5 +1,6 @@
 local config = "plugins.config."
 local plugins = {
+  "actions",
 	"bufferline",
 	"cmp",
 	"colorizer",
@@ -15,6 +16,7 @@ local plugins = {
 	"telescope",
 	"toggleterm",
 	"trouble",
+	"tscript",
 }
 
 -- load colorbuddy first

@@ -92,8 +92,14 @@ require("lazy").setup({
 	{ "numToStr/Comment.nvim" },
 	{ "JoosepAlviste/nvim-ts-context-commentstring" },
 
+	-- Better typescript LSP & Linting
+	{ "pmizio/typescript-tools.nvim" },
+
 	-- Show color background preview on HEX colors
 	{ "norcalli/nvim-colorizer.lua" },
+
+	-- Action previews
+	{ "aznhe21/actions-preview.nvim" },
 
 	-- Add status line below
 	{ "nvim-lualine/lualine.nvim", lazy = false },
