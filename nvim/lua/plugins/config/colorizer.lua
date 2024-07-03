@@ -10,4 +10,4 @@ plugin.setup({
 	"lua",
 	"typescript",
 	"typescriptreact",
-})
+}, { names = false })
