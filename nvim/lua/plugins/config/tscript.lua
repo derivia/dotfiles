@@ -13,17 +13,20 @@ local on_attach = function(client, bufnr)
 	end
 
 	if client.supports_method(methods.textDocument_definition) then
-		keymap("n", "gd", "<cmd>lua vim.lsp.buf.definition()<CR>")
-		keymap("n", "K", "<cmd>lua vim.lsp.buf.hover()<CR>")
+		keymap("gd", "<cmd>lua vim.lsp.buf.definition()<CR>", "Go to definition")
+		keymap("K", "<cmd>lua vim.lsp.buf.hover()<CR>", "Peek definition")
 	end
 	if client.supports_method(methods.textDocument_declaration) then
-		keymap("n", "gD", "<cmd>lua vim.lsp.buf.declaration()<CR>")
+		keymap("gD", "<cmd>lua vim.lsp.buf.declaration()<CR>", "Go to declaration")
 	end
 	if client.supports_method(methods.textDocument_signatureHelp) then
-		keymap("n", "gK", "<cmd>lua vim.lsp.buf.signature_help()<CR>")
+		keymap("gK", "<cmd>lua vim.lsp.buf.signature_help()<CR>", "Signature help")
 	end
 	if client.supports_method(methods.textDocument_implementation) then
-		keymap("n", "gi", "<cmd>lua vim.lsp.buf.implementation()<CR>")
+		keymap("gi", "<cmd>lua vim.lsp.buf.implementation()<CR>", "Go to implementation")
+	end
+	if client.supports_method(methods.textDocument_codeAction) then
+		keymap("ca", "<cmd>lua vim.lsp.buf.code_action()<CR>", "Code actions", { "n", "x" })
 	end
 end
 
@@ -32,13 +35,15 @@ plugin.setup({
 	settings = {
 		separate_diagnostic_server = true,
 		publish_diagnostic_on = "insert_leave",
-		expose_as_code_action = { "all" },
-		tsserver_path = nil,
-		tsserver_plugins = {},
 		tsserver_max_memory = "auto",
-		tsserver_format_options = {},
-		tsserver_file_preferences = {},
+		tsserver_file_preferences = {
+			quotePreference = "double",
+			includeCompletionsForModuleExports = true,
+			includeCompletionsForImportStatements = true,
+			importModuleSpecifierEnding = "index",
+		},
 		tsserver_locale = "en",
+		expose_as_code_action = "all",
 		complete_function_calls = false,
 		include_completions_with_insert_text = true,
 		code_lens = "off",
