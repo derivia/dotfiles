@@ -87,9 +87,6 @@ keymap("n", "<leader>fr", ":Telescope oldfiles<CR>", opts)
 vim.keymap.set("n", "<leader>se", function() require("scissors").editSnippet() end, opts)
 vim.keymap.set({ "n", "x" }, "<leader>sa", function() require("scissors").addNewSnippet() end, opts)
 
--- actions preview configuration
-vim.keymap.set({ "n", "v" }, "<leader>ca", require("actions-preview").code_actions, opts)
-
 -- close tab and go to another buffer, if there's one.
 local status_ok_br, br = pcall(require, "mini.bufremove")
 if not status_ok_br then

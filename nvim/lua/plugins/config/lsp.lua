@@ -33,17 +33,20 @@ local on_attach = function(client, bufnr)
 	end
 
 	if client.supports_method(methods.textDocument_definition) then
-		keymap("n", "gd", "<cmd>lua vim.lsp.buf.definition()<CR>")
-		keymap("n", "K", "<cmd>lua vim.lsp.buf.hover()<CR>")
+		keymap("gd", "<cmd>lua vim.lsp.buf.definition()<CR>", "Go to definition")
+		keymap("K", "<cmd>lua vim.lsp.buf.hover()<CR>", "Peek definition")
 	end
 	if client.supports_method(methods.textDocument_declaration) then
-		keymap("n", "gD", "<cmd>lua vim.lsp.buf.declaration()<CR>")
+		keymap("gD", "<cmd>lua vim.lsp.buf.declaration()<CR>", "Go to declaration")
 	end
 	if client.supports_method(methods.textDocument_signatureHelp) then
-		keymap("n", "gK", "<cmd>lua vim.lsp.buf.signature_help()<CR>")
+		keymap("gK", "<cmd>lua vim.lsp.buf.signature_help()<CR>", "Signature help")
 	end
 	if client.supports_method(methods.textDocument_implementation) then
-		keymap("n", "gi", "<cmd>lua vim.lsp.buf.implementation()<CR>")
+		keymap("gi", "<cmd>lua vim.lsp.buf.implementation()<CR>", "Go to implementation")
+	end
+	if client.supports_method(methods.textDocument_codeAction) then
+		keymap("ca", "<cmd>lua vim.lsp.buf.code_action()<CR>", "Code actions", { "n", "x" })
 	end
 end
 

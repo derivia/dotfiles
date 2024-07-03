@@ -1,6 +1,5 @@
 local config = "plugins.config."
 local plugins = {
-  "actions",
 	"bufferline",
 	"cmp",
 	"colorizer",
