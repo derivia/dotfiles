@@ -87,7 +87,7 @@ group.new("NormalFloat", nil, c.background, nil)
 -- markdown specific
 group.new("markdownCodeBlock", c.spring, nil, nil)
 group.new("markdownError", c.white, nil, nil)
-group.new("markdownLinkText", c.camel, nil, nil)
+group.new("markdownLinkText", c.spring, nil, nil)
 group.new("markdownh1", c.water, nil, nil)
 group.new("markdownh2", c.water, nil, nil)
 group.new("markdownh3", c.water, nil, nil)
