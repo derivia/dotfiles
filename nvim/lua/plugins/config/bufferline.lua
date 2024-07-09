@@ -17,7 +17,7 @@ plugin.setup({
 			{
 				filetype = "NvimTree",
 				text = "File explorer",
-				separator = false,
+				separator = true,
 			},
 		},
 		always_show_bufferline = false,
