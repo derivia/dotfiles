@@ -69,6 +69,10 @@ keymap("n", "$", "$l", opts)
 keymap("v", "$", "$h", opts)
 keymap("x", "$", "$h", opts)
 
+if vim.fn.getenv("WSLENV") ~= vim.NIL then
+	vim.keymap.set("n", "gx", ":silent :execute '!wslview ' . shellescape(expand('<cfile>'), 1)<CR>", opts)
+end
+
 -- stylua: ignore start
 -- open man pages on new windows
 keymap("n", "<C-m>l", ':execute "vsp | wincmd l | hide Man " . input("section number: ") . " " . input("page name: ")<CR>', opts)
