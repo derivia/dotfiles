@@ -28,6 +28,7 @@ masontools.setup({
 		"clang-format",
 		"stylua",
 		"prettierd",
+		"standardrb",
 	},
 	run_on_start = true,
 	start_delay = 128,
