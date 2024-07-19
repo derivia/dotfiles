@@ -2,6 +2,7 @@ export PATH=$PATH:$HOME/.cargo/bin:$HOME/.local/share/pnpm:$HOME/.local/bin
 export ZSH="$HOME/.oh-my-zsh"
 export PSQL_EDITOR="$(which vim)"
 export PNPM_HOME="$HOME/.local/share/pnpm"
+export SYSTEMD_EDITOR="vim"
 
 # This makes opening the windows system default browser from within WSL easier.
 # made following wslutilities instructions
