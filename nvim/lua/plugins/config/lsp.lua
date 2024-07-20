@@ -96,6 +96,7 @@ tstools.setup({
 	settings = {
 		separate_diagnostic_server = true,
 		publish_diagnostic_on = "insert_leave",
+		expose_as_code_action = { "add_missing_imports", "remove_unused_imports" },
 		tsserver_max_memory = "auto",
 		tsserver_file_preferences = {
 			quotePreference = "double",
@@ -104,7 +105,6 @@ tstools.setup({
 			importModuleSpecifierEnding = "index",
 		},
 		tsserver_locale = "en",
-		expose_as_code_action = "all",
 		complete_function_calls = false,
 		include_completions_with_insert_text = true,
 		code_lens = "off",

@@ -100,6 +100,11 @@ if not status_ok_br then
 	return
 end
 
+-- inc-rename configuration
+vim.keymap.set("n", "<leader>rn", function()
+  return ":IncRename " .. vim.fn.expand("<cword>")
+end, { expr = true })
+
 -- stylua: ignore start
 -- code from LazyVim.editor.lua
 vim.keymap.set("n", "<C-x>", function()
