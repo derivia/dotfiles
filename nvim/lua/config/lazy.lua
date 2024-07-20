@@ -92,7 +92,10 @@ require("lazy").setup({
 	},
 
 	-- Buffers on top
-	{ "akinsho/bufferline.nvim", event = "VeryLazy"},
+	{ "akinsho/bufferline.nvim", event = "VeryLazy" },
+
+	-- Incremental renaming
+	{ "smjonas/inc-rename.nvim", config = true },
 
 	-- Comment out and uncomment
 	{ "numToStr/Comment.nvim" },
