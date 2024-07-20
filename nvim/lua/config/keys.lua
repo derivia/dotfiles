@@ -77,6 +77,7 @@ end
 -- open man pages on new windows
 keymap("n", "<C-m>l", ':execute "vsp | wincmd l | hide Man " . input("section number: ") . " " . input("page name: ")<CR>', opts)
 keymap("n", "<C-m>j", ':execute "sp | wincmd j | hide Man " . input("section number: ") . " " . input("page name: ")<CR>', opts)
+-- stylua: ignore end
 
 -- trouble configuration
 keymap("n", "<leader>xx", ":Trouble diagnostics toggle<CR>", opts)
@@ -87,9 +88,11 @@ keymap("n", "<leader>fg", ":Telescope live_grep<CR>", opts)
 keymap("n", "<leader>fo", ":Telescope buffers<CR>", opts)
 keymap("n", "<leader>fr", ":Telescope oldfiles<CR>", opts)
 
+-- stylua: ignore start
 -- scissors configuration
 vim.keymap.set("n", "<leader>se", function() require("scissors").editSnippet() end, opts)
 vim.keymap.set({ "n", "x" }, "<leader>sa", function() require("scissors").addNewSnippet() end, opts)
+-- stylua: ignore end
 
 -- close tab and go to another buffer, if there's one.
 local status_ok_br, br = pcall(require, "mini.bufremove")
@@ -97,6 +100,7 @@ if not status_ok_br then
 	return
 end
 
+-- stylua: ignore start
 -- code from LazyVim.editor.lua
 vim.keymap.set("n", "<C-x>", function()
 	if vim.bo.modified then

@@ -21,6 +21,8 @@ local truncate = function(str, len)
 end
 
 cmp.setup({
+	-- stop preselecting stuff
+	preselect = cmp.PreselectMode.None,
 	enabled = function()
 		-- disable completion in comments
 		-- keep command mode completion enabled when cursor is in a comment

@@ -92,7 +92,6 @@ tstools.setup({
 	on_attach = on_attach,
 	capabilities = capabilities(),
 	handlers = handlers,
-	filetypes = { "javascript", "javascriptreact", "javascript.jsx", "typescript", "typescriptreact", "typescript.tsx" },
 	single_file_support = true,
 	settings = {
 		separate_diagnostic_server = true,
