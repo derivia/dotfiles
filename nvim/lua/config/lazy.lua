@@ -4,12 +4,18 @@ require("lazy").setup({
 
 	-- Colorscheme(s)
 	{ "tjdevries/colorbuddy.nvim", lazy = false, priority = 1000 },
+	{
+		"sainnhe/sonokai",
+		lazy = false,
+		config = function()
+			vim.g.sonokai_enable_italic = false
+			vim.g.sonokai_style = "shusia"
+			pcall(vim.cmd.colorscheme, "sonokai")
+		end,
+	},
 
 	-- Formatting code with C-f
 	{ "mhartington/formatter.nvim" },
-
-	-- Note working
-	{ "jakewvincent/mkdnflow.nvim" },
 
 	-- Toggable terminals
 	{ "akinsho/toggleterm.nvim", config = true },
@@ -86,7 +92,7 @@ require("lazy").setup({
 	},
 
 	-- Buffers on top
-	{ "akinsho/bufferline.nvim" },
+	{ "akinsho/bufferline.nvim", event = "VeryLazy"},
 
 	-- Comment out and uncomment
 	{ "numToStr/Comment.nvim" },
@@ -103,17 +109,4 @@ require("lazy").setup({
 }, {
 	ui = { border = "rounded" },
 	change_detection = { notify = false },
-	performance = {
-		rtp = {
-			disabled_plugins = {
-				"gzip",
-				"netrwPlugin",
-				"rplugin",
-				"tarPlugin",
-				"tohtml",
-				"tutor",
-				"zipPlugin",
-			},
-		},
-	},
 })

@@ -1,9 +1,5 @@
 local opt = vim.opt
 
--- disabling netwr in order to use NvimTree
-vim.g.loaded_netrw = 1
-vim.g.loaded_netrwPlugin = 1
-
 -- disables backup
 opt.backup = false
 -- don't abandon buffers
@@ -18,7 +14,7 @@ opt.fileencoding = "utf-8"
 opt.hlsearch = true
 -- moving while searching
 opt.incsearch = true
--- enables the mouse everywhere
+-- enables the mouse
 opt.mouse = "a"
 -- disables the mode showing at the status bar
 opt.showmode = false
@@ -26,7 +22,7 @@ opt.showmode = false
 opt.smartcase = true
 -- case-insensitive search/replace
 opt.ignorecase = true
--- always draw signcolumn on the left
+-- always draw signcolumn
 opt.signcolumn = "yes"
 -- maximum number of items to show on popups
 opt.pumheight = 15
@@ -64,6 +60,8 @@ opt.virtualedit = "onemore"
 opt.laststatus = 0
 -- disable intro message
 opt.shortmess:append({ I = true })
+-- save the undo file
+opt.undofile = true
 
 -- disable health checks for these providers
 vim.g.loaded_python3_provider = 0
