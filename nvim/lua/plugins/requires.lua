@@ -10,7 +10,6 @@ local plugins = {
 	"luasnip",
 	"mason",
 	"mini",
-	"mkdnflow",
 	"nvimtree",
 	"telescope",
 	"toggleterm",
@@ -18,7 +17,7 @@ local plugins = {
 }
 
 -- load colorbuddy first
-pcall(require, config .. "colorbuddy")
+-- pcall(require, config .. "colorbuddy")
 
 for _, plugin in ipairs(plugins) do
 	local status_ok, _ = pcall(require, config .. plugin)
