@@ -5,12 +5,16 @@ require("lazy").setup({
 	-- Colorscheme(s)
 	{ "tjdevries/colorbuddy.nvim", lazy = false, priority = 1000 },
 	{ "sainnhe/sonokai", lazy = false, priority = 1000 },
+	{ "nyoom-engineering/oxocarbon.nvim", lazy = false, priority = 1000 },
 
 	-- Code formatter
 	{ "mhartington/formatter.nvim" },
 
 	-- Toggable terminals
 	{ "akinsho/toggleterm.nvim", config = true },
+
+	-- Treesitter parsing abstraction layer
+	{ "nvim-treesitter/nvim-treesitter", build = ":TSUpdate" },
 
 	-- More icons for neovim
 	{ "nvim-tree/nvim-web-devicons", config = true },

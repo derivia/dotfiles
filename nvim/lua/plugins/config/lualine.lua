@@ -12,7 +12,7 @@ local filetype = {
 
 plugin.setup({
 	options = {
-    theme = "gruvbox_dark",
+    theme = "oxocarbon",
 		component_separators = { left = "", right = "" },
 		section_separators = { left = "", right = "" },
 		refresh = {
