@@ -4,17 +4,9 @@ require("lazy").setup({
 
 	-- Colorscheme(s)
 	{ "tjdevries/colorbuddy.nvim", lazy = false, priority = 1000 },
-	{
-		"sainnhe/sonokai",
-		lazy = false,
-		config = function()
-			vim.g.sonokai_enable_italic = false
-			vim.g.sonokai_style = "shusia"
-			pcall(vim.cmd.colorscheme, "sonokai")
-		end,
-	},
+	{ "sainnhe/sonokai", lazy = false, priority = 1000 },
 
-	-- Formatting code with C-f
+	-- Code formatter
 	{ "mhartington/formatter.nvim" },
 
 	-- Toggable terminals
@@ -26,7 +18,7 @@ require("lazy").setup({
 	-- Vertical tree file explorer
 	{ "nvim-tree/nvim-tree.lua" },
 
-	-- Nvim-cmp related
+	-- Completion
 	{ "hrsh7th/nvim-cmp" },
 	{ "hrsh7th/cmp-buffer" },
 	{ "hrsh7th/cmp-path" },
@@ -38,30 +30,26 @@ require("lazy").setup({
 	-- Snippet engine
 	{
 		"L3MON4D3/LuaSnip",
-		-- follow latest release.
 		version = "v2.*",
 		build = "make install_jsregexp",
 		dependencies = {
+			-- Big collection of snippets
 			"rafamadriz/friendly-snippets",
 		},
 	},
 
 	-- Modular mini plugins
-	{ "echasnovski/mini.nvim", version = false },
+	{ "echasnovski/mini.bufremove", config = true, version = "*" },
 
-	-- Plugins for neovim's lsp
+	-- Easier LSP config
 	{ "neovim/nvim-lspconfig", event = { "BufReadPre", "BufNewFile" } },
 
-	-- Easier management of external packages, like LSP, DAP, formatters, etc.
+	-- Easier management of external software, like LSP, DAP, formatters, etc.
 	{ "williamboman/mason.nvim" },
 	{ "WhoIsSethDaniel/mason-tool-installer.nvim" },
 
-	-- See some pretty diagnostics
+	-- Pretty diagnostics
 	{ "folke/trouble.nvim" },
-
-	-- Better ruby/rails development
-	{ "tpope/vim-endwise" },
-	{ "tpope/vim-rails" },
 
 	-- Snippet management
 	{
