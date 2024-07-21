@@ -60,8 +60,6 @@ opt.virtualedit = "onemore"
 opt.laststatus = 0
 -- disable intro message
 opt.shortmess:append({ I = true })
--- save the undo file
-opt.undofile = true
 
 -- disable health checks for these providers
 vim.g.loaded_python3_provider = 0

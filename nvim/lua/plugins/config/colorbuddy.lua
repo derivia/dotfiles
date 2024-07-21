@@ -3,9 +3,7 @@ if not status_ok then
 	return
 end
 
-plugin.setup({})
-
-plugin.colorscheme("color-test")
+plugin.colorscheme("gruvier")
 
 local color = plugin.Color
 local group = plugin.Group
@@ -17,7 +15,6 @@ local bg = "#282828"
 color.new("background", bg)
 color.new("gray0", bg)
 
--- funny name base colors
 color.new("blue", "#427CA6")
 color.new("camel", "#C48635")
 color.new("carp", "#BD9957")
