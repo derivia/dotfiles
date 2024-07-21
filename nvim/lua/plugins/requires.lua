@@ -1,4 +1,5 @@
 local config = "plugins.config."
+
 local plugins = {
 	"bufferline",
 	"cmp",
@@ -12,11 +13,15 @@ local plugins = {
 	"nvimtree",
 	"telescope",
 	"toggleterm",
+	"treesitter",
 	"trouble",
 }
 
+
 -- load colorbuddy first
-pcall(require, config .. "colorbuddy")
+-- pcall(require, config .. "colorbuddy")
+-- or load some other colorscheme
+pcall(vim.cmd.colorscheme, "oxocarbon")
 
 for _, plugin in ipairs(plugins) do
 	local status_ok, _ = pcall(require, config .. plugin)
