@@ -17,11 +17,10 @@ local plugins = {
 	"trouble",
 }
 
-
 -- load colorbuddy first
 -- pcall(require, config .. "colorbuddy")
 -- or load some other colorscheme
-pcall(vim.cmd.colorscheme, "oxocarbon")
+pcall(require, config .. "colorscheme")
 
 for _, plugin in ipairs(plugins) do
 	local status_ok, _ = pcall(require, config .. plugin)
