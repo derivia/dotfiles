@@ -1,6 +1,7 @@
 local status_ok, plugin = pcall(require, "lualine")
 
 if not status_ok then
+  vim.notify("plugin" .. plugin .. "failed to start")
 	return
 end
 
@@ -12,7 +13,7 @@ local filetype = {
 
 plugin.setup({
 	options = {
-    theme = "oxocarbon",
+    theme = "auto",
 		component_separators = { left = "", right = "" },
 		section_separators = { left = "", right = "" },
 		refresh = {

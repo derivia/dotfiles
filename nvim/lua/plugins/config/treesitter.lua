@@ -5,7 +5,17 @@ if not status_ok then
 end
 
 plugin.setup({
-	ensure_installed = { "c", "lua", "vim", "vimdoc", "query", "markdown", "markdown_inline" },
+	ensure_installed = {
+		"c",
+		"lua",
+		"vim",
+		"vimdoc",
+		"query",
+		"markdown",
+		"markdown_inline",
+		"typescript",
+		"javascript",
+	},
 	sync_install = false,
 	auto_install = false,
 	ignore_install = {},

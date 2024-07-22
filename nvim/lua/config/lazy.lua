@@ -6,6 +6,7 @@ require("lazy").setup({
 	{ "tjdevries/colorbuddy.nvim", lazy = false, priority = 1000 },
 	{ "sainnhe/sonokai", lazy = false, priority = 1000 },
 	{ "nyoom-engineering/oxocarbon.nvim", lazy = false, priority = 1000 },
+	{ "rebelot/kanagawa.nvim", lazy = false, priority = 1000 },
 
 	-- Code formatter
 	{ "mhartington/formatter.nvim" },
