@@ -19,6 +19,11 @@ kanagawa.setup({
 		dark = "wave",
 		light = "lotus",
 	},
+	overrides = function(colors)
+		return {
+			Underlined = { fg = colors.theme.syn.special1, underline = false },
+		}
+	end,
 })
 
 pcall(vim.cmd.colorscheme, "kanagawa")
