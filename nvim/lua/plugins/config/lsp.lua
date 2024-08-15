@@ -122,6 +122,7 @@ tstools.setup({
 local servers = {
 	"clangd",
 	"prismals",
+	"pyright",
 }
 
 for _, lsp in ipairs(servers) do
