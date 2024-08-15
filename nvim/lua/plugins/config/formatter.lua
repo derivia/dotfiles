@@ -81,6 +81,16 @@ plugin.setup({
 			require("formatter.filetypes.javascriptreact").prettierd,
 			prettierd_config,
 		},
+		python = {
+			require("formatter.filetypes.python").black,
+			function()
+				return {
+					exe = "black",
+					args = { "-q", "--stdin-filename", util.escape_path(util.get_current_buffer_file_name()), "-" },
+					stdin = true,
+				}
+			end,
+		},
 		ruby = {
 			require("formatter.filetypes.ruby").standardrb,
 			function()

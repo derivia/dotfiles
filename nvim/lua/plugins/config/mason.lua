@@ -22,9 +22,11 @@ masontools.setup({
 		"clangd",
 		"lua-language-server",
 		"prisma-language-server",
+		"pyright",
 		"typescript-language-server",
 
 		-- formatter
+		"black",
 		"clang-format",
 		"stylua",
 		"prettierd",
