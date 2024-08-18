@@ -10,6 +10,7 @@ local plugins = {
 	"lualine",
 	"luasnip",
 	"mason",
+	"mkdnflow",
 	"nvimtree",
 	"telescope",
 	"toggleterm",

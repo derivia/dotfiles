@@ -97,7 +97,7 @@ tstools.setup({
 	handlers = handlers,
 	single_file_support = true,
 	settings = {
-		separate_diagnostic_server = false,
+		separate_diagnostic_server = true,
 		publish_diagnostic_on = "insert_leave",
 		expose_as_code_action = { "add_missing_imports", "remove_unused_imports" },
 		tsserver_max_memory = "auto",
