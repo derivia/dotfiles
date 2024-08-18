@@ -4,7 +4,6 @@ require("lazy").setup({
 
 	-- Colorscheme(s)
 	{ "tjdevries/colorbuddy.nvim", lazy = false, priority = 1000 },
-	{ "sainnhe/sonokai", lazy = false, priority = 1000 },
 	{ "nyoom-engineering/oxocarbon.nvim", lazy = false, priority = 1000 },
 	{ "rebelot/kanagawa.nvim", lazy = false, priority = 1000 },
 
@@ -24,13 +23,13 @@ require("lazy").setup({
 	{ "nvim-tree/nvim-tree.lua" },
 
 	-- Completion
-	{ "hrsh7th/nvim-cmp" },
-	{ "hrsh7th/cmp-buffer" },
-	{ "hrsh7th/cmp-path" },
-	{ "hrsh7th/cmp-cmdline" },
-	{ "hrsh7th/cmp-nvim-lsp" },
-	{ "hrsh7th/cmp-nvim-lsp-signature-help" },
-	{ "saadparwaiz1/cmp_luasnip" },
+	{ "hrsh7th/nvim-cmp", lazy = false },
+	{ "hrsh7th/cmp-buffer", lazy = false },
+	{ "hrsh7th/cmp-path", lazy = false },
+	{ "hrsh7th/cmp-cmdline", lazy = false },
+	{ "hrsh7th/cmp-nvim-lsp", lazy = false },
+	{ "hrsh7th/cmp-nvim-lsp-signature-help", lazy = false },
+	{ "saadparwaiz1/cmp_luasnip", lazy = false },
 
 	-- Snippet engine
 	{
@@ -69,6 +68,10 @@ require("lazy").setup({
 		"windwp/nvim-autopairs",
 		event = "InsertEnter",
 		opts = { disable_filetype = { "markdown" } },
+	},
+
+	{
+		"jakewvincent/mkdnflow.nvim",
 	},
 
 	-- Telescope related plugins
