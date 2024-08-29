@@ -4,5 +4,19 @@ if not status_ok then
 	return
 end
 
--- @TODO: configure mkdnflow
-plugin.setup({})
+plugin.setup({
+	modules = {
+		bib = true,
+		buffers = true,
+		conceal = false,
+		cursor = true,
+		folds = false,
+		links = true,
+		lists = true,
+		maps = true,
+		paths = true,
+		tables = false,
+		yaml = false,
+		cmp = false,
+	},
+})
