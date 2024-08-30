@@ -5,6 +5,7 @@ local plugins = {
 	"colorizer",
 	"comment",
 	"formatter",
+  "fzf",
 	"lsp",
 	"lualine",
 	"luasnip",
