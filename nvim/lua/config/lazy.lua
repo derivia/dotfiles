@@ -3,10 +3,7 @@ require("lazy").setup({
 	{ "nvim-lua/plenary.nvim" },
 
 	-- Colorscheme(s)
-	{ "tjdevries/colorbuddy.nvim", lazy = false, priority = 1000 },
-	{ "nyoom-engineering/oxocarbon.nvim", lazy = false, priority = 1000 },
-	{ "rebelot/kanagawa.nvim", lazy = false, priority = 1000 },
-	{ "ellisonleao/gruvbox.nvim" },
+  { "rebelot/kanagawa.nvim", lazy = false, priority = 1000 },
 
 	-- Code formatter
 	{ "mhartington/formatter.nvim" },
@@ -16,6 +13,9 @@ require("lazy").setup({
 
 	-- Treesitter parsing abstraction layer
 	{ "nvim-treesitter/nvim-treesitter", build = ":TSUpdate" },
+
+	-- Auto cd to root
+	{ "notjedi/nvim-rooter.lua", lazy = false, config = true },
 
 	-- More icons for neovim
 	{ "nvim-tree/nvim-web-devicons", config = true },
@@ -43,18 +43,15 @@ require("lazy").setup({
 		},
 	},
 
-	-- Modular mini plugins
+	-- Mini buffer removing plugin
 	{ "echasnovski/mini.bufremove", config = true, version = "*" },
 
 	-- Easier LSP config
 	{ "neovim/nvim-lspconfig", event = { "BufReadPre", "BufNewFile" } },
 
-	-- Easier management of external software, like LSP, DAP, formatters, etc.
+	-- Easier management of external tools, like LSP, DAP, formatters, etc.
 	{ "williamboman/mason.nvim" },
 	{ "WhoIsSethDaniel/mason-tool-installer.nvim" },
-
-	-- Pretty diagnostics
-	{ "folke/trouble.nvim" },
 
 	-- Snippet management
 	{
@@ -71,28 +68,13 @@ require("lazy").setup({
 		opts = { disable_filetype = { "markdown" } },
 	},
 
+	-- Markdown autocmds
 	{
 		"jakewvincent/mkdnflow.nvim",
 	},
 
-	-- Telescope related plugins
-	{
-		"nvim-telescope/telescope.nvim",
-		dependencies = {
-			{
-				"nvim-telescope/telescope-fzf-native.nvim",
-				build = "cmake -S. -Bbuild -DCMAKE_BUILD_TYPE=Release && cmake --build build --config Release && cmake --install build --prefix build",
-			},
-			"nvim-telescope/telescope-ui-select.nvim",
-		},
-		branch = "0.1.x",
-	},
-
-	-- Buffers on top
-	{ "akinsho/bufferline.nvim", event = "VeryLazy" },
-
-	-- Incremental renaming
-	{ "smjonas/inc-rename.nvim", config = true },
+	-- Fuzzy finder
+	{ "ibhagwan/fzf-lua", config = true },
 
 	-- Comment out and uncomment
 	{ "numToStr/Comment.nvim" },
