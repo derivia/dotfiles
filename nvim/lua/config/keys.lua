@@ -32,10 +32,6 @@ keymap("n", "<C-j>", "<C-w>j", opts)
 keymap("n", "<C-k>", "<C-w>k", opts)
 keymap("n", "<C-l>", "<C-w>l", opts)
 
--- buffer navigation
-keymap("n", "<S-l>", ":bnext<CR>", opts)
-keymap("n", "<S-h>", ":bprevious<CR>", opts)
-
 -- resize the current window
 keymap("n", "<S-Up>", ":resize +2<CR>", opts)
 keymap("n", "<S-Down>", ":resize -2<CR>", opts)
@@ -73,20 +69,11 @@ if vim.fn.getenv("WSLENV") ~= vim.NIL then
 	vim.keymap.set("n", "gx", ":silent :execute '!wslview ' . shellescape(expand('<cfile>'), 1)<CR>", opts)
 end
 
--- stylua: ignore start
--- open man pages on new windows
-keymap("n", "<C-m>l", ':execute "vsp | wincmd l | hide Man " . input("section number: ") . " " . input("page name: ")<CR>', opts)
-keymap("n", "<C-m>j", ':execute "sp | wincmd j | hide Man " . input("section number: ") . " " . input("page name: ")<CR>', opts)
--- stylua: ignore end
-
--- trouble configuration
-keymap("n", "<leader>xx", ":Trouble diagnostics toggle<CR>", opts)
-
--- telescope
-keymap("n", "<leader>ff", ":Telescope find_files<CR>", opts)
-keymap("n", "<leader>fg", ":Telescope live_grep<CR>", opts)
-keymap("n", "<leader>fo", ":Telescope buffers<CR>", opts)
-keymap("n", "<leader>fr", ":Telescope oldfiles<CR>", opts)
+-- fzf configuration
+keymap("n", "<leader>ff", ":FzfLua files<CR>", opts)
+keymap("n", "<leader>fb", ":FzfLua buffers<CR>", opts)
+keymap("n", "<leader>fg", ":FzfLua live_grep<CR>", opts)
+keymap("n", "<leader>fx", ":FzfLua diagnostics_workspace<CR>", opts)
 
 -- stylua: ignore start
 -- scissors configuration
@@ -99,11 +86,6 @@ local status_ok_br, br = pcall(require, "mini.bufremove")
 if not status_ok_br then
 	return
 end
-
--- inc-rename configuration
--- vim.keymap.set("n", "<leader>rn", function()
---   return ":IncRename " .. vim.fn.expand("<cword>")
--- end, { expr = true })
 
 -- stylua: ignore start
 -- code from LazyVim.editor.lua

@@ -1,1 +1,1 @@
-{"lso":{"prefix":"lso","body":["local status_ok, plugin = pcall(require, \"\")","if not status_ok then","\tvim.notify(\"plugin\" .. plugin .. \"failed to start\")","\treturn","end","","plugin.setup({","","})"]}}
+{"lso":{"prefix":"lso","body":["local status_ok, plugin = pcall(require, \"\")","if not status_ok then","\treturn","end","","plugin.setup({","","})"]}}
