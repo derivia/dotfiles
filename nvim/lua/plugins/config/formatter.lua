@@ -107,18 +107,18 @@ plugin.setup({
 				}
 			end,
 		},
-		rust = {
-			require("formatter.filetypes.rust").rustfmt,
-			function()
-				return {
-					exe = "rustfmt",
-					args = {
-						"--edition 2021",
-					},
-					stdin = true,
-				}
-			end,
-		},
+		-- rust = {
+		-- 	require("formatter.filetypes.rust").rustfmt,
+		-- 	function()
+		-- 		return {
+		-- 			exe = "rustfmt",
+		-- 			args = {
+		-- 				"--edition 2021",
+		-- 			},
+		-- 			stdin = true,
+		-- 		}
+		-- 	end,
+		-- },
 		typescript = {
 			require("formatter.filetypes.typescript").prettierd,
 			prettierd_config,

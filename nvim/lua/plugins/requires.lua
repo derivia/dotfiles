@@ -1,7 +1,6 @@
 local config = "plugins.config."
 
 local plugins = {
-	"bufferline",
 	"cmp",
 	"colorizer",
 	"comment",
@@ -12,15 +11,11 @@ local plugins = {
 	"mason",
 	"mkdnflow",
 	"nvimtree",
-	"telescope",
 	"toggleterm",
 	"treesitter",
-	"trouble",
 }
 
--- load colorbuddy first
--- pcall(require, config .. "colorbuddy")
--- or load some other colorscheme
+-- load colorscheme first
 pcall(require, config .. "colorscheme")
 
 for _, plugin in ipairs(plugins) do
