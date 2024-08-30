@@ -119,6 +119,26 @@ tstools.setup({
 	},
 })
 
+lspconfig.rust_analyzer.setup({
+	settings = {
+		["rust-analyzer"] = {
+			cargo = {
+				allFeatures = true,
+			},
+			imports = {
+				group = {
+					enable = false,
+				},
+			},
+			completion = {
+				postfix = {
+					enable = false,
+				},
+			},
+		},
+	},
+})
+
 local servers = {
 	"clangd",
 	"prismals",
