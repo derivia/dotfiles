@@ -1,65 +1,75 @@
-local opt = vim.opt
+local o = vim.opt
+local g = vim.g
+
+g.mapleader = " "
+g.mapolocalleader = " "
 
 -- disables backup
-opt.backup = false
--- don't abandon buffers
-opt.hidden = true
+o.backup = false
+-- don't save when switching buffers
+o.hidden = true
 -- makes so `` appears on markdown files
-opt.conceallevel = 0
+o.conceallevel = 0
 -- treats the tab completiom menu
-opt.completeopt = { "menuone", "noselect" }
+o.completeopt = { "menuone", "noselect" }
 -- sets the default encoding to utf-8
-opt.fileencoding = "utf-8"
+o.fileencoding = "utf-8"
 -- highlights matches on search pattern
-opt.hlsearch = true
+o.hlsearch = true
 -- moving while searching
-opt.incsearch = true
+o.incsearch = true
 -- enables the mouse
-opt.mouse = "a"
+o.mouse = "a"
 -- disables the mode showing at the status bar
-opt.showmode = false
+o.showmode = false
 -- smarter case insensitivity/sensitivity
-opt.smartcase = true
+o.smartcase = true
 -- case-insensitive search/replace
-opt.ignorecase = true
+o.ignorecase = true
 -- always draw signcolumn
-opt.signcolumn = "yes"
+o.signcolumn = "yes"
 -- maximum number of items to show on popups
-opt.pumheight = 15
+o.pumheight = 15
 -- changes the size of the cmdheight below the lualine
-opt.cmdheight = 1
+o.cmdheight = 1
 -- makes indenting smarter (i guess)
-opt.smartindent = true
+o.smartindent = true
 -- makes splitted windows to be kept on the current window
-opt.splitbelow = true
-opt.splitright = true
+o.splitbelow = true
+o.splitright = true
 -- disables swap file creation
-opt.swapfile = false
+o.swapfile = false
 -- makes so the update time is faster, for a faster <TAB> completion
-opt.updatetime = 100
+o.timeoutlen = 500
+o.updatetime = 200
 -- converts tabs to spaces
-opt.expandtab = true
+o.expandtab = true
 -- some colors
-opt.termguicolors = true
+o.termguicolors = true
 -- sets the default tab (as spaces) size
-opt.shiftwidth = 2
-opt.tabstop = 2
+o.shiftwidth = 2
+o.tabstop = 2
 -- highlights the current line
-opt.cursorline = true
--- show current line number
-opt.number = true
--- show other lines than current relative numbered
-opt.relativenumber = true
+o.cursorline = true
+-- line numbers
+o.number = true
+o.numberwidth = 2
+o.relativenumber = true
 -- disables wrapping
-opt.wrap = false
+o.wrap = false
+-- smooth scrooling
+o.smoothscroll = true
 -- stop h and l from going up/down the line when line beginning/end was reached
-opt.whichwrap:remove({ "w", "b", "h", "l" })
+o.whichwrap:remove({ "w", "b", "h", "l" })
 -- makes the cursor go one more at the end of the line
-opt.virtualedit = "onemore"
+o.virtualedit = "onemore"
 -- removes horizontally splitted windows status line
-opt.laststatus = 0
+o.laststatus = 0
 -- disable intro message
-opt.shortmess:append({ I = true })
+o.shortmess:append({ I = true })
+-- keep the cursor kinda centralized
+o.scrolloff = 8
+o.sidescrolloff = 2
 
 -- disable health checks for these providers
 vim.g.loaded_python3_provider = 0
