@@ -8,16 +8,14 @@ end
 
 local methods = vim.lsp.protocol.Methods
 
-local util = require("lspconfig.util")
-
 local handlers = {
 	["textDocument/hover"] = vim.lsp.with(vim.lsp.handlers.hover, { border = "rounded" }),
 	["textDocument/signatureHelp"] = vim.lsp.with(vim.lsp.handlers.signature_help, { border = "rounded" }),
 	["textDocument/publishDiagnostics"] = vim.lsp.with(vim.lsp.diagnostic.on_publish_diagnostics, {
-		underline = false,
+		underline = true,
 		signs = {
 			severity = {
-				vim.diagnostic.severity.WARN,
+				vim.diagnostic.severity.HINT,
 				vim.diagnostic.severity.ERROR,
 			},
 		},
@@ -138,6 +136,13 @@ tstools.setup({
 -- 		},
 -- 	},
 -- })
+
+vim.g.rustaceanvim = {
+	server = {
+		on_attach = on_attach,
+		handlers = handlers,
+	},
+}
 
 local servers = {
 	"clangd",

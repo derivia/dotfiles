@@ -6,16 +6,12 @@ end
 
 plugin.setup({
 	winopts = {
-		split         = "belowright new",-- open in a split instead?
-		-- border argument passthrough to nvim_open_win(), also used
-		-- to manually draw the border characters around the preview
-		-- window, can be set to 'false' to remove all borders or to
-		-- 'none', 'single', 'double', 'thicc' (+cc) or 'rounded' (default)
-		border = "rounded",
-		backdrop = 80,
+    split = "belowright new",
+		border = "none",
+		backdrop = 100,
 		fullscreen = false, -- start fullscreen?
 		preview = {
-			border = "border", -- border|noborder, applies only to
+			border = "noborder", -- border|noborder, applies only to
 			wrap = "nowrap", -- wrap|nowrap
 			hidden = "nohidden", -- hidden|nohidden
 			vertical = "down:45%", -- up|down:size
@@ -55,8 +51,6 @@ plugin.setup({
 		-- on_close = function() ... end
 	},
 	keymap = {
-		-- Below are the default binds, setting any value in these tables will override
-		-- the defaults, to inherit from the defaults change [1] from `false` to `true`
 		builtin = {
 			false, -- do not inherit from defaults
 			-- neovim `:tmap` mappings for the fzf win
@@ -98,12 +92,6 @@ plugin.setup({
 		-- the defaults, to inherit from the defaults change [1] from `false` to `true`
 		files = {
 			false, -- do not inherit from defaults
-			-- Pickers inheriting these actions:
-			--   files, git_files, git_status, grep, lsp, oldfiles, quickfix, loclist,
-			--   tags, btags, args, buffers, tabs, lines, blines
-			-- `file_edit_or_qf` opens a single selection or sends multiple selection to quickfix
-			-- replace `enter` with `file_edit` to open all files/bufs whether single or multiple
-			-- replace `enter` with `file_switch_or_edit` to attempt a switch in current tab first
 			["enter"] = actions.file_edit_or_qf,
 			["ctrl-s"] = actions.file_split,
 			["ctrl-v"] = actions.file_vsplit,
@@ -113,10 +101,6 @@ plugin.setup({
 		},
 	},
 	fzf_opts = {
-		-- options are sent as `<left>=<right>`
-		-- set to `false` to remove a flag
-		-- set to `true` for a no-value flag
-		-- for raw args use `fzf_args` instead
 		["--ansi"] = true,
 		["--info"] = "inline-right", -- fzf < v0.42 = "inline"
 		["--height"] = "100%",
@@ -690,20 +674,15 @@ plugin.setup({
 			symbol_hl = function(s)
 				return "@" .. s:lower()
 			end,
-			-- additional symbol formatting, works with or without style
-			symbol_fmt = function(s, opts)
+			symbol_fmt = function(s, _)
 				return "[" .. s .. "]"
 			end,
-			-- prefix child symbols. set to any string or `false` to disable
 			child_prefix = true,
 			fzf_opts = { ["--tiebreak"] = "begin" },
 		},
 		code_actions = {
 			prompt = "Code Actions> ",
 			async_or_timeout = 5000,
-			-- when git-delta is installed use "codeaction_native" for beautiful diffs
-			-- try it out with `:FzfLua lsp_code_actions previewer=codeaction_native`
-			-- scroll up to `previewers.codeaction{_native}` for more previewer options
 			previewer = "codeaction",
 		},
 		finder = {
@@ -731,63 +710,26 @@ plugin.setup({
 	diagnostics = {
 		prompt = "Diagnostics❯ ",
 		cwd_only = false,
-		file_icons = true,
+		file_icons = false,
 		git_icons = false,
 		diag_icons = true,
-		diag_source = true, -- display diag source (e.g. [pycodestyle])
-		icon_padding = "", -- add padding for wide diagnostics signs
-		multiline = true, -- concatenate multi-line diags into a single line
-		-- set to `false` to display the first line only
-		-- by default icons and highlights are extracted from 'DiagnosticSignXXX'
-		-- and highlighted by a highlight group of the same name (which is usually
-		-- set by your colorscheme, for more info see:
-		--   :help DiagnosticSignHint'
-		--   :help hl-DiagnosticSignHint'
-		-- only uncomment below if you wish to override the signs/highlights
-		-- define only text, texthl or both (':help sign_define()' for more info)
-		-- signs = {
-		--   ["Error"] = { text = "", texthl = "DiagnosticError" },
-		--   ["Warn"]  = { text = "", texthl = "DiagnosticWarn" },
-		--   ["Info"]  = { text = "", texthl = "DiagnosticInfo" },
-		--   ["Hint"]  = { text = "󰌵", texthl = "DiagnosticHint" },
-		-- },
-		-- limit to specific severity, use either a string or num:
-		--   1 or "hint"
-		--   2 or "information"
-		--   3 or "warning"
-		--   4 or "error"
-		-- severity_only:   keep any matching exact severity
-		-- severity_limit:  keep any equal or more severe (lower)
-		-- severity_bound:  keep any equal or less severe (higher)
+		diag_source = true,
+		icon_padding = "",
+		multiline = true,
 	},
 	marks = {
-		marks = "", -- filter vim marks with a lua pattern
-		-- for example if you want to only show user defined marks
-		-- you would set this option as %a this would match characters from [A-Za-z]
-		-- or if you want to show only numbers you would set the pattern to %d (0-9).
+		marks = "",
 	},
 	complete_path = {
-		cmd = nil, -- default: auto detect fd|rg|find
+		cmd = nil,
 		complete = { ["enter"] = actions.complete },
 	},
 	complete_file = {
-		cmd = nil, -- default: auto detect rg|fd|find
+		cmd = nil,
 		file_icons = true,
 		color_icons = true,
 		git_icons = false,
-		-- actions inherit from 'actions.files' and merge
 		actions = { ["enter"] = actions.complete },
-		-- previewer hidden by default
 		winopts = { preview = { hidden = "hidden" } },
 	},
-	-- uncomment to use fzf native previewers
-	-- (instead of using a neovim floating window)
-	-- manpages = { previewer = "man_native" },
-	-- helptags = { previewer = "help_native" },
-	--
-	-- padding can help kitty term users with double-width icon rendering
-	file_icon_padding = "",
-	-- uncomment if your terminal/font does not support unicode character
-	-- 'EN SPACE' (U+2002), the below sets it to 'NBSP' (U+00A0) instead
-	-- nbsp = '\xc2\xa0',
 })

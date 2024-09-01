@@ -3,7 +3,7 @@ require("lazy").setup({
 	{ "nvim-lua/plenary.nvim" },
 
 	-- Colorscheme(s)
-  { "rebelot/kanagawa.nvim", lazy = false, priority = 1000 },
+	{ "rebelot/kanagawa.nvim", lazy = false, priority = 1000 },
 
 	-- Code formatter
 	{ "mhartington/formatter.nvim" },
@@ -24,13 +24,20 @@ require("lazy").setup({
 	{ "nvim-tree/nvim-tree.lua" },
 
 	-- Completion
-	{ "hrsh7th/nvim-cmp", lazy = false },
-	{ "hrsh7th/cmp-buffer", lazy = false },
-	{ "hrsh7th/cmp-path", lazy = false },
-	{ "hrsh7th/cmp-cmdline", lazy = false },
-	{ "hrsh7th/cmp-nvim-lsp", lazy = false },
-	{ "hrsh7th/cmp-nvim-lsp-signature-help", lazy = false },
-	{ "saadparwaiz1/cmp_luasnip", lazy = false },
+	{ "hrsh7th/nvim-cmp" },
+	{ "hrsh7th/cmp-buffer" },
+	{ "hrsh7th/cmp-path" },
+	{ "hrsh7th/cmp-cmdline" },
+	{ "hrsh7th/cmp-nvim-lsp" },
+	{ "hrsh7th/cmp-nvim-lsp-signature-help" },
+	{ "saadparwaiz1/cmp_luasnip" },
+
+	-- Rust tools
+	{
+		"mrcjkb/rustaceanvim",
+		version = "^5",
+		lazy = false,
+	},
 
 	-- Snippet engine
 	{
@@ -69,16 +76,19 @@ require("lazy").setup({
 	},
 
 	-- Markdown autocmds
-	{
-		"jakewvincent/mkdnflow.nvim",
-	},
+	{ "jakewvincent/mkdnflow.nvim" },
 
 	-- Fuzzy finder
 	{ "ibhagwan/fzf-lua", config = true },
 
 	-- Comment out and uncomment
-	{ "numToStr/Comment.nvim" },
-	{ "JoosepAlviste/nvim-ts-context-commentstring" },
+	{
+		"numToStr/Comment.nvim",
+		lazy = true,
+		dependencies = {
+			{ "JoosepAlviste/nvim-ts-context-commentstring" },
+		},
+	},
 
 	-- Better typescript LSP & Linting
 	{ "pmizio/typescript-tools.nvim" },
@@ -87,8 +97,11 @@ require("lazy").setup({
 	{ "norcalli/nvim-colorizer.lua" },
 
 	-- Add status line below
-	{ "nvim-lualine/lualine.nvim", lazy = false },
+	{ "nvim-lualine/lualine.nvim" },
 }, {
 	ui = { border = "rounded" },
 	change_detection = { notify = false },
+	install = {
+		colorscheme = { "kanagawa " },
+	},
 })
