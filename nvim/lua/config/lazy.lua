@@ -68,6 +68,9 @@ require("lazy").setup({
 		},
 	},
 
+	-- Useful UI plugin to use with others
+	{ "stevearc/dressing.nvim" },
+
 	-- Autopairs
 	{
 		"windwp/nvim-autopairs",
