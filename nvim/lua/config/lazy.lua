@@ -8,6 +8,20 @@ require("lazy").setup({
 	-- Code formatter
 	{ "mhartington/formatter.nvim" },
 
+	-- Diagnostics!
+	{
+		"folke/trouble.nvim",
+		opts = {},
+		cmd = "Trouble",
+		keys = {
+			{
+				"<leader>fx",
+				"<cmd>Trouble diagnostics toggle<cr>",
+				desc = "Diagnostics (Trouble)",
+			},
+		},
+	},
+
 	-- Toggable terminals
 	{ "akinsho/toggleterm.nvim", config = true },
 
