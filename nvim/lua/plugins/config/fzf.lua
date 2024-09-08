@@ -713,7 +713,7 @@ plugin.setup({
 		file_icons = false,
 		git_icons = false,
 		diag_icons = true,
-		diag_source = true,
+		diag_source = false,
 		icon_padding = "",
 		multiline = true,
 	},
