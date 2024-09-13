@@ -4,7 +4,7 @@
 1. $ sudo pacman -Syyuu (assuming keyring correct configuration)
 2. $ sudo pacman -S reflector
 3. use reflector to sort mirrorlist
-4. $ sudo pacman -S freetype2 fontconfig pkg-config make libxcb libxkbcommon python wofi waybar hyprpaper oniguruma dbus-glib libyaml libnotify bat electron oft-font-awesome tree-sitter luarocks neovim ripgrep fd base-devel docker docker-compose zsh git openssh glibc libffi libyaml openssl zlib fzf unzip tar zip python python-pipx postgresql sqlite cmake ninja rustup vim wget gzip tar curl man-db less tree man-pages
+4. $ sudo pacman -S freetype2 fontconfig pkg-config make libxcb libxkbcommon python wofi waybar hyprpaper oniguruma dbus-glib libyaml libnotify bat electron tree-sitter luarocks neovim ripgrep fd base-devel docker docker-compose zsh git openssh glibc libffi libyaml openssl zlib fzf unzip tar zip python python-pipx postgresql sqlite cmake ninja rustup vim wget gzip tar curl man-db less tree man-pages
     - also install some openjdk
 5. $ rustup default stable (to install the stable toolchain and default it)
 6. generate ssh keys:
