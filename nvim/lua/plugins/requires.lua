@@ -13,7 +13,6 @@ local plugins = {
 	"mason",
 	"mkdnflow",
 	"nvimtree",
-	"toggleterm",
 	"treesitter",
 }
 

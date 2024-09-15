@@ -8,6 +8,20 @@ require("lazy").setup({
 	-- Code formatter
 	{ "mhartington/formatter.nvim" },
 
+	-- Print with syntax highlighting
+	{
+		"mistricky/codesnap.nvim",
+		build = "make",
+		opts = {
+			save_path = "~/snaps",
+			has_breadcrumbs = false,
+			bg_color = "#232323",
+			title = "",
+			watermark = "",
+			has_line_number = true,
+		},
+	},
+
 	-- Diagnostics!
 	{
 		"folke/trouble.nvim",
@@ -21,9 +35,6 @@ require("lazy").setup({
 			},
 		},
 	},
-
-	-- Toggable terminals
-	{ "akinsho/toggleterm.nvim", config = true },
 
 	-- Treesitter parsing abstraction layer
 	{ "nvim-treesitter/nvim-treesitter", build = ":TSUpdate" },
