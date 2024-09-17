@@ -9,18 +9,7 @@ require("lazy").setup({
 	{ "mhartington/formatter.nvim" },
 
 	-- Print with syntax highlighting
-	{
-		"mistricky/codesnap.nvim",
-		build = "make",
-		opts = {
-			save_path = "~/snaps",
-			has_breadcrumbs = false,
-			bg_color = "#232323",
-			title = "",
-			watermark = "",
-			has_line_number = true,
-		},
-	},
+	{ "mistricky/codesnap.nvim", build = "make" },
 
 	-- Diagnostics!
 	{
