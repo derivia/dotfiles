@@ -2,6 +2,7 @@ local config = "plugins.config."
 
 local plugins = {
 	"cmp",
+	"codesnap",
 	"colorizer",
 	"comment",
 	"dressing",
