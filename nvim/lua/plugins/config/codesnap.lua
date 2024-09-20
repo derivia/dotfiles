@@ -10,6 +10,6 @@ plugin.setup({
 	title = "",
 	watermark = "",
 	has_line_number = true,
-  bg_padding = 0,
+  bg_padding = 2,
   mac_window_bar = false,
 })

@@ -59,6 +59,10 @@ keymap("n", "<leader>e", ":NvimTreeToggle<CR>", opts)
 -- format file using formatter.nvim
 keymap("n", "<C-f>", ":Format<CR>", opts)
 
+-- makes I still enter current position in insert mode
+keymap("n", "I", "i", opts)
+
+
 -- makes so $ goes one more after the last character
 keymap("n", "$", "$l", opts)
 -- but one less when visual mode
