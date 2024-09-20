@@ -102,6 +102,9 @@ vim.keymap.set("n", "<C-x>", function()
 end, opts)
 -- stylua: ignore end
 
+-- code snap
+keymap("x", "<leader>cc", ":CodeSnapSave<CR>", opts)
+
 -- fzf configuration
 keymap("n", "<leader>ff", ":FzfLua files<CR>", opts)
 keymap("n", "<leader>fb", ":FzfLua buffers<CR>", opts)
