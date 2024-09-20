@@ -19,11 +19,16 @@ kanagawa.setup({
 		dark = "wave",
 		light = "lotus",
 	},
-	overrides = function(colors)
-		return {
-			Underlined = { fg = colors.theme.syn.special1, underline = false },
-		}
-	end,
+	colors = {
+		palette = {
+			sumiInk3 = "#25252B",
+			sakuraPink = "#E29066",
+			oniViolet = "#C07FA1",
+			crystalBlue = "#98BFFA",
+			springBlue = "#98BFFA",
+			fujiGray = "#858585",
+		},
+	},
 })
 
 pcall(vim.cmd.colorscheme, "kanagawa")
