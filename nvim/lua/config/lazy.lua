@@ -6,10 +6,21 @@ require("lazy").setup({
 	{ "rebelot/kanagawa.nvim", lazy = false, priority = 1000 },
 
 	-- Code formatter
-	{ "mhartington/formatter.nvim" },
+	{
+		"mhartington/formatter.nvim",
+		keys = {
+			{ "<C-f>", "<cmd>Format<cr>", desc = "Format current file using filetype formatter" },
+		},
+	},
 
 	-- Print with syntax highlighting
-	{ "mistricky/codesnap.nvim", build = "make" },
+	{
+		"mistricky/codesnap.nvim",
+		build = "make",
+		keys = {
+			{ "<leader>cc", mode = "x", "<cmd>CodeSnapSave<cr>", desc = "Save current selected text to ~/snaps" },
+		},
+	},
 
 	-- Diagnostics!
 	{
@@ -29,13 +40,18 @@ require("lazy").setup({
 	{ "nvim-treesitter/nvim-treesitter", build = ":TSUpdate" },
 
 	-- Auto cd to root
-	{ "notjedi/nvim-rooter.lua", lazy = false, config = true },
+	{ "ahmedkhalf/project.nvim", lazy = false },
 
 	-- More icons for neovim
 	{ "nvim-tree/nvim-web-devicons", config = true },
 
 	-- Vertical tree file explorer
-	{ "nvim-tree/nvim-tree.lua" },
+	{
+		"nvim-tree/nvim-tree.lua",
+		keys = {
+			{ "<leader>e", "<cmd>NvimTreeToggle<cr>", desc = "Toggle NvimTree window" },
+		},
+	},
 
 	-- Completion
 	{ "hrsh7th/nvim-cmp" },
@@ -77,6 +93,15 @@ require("lazy").setup({
 	-- Snippet management
 	{
 		"chrisgrieser/nvim-scissors",
+		keys = {
+			{ "<leader>se", "<cmd>ScissorsEditSnippet<cr>", desc = "Edit snippets for this filetype" },
+			{
+				"<leader>sa",
+				mode = "x",
+				"<cmd>ScissorsAddNewSnippet<cr>",
+				desc = "Add selected code as snippet for this filetype",
+			},
+		},
 		opts = {
 			snippetDir = vim.fn.stdpath("config") .. "/snippets",
 		},

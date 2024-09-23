@@ -1,0 +1,1 @@
+{"test":{"prefix":"test","body":["const char *test()","{","  return \"test\";","}"]}}

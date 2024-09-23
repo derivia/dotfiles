@@ -1,5 +1,8 @@
 local config = "plugins.config."
 
+-- load colorscheme first
+pcall(require, config .. "colorscheme")
+
 local plugins = {
 	"cmp",
 	"codesnap",
@@ -14,11 +17,9 @@ local plugins = {
 	"mason",
 	"mkdnflow",
 	"nvimtree",
+	"project",
 	"treesitter",
 }
-
--- load colorscheme first
-pcall(require, config .. "colorscheme")
 
 for _, plugin in ipairs(plugins) do
 	local status_ok, _ = pcall(require, config .. plugin)

@@ -60,5 +60,5 @@ eval "$(pyenv init -)"
 
 # taken from https://www.markhansen.co.nz/auto-start-tmux/
 if [ -n "$PS1" ] && [ -z "$TMUX" ]; then
-  tmux new-session -A -s main
+  tmux new-session -A -s main -c "$PWD"
 fi
