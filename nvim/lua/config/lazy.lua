@@ -17,6 +17,8 @@ require("lazy").setup({
 	{
 		"mistricky/codesnap.nvim",
 		build = "make",
+		-- If lazy, the snap doesn't work on first try
+		lazy = false,
 		keys = {
 			{ "<leader>cc", mode = "x", "<cmd>CodeSnapSave<cr>", desc = "Save current selected text to ~/snaps" },
 		},
@@ -40,7 +42,7 @@ require("lazy").setup({
 	{ "nvim-treesitter/nvim-treesitter", build = ":TSUpdate" },
 
 	-- Auto cd to root
-	{ "ahmedkhalf/project.nvim", lazy = false },
+	{ "ahmedkhalf/project.nvim" },
 
 	-- More icons for neovim
 	{ "nvim-tree/nvim-web-devicons", config = true },
@@ -54,19 +56,24 @@ require("lazy").setup({
 	},
 
 	-- Completion
-	{ "hrsh7th/nvim-cmp" },
-	{ "hrsh7th/cmp-buffer" },
-	{ "hrsh7th/cmp-path" },
-	{ "hrsh7th/cmp-cmdline" },
-	{ "hrsh7th/cmp-nvim-lsp" },
-	{ "hrsh7th/cmp-nvim-lsp-signature-help" },
-	{ "saadparwaiz1/cmp_luasnip" },
+	{
+		"hrsh7th/nvim-cmp",
+		dependencies = {
+			{ "hrsh7th/cmp-buffer" },
+			{ "hrsh7th/cmp-path" },
+			{ "hrsh7th/cmp-cmdline" },
+			{ "hrsh7th/cmp-nvim-lsp" },
+			{ "hrsh7th/cmp-nvim-lsp-signature-help" },
+			{ "saadparwaiz1/cmp_luasnip" },
+		},
+		event = "InsertEnter",
+	},
 
 	-- Rust tools
 	{
 		"mrcjkb/rustaceanvim",
 		version = "^5",
-		lazy = false,
+		ft = "rust",
 	},
 
 	-- Snippet engine
@@ -118,15 +125,36 @@ require("lazy").setup({
 	},
 
 	-- Markdown autocmds
-	{ "jakewvincent/mkdnflow.nvim" },
+	{ "jakewvincent/mkdnflow.nvim", ft = "markdown" },
 
 	-- Fuzzy finder
-	{ "ibhagwan/fzf-lua", config = true },
+	{
+		"ibhagwan/fzf-lua",
+		config = true,
+		keys = {
+			{ "<leader>ff", "<cmd>FzfLua files<cr>", desc = "Search files recursively" },
+			{ "<leader>fb", "<cmd>FzfLua buffers<cr>", desc = "Switch between opened buffers" },
+			{ "<leader>fg", "<cmd>FzfLua live_grep<cr>", desc = "Live grep recursively" },
+			{ "<leader>fo", "<cmd>FzfLua oldfiles<cr>", desc = "Search into recent opened files" },
+			{ "<leader>fr", "<cmd>FzfLua resume<cr>", desc = "Run the last command again" },
+		},
+		opts = {
+			winopts = {
+				split = "belowright new",
+				border = "none",
+				backdrop = 0,
+				fullscreen = false,
+				preview = {
+					border = "noborder",
+					delay = 50,
+				},
+			},
+		},
+	},
 
 	-- Comment out and uncomment
 	{
 		"numToStr/Comment.nvim",
-		lazy = true,
 		dependencies = {
 			{ "JoosepAlviste/nvim-ts-context-commentstring" },
 		},
@@ -144,6 +172,6 @@ require("lazy").setup({
 	ui = { border = "rounded" },
 	change_detection = { notify = false },
 	install = {
-		colorscheme = { "kanagawa " },
+		colorscheme = { "kanagawa" },
 	},
 })

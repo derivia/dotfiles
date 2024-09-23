@@ -10,7 +10,6 @@ local plugins = {
 	"comment",
 	"dressing",
 	"formatter",
-	"fzf",
 	"lsp",
 	"lualine",
 	"luasnip",

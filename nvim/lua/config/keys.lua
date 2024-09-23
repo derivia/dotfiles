@@ -1,5 +1,3 @@
----@diagnostic disable: undefined-field
-
 -- shorter default options
 local opts = { noremap = true, silent = true }
 -- shorter function name
@@ -9,8 +7,6 @@ local keymap = vim.api.nvim_set_keymap
 keymap("", "<Space>", "<Nop>", opts)
 
 -- unmapping some keys
-keymap("", "<leader>lo", "<Nop>", opts)
-keymap("", "<leader>la", "<Nop>", opts)
 keymap("", "<C-q>", "<Nop>", opts)
 keymap("", "<C-c>", "<Nop>", opts)
 keymap("", "<C-y>", "<Nop>", opts)
@@ -71,7 +67,6 @@ local status_ok_br, br = pcall(require, "mini.bufremove")
 if not status_ok_br then
 	return
 end
-
 -- stylua: ignore start
 -- code from LazyVim.editor.lua
 vim.keymap.set("n", "<C-x>", function()
@@ -88,64 +83,3 @@ vim.keymap.set("n", "<C-x>", function()
 	end
 end, opts)
 -- stylua: ignore end
-
--- fzf configuration
-keymap("n", "<leader>ff", ":FzfLua files<CR>", opts)
-keymap("n", "<leader>fb", ":FzfLua buffers<CR>", opts)
-keymap("n", "<leader>fg", ":FzfLua live_grep<CR>", opts)
-keymap("n", "<leader>fo", ":FzfLua oldfiles<CR>", opts)
-keymap("n", "<leader>fr", ":FzfLua resume<CR>", opts)
-keymap("n", "<leader>fa", ":FzfLua lsp_code_actions<CR>", opts)
-vim.keymap.set("n", "<leader>fc", function()
-	local fzf = require("fzf-lua")
-	local path = require("fzf-lua.path")
-	local uv = vim.uv or vim.loop
-	local cmd = "fd -t d . " .. uv.cwd()
-	local function get_full_path(selected)
-		if #selected < 1 then
-			return
-		end
-		local entry = path.entry_to_file(selected[1], { cwd = uv.cwd() })
-		if entry.path == "<none>" then
-			return
-		end
-		-- Taken from require('fzf-lua').files, maybe there's a better way?
-		local fullpath = entry.path or entry.uri and entry.uri:match("^%a+://(.*)")
-		if not path.is_absolute(fullpath) then
-			fullpath = path.join({ uv.cwd(), fullpath })
-		end
-		return fullpath
-	end
-	fzf.fzf_exec(cmd, {
-		defaults = {},
-		prompt = "Create file in dir> ",
-		cwd = uv.cwd(),
-		cwd_prompt_shorten_len = 32,
-		cwd_prompt_shorten_val = 1,
-		fzf_opts = {
-			["--tiebreak"] = "end",
-			["--preview"] = {
-				type = "cmd",
-				fn = function(selected)
-					local fullpath = get_full_path(selected)
-					return string.format("command ls -Alhv --group-directories-first %s", fullpath)
-				end,
-			},
-		},
-		fn_transform = function(x)
-			return fzf.make_entry.file(x, { file_icons = true, color_icons = true, cwd = uv.cwd() })
-		end,
-		actions = {
-			["default"] = function(selected)
-				local fullpath = get_full_path(selected)
-				vim.ui.input({ prompt = "File Name: " }, function(name)
-					if name == nil then
-						return
-					end
-					vim.cmd("e " .. fullpath .. name)
-					vim.cmd("w ++p")
-				end)
-			end,
-		},
-	})
-end, opts)
