@@ -53,15 +53,8 @@ keymap("x", "<A-k>", ":move '<-2<CR>gv-gv", opts)
 keymap("x", "<A-h>", "<gv", opts)
 keymap("x", "<A-l>", ">gv", opts)
 
--- nvimtree
-keymap("n", "<leader>e", ":NvimTreeToggle<CR>", opts)
-
--- format file using formatter.nvim
-keymap("n", "<C-f>", ":Format<CR>", opts)
-
 -- makes I still enter current position in insert mode
 keymap("n", "I", "i", opts)
-
 
 -- makes so $ goes one more after the last character
 keymap("n", "$", "$l", opts)
@@ -72,12 +65,6 @@ keymap("x", "$", "$h", opts)
 if vim.fn.getenv("WSLENV") ~= vim.NIL then
 	vim.keymap.set("n", "gx", ":silent :execute '!wslview ' . shellescape(expand('<cfile>'), 1)<CR>", opts)
 end
-
--- stylua: ignore start
--- scissors configuration
-vim.keymap.set("n", "<leader>se", function() require("scissors").editSnippet() end, opts)
-vim.keymap.set({ "n", "x" }, "<leader>sa", function() require("scissors").addNewSnippet() end, opts)
--- stylua: ignore end
 
 -- close tab and go to another buffer, if there's one.
 local status_ok_br, br = pcall(require, "mini.bufremove")
@@ -101,9 +88,6 @@ vim.keymap.set("n", "<C-x>", function()
 	end
 end, opts)
 -- stylua: ignore end
-
--- code snap
-keymap("x", "<leader>cc", ":CodeSnapSave<CR>", opts)
 
 -- fzf configuration
 keymap("n", "<leader>ff", ":FzfLua files<CR>", opts)
