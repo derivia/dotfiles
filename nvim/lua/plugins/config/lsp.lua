@@ -89,6 +89,14 @@ lspconfig.lua_ls.setup({
 	},
 })
 
+lspconfig.pylsp.setup({
+	on_attach = on_attach,
+	capabilities = capabilities(),
+	settings = {
+		pylsp = {},
+	},
+})
+
 tstools.setup({
 	on_attach = on_attach,
 	capabilities = capabilities(),
@@ -116,26 +124,6 @@ tstools.setup({
 		},
 	},
 })
-
--- lspconfig.rust_analyzer.setup({
--- 	settings = {
--- 		["rust-analyzer"] = {
--- 			cargo = {
--- 				allFeatures = true,
--- 			},
--- 			imports = {
--- 				group = {
--- 					enable = false,
--- 				},
--- 			},
--- 			completion = {
--- 				postfix = {
--- 					enable = false,
--- 				},
--- 			},
--- 		},
--- 	},
--- })
 
 vim.g.rustaceanvim = {
 	server = {

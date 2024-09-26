@@ -22,9 +22,10 @@ masontools.setup({
 		"clangd",
 		"lua-language-server",
 		"prisma-language-server",
-		"pyright",
 		"rust-analyzer",
+		"python-lsp-server",
 		"typescript-language-server",
+		"pyright",
 
 		-- formatter
 		"black",
