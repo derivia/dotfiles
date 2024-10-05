@@ -4,11 +4,7 @@ export PSQL_EDITOR="$(which vim)"
 export PNPM_HOME="$HOME/.local/share/pnpm"
 export SYSTEMD_EDITOR="vim"
 
-# This makes opening the windows system default browser from within WSL easier.
-# made following wslutilities instructions
-# [wslutilities]
-# Server = https://pkg.wslutiliti.es/arch/
-# finally, as root: pacman -Sy && pacman -S wslu
+# for wslutilities
 if [[ -n "$WSLENV" ]]; then
   export BROWSER="wslview"
 fi
@@ -54,11 +50,15 @@ alias mv='mv -i'
 # Should be added on git.config
 # git config --global alias.ls "log --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit"
 
+# alias for python environments
+alias penv="python -m venv .venv"
+alias pact=". .venv/bin/activate"
+
 export PYENV_ROOT="$HOME/.pyenv"
 [[ -d $PYENV_ROOT/bin ]] && export PATH="$PYENV_ROOT/bin:$PATH"
 eval "$(pyenv init -)"
 
 # taken from https://www.markhansen.co.nz/auto-start-tmux/
-if [ -n "$PS1" ] && [ -z "$TMUX" ]; then
-  tmux new-session -A -s main -c "$PWD"
-fi
+# if [ -n "$PS1" ] && [ -z "$TMUX" ]; then
+#   tmux new-session -A -s main -c "$PWD"
+# fi
