@@ -11,6 +11,7 @@ keymap("", "<C-q>", "<Nop>", opts)
 keymap("", "<C-c>", "<Nop>", opts)
 keymap("", "<C-y>", "<Nop>", opts)
 keymap("", "<C-d>", "<Nop>", opts)
+keymap("", "<C-f>", "<Nop>", opts)
 keymap("", "<S-j>", "<Nop>", opts)
 
 -- center search results
