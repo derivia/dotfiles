@@ -4,6 +4,15 @@ export PSQL_EDITOR="$(which vim)"
 export PNPM_HOME="$HOME/.local/share/pnpm"
 export SYSTEMD_EDITOR="vim"
 
+# BEGIN HISTORY
+export HISTSIZE=5000000
+export SAVEHIST=$HISTSIZE
+setopt HIST_SAVE_NO_DUPS
+setopt SHARE_HISTORY
+setopt INC_APPEND_HISTORY
+setopt HIST_SAVE_NO_DUPS
+# END HISTORY
+
 # for wslutilities
 if [[ -n "$WSLENV" ]]; then
   export BROWSER="wslview"
@@ -47,12 +56,13 @@ alias irb="irb --simple-prompt"
 
 # default to interactive move
 alias mv='mv -i'
-# Should be added on git.config
+
+# should be added on git.config
 # git config --global alias.ls "log --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit"
 
 # alias for python environments
 alias penv="python -m venv .venv"
-alias pact=". .venv/bin/activate"
+alias pact="source .venv/bin/activate"
 
 export PYENV_ROOT="$HOME/.pyenv"
 [[ -d $PYENV_ROOT/bin ]] && export PATH="$PYENV_ROOT/bin:$PATH"
