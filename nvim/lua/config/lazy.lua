@@ -9,7 +9,7 @@ require("lazy").setup({
 	{
 		"mhartington/formatter.nvim",
 		keys = {
-			{ "<C-f>", "<cmd>Format<cr>", desc = "Format current file using filetype formatter" },
+			{ "<leader><C-f>", "<cmd>Format<cr>", desc = "Format current file using filetype formatter" },
 		},
 	},
 
