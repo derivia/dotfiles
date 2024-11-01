@@ -57,6 +57,9 @@ alias irb="irb --simple-prompt"
 # default to interactive move
 alias mv='mv -i'
 
+# `multi`cat every file on cwd by extension
+alias mcat='f() { if [ "$#" -ne 1 ]; then echo "usage: mcat <extension>"; return 1; fi; for file in $(find . -maxdepth 1 -name "*.$1"); do echo "--------------- ${file}" && cat "${file}"; done }; f'
+
 # should be added on git.config
 # git config --global alias.ls "log --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit"
 
@@ -69,6 +72,6 @@ export PYENV_ROOT="$HOME/.pyenv"
 eval "$(pyenv init -)"
 
 # taken from https://www.markhansen.co.nz/auto-start-tmux/
-# if [ -n "$PS1" ] && [ -z "$TMUX" ]; then
-#   tmux new-session -A -s main -c "$PWD"
-# fi
+if [ -n "$PS1" ] && [ -z "$TMUX" ]; then
+  tmux new-session -A -s main -c "$PWD"
+fi
