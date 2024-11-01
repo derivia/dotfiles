@@ -1,1 +1,1 @@
-{"strfrom":{"body":"String::from(\"\")","prefix":"strfrom"},"start":{"body":"#![allow(dead_code, unused_variables)]","prefix":"start"},"tests":{"body":["#[cfg(test)]","mod tests {}"],"prefix":"tests"}}
+{"tests":{"body":["#[cfg(test)]","mod tests {}"],"prefix":"tests"},"strfrom":{"body":"String::from(\"\")","prefix":"strfrom"},"start":{"body":"#![allow(dead_code, unused_mut, unused_variables)]","prefix":"start"}}
