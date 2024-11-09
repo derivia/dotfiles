@@ -63,9 +63,12 @@ alias mcat='f() { if [ "$#" -ne 1 ]; then echo "usage: mcat <extension>"; return
 # should be added on git.config
 # git config --global alias.ls "log --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit"
 
-# alias for python environments
-alias penv="python -m venv .venv"
-alias pact="source .venv/bin/activate"
+# aliases for python environments
+alias penv="python -m venv .venv_$(basename $(pwd) | cut -c1-16)" # create new .venv based on cwd
+alias pact="source .venv_$(basename $(pwd) | cut -c1-16)/bin/activate" # activate venv based on cwd
+
+# aliases for docker
+alias dpsc="docker ps --format 'table {{.ID}}\t{{.Status}}\t{{.Ports}}\t{{.Names}}'" # prettier docker ps
 
 export PYENV_ROOT="$HOME/.pyenv"
 [[ -d $PYENV_ROOT/bin ]] && export PATH="$PYENV_ROOT/bin:$PATH"
