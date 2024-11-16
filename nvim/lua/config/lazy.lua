@@ -4,6 +4,7 @@ require("lazy").setup({
 
 	-- Colorscheme(s)
 	{ "rebelot/kanagawa.nvim", lazy = false, priority = 1000 },
+	{ "catppuccin/nvim", name = "catppuccin", lazy = false, priority = 1000 },
 
 	-- Code formatter
 	{
@@ -17,8 +18,6 @@ require("lazy").setup({
 	{
 		"mistricky/codesnap.nvim",
 		build = "make",
-		-- If lazy, the snap doesn't work on first try
-		lazy = false,
 		keys = {
 			{ "<leader>cc", mode = "x", "<cmd>CodeSnapSave<cr>", desc = "Save current selected text to ~/snaps" },
 		},

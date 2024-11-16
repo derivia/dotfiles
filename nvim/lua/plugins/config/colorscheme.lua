@@ -1,6 +1,7 @@
-local status_ok, kanagawa = pcall(require, "kanagawa")
-if not status_ok then
-	vim.notify("plugin" .. kanagawa .. "failed to start")
+local status_ok_kanagawa, kanagawa = pcall(require, "kanagawa")
+local status_ok_catppuccin, catppuccin = pcall(require, "catppuccin")
+if not status_ok_kanagawa or not status_ok_catppuccin then
+	vim.notify("colorschemes failed to start")
 	return
 end
 
@@ -29,6 +30,17 @@ kanagawa.setup({
 			fujiGray = "#858585",
 		},
 	},
+})
+
+catppuccin.setup({
+	flavour = "frappe",
+	background = {
+		light = "latte",
+		dark = "frappe",
+	},
+	no_italic = true,
+	no_bold = true,
+	no_underline = false,
 })
 
 pcall(vim.cmd.colorscheme, "kanagawa")
