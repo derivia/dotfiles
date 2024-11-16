@@ -1,8 +1,12 @@
 export PATH=$PATH:$HOME/.cargo/bin:$HOME/.local/share/pnpm:$HOME/.local/bin
 export ZSH="$HOME/.oh-my-zsh"
-export PSQL_EDITOR="$(which vim)"
 export PNPM_HOME="$HOME/.local/share/pnpm"
-export SYSTEMD_EDITOR="vim"
+export EDITOR="$(which vim)"
+export PSQL_EDITOR="$EDITOR"
+export SYSTEMD_EDITOR="$EDITOR"
+export FCEDIT="$EDITOR"
+export VISUAL="$EDITOR"
+export SUDO_EDITOR="$EDITOR"
 
 # BEGIN HISTORY
 export HISTSIZE=5000000
@@ -75,6 +79,6 @@ export PYENV_ROOT="$HOME/.pyenv"
 eval "$(pyenv init -)"
 
 # taken from https://www.markhansen.co.nz/auto-start-tmux/
-if [ -n "$PS1" ] && [ -z "$TMUX" ]; then
-  tmux new-session -A -s main -c "$PWD"
-fi
+# if [ -n "$PS1" ] && [ -z "$TMUX" ]; then
+#   tmux new-session -A -s main -c "$PWD"
+# fi
