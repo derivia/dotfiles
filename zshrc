@@ -68,8 +68,13 @@ alias mcat='f() { if [ "$#" -ne 1 ]; then echo "usage: mcat <extension>"; return
 # git config --global alias.ls "log --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit"
 
 # aliases for python environments
-alias penv="python -m venv .venv_$(basename $(pwd) | cut -c1-16)" # create new .venv based on cwd
-alias pact="source .venv_$(basename $(pwd) | cut -c1-16)/bin/activate" # activate venv based on cwd
+# alias penv="python -m venv .venv_$(basename $(pwd) | cut -c1-16)" # create new .venv based on cwd
+# a function is necessary because "pwd" would be set only one time on the alias
+# penv() {
+#     python -m venv .venv_$(basename "$(pwd)" | cut -c1-16)
+# }
+alias penv='f() { python -m venv .venv_$(basename "$(pwd)" | cut -c1-16); }; f' # create new .venv based on cwd
+alias pact='f() { source .venv_$(basename "$(pwd)" | cut -c1-16)/bin/activate; }; f' # activate venv based on cwd
 
 # aliases for docker
 alias dpsc="docker ps --format 'table {{.ID}}\t{{.Status}}\t{{.Ports}}\t{{.Names}}'" # prettier docker ps
