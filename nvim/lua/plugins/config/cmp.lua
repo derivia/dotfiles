@@ -17,7 +17,7 @@ local truncate = function(str, len)
 		return str
 	end
 
-	return str:sub(1, len - 1) .. "…"
+	return str:sub(1, len - 1) .. ""
 end
 
 cmp.setup({
