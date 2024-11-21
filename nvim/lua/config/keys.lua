@@ -84,3 +84,59 @@ vim.keymap.set("n", "<C-x>", function()
 	end
 end, opts)
 -- stylua: ignore end
+
+local function generate_table_of_contents()
+	-- Get current cursor position
+	local cursor_line = vim.fn.line(".")
+
+	-- Function to convert header to link
+	local function header_to_link(header)
+		-- Remove leading # and trim whitespace
+		local title = header:gsub("^#+%s*", ""):gsub("%s*$", "")
+
+		-- Convert to lowercase
+		title = title:lower()
+
+		-- Replace spaces with hyphens
+		title = title:gsub("%s+", "-")
+
+		-- Remove special characters
+		title = title:gsub("[^a-z0-9-]", "")
+
+		return title
+	end
+
+	-- Collect headers after cursor
+	local headers = {}
+	local lines = vim.api.nvim_buf_get_lines(0, cursor_line - 1, -1, false)
+
+	for i, line in ipairs(lines) do
+		if line:match("^#+%s") then
+			-- Extract header level and text
+			local level = line:match("^(#+)"):len()
+			local title = line:gsub("^#+%s*", "")
+
+			table.insert(headers, {
+				level = level,
+				title = title,
+				link = header_to_link(line),
+			})
+		end
+	end
+
+	-- Generate TOC
+	local toc_lines = { "- Table of contents" }
+	for _, header in ipairs(headers) do
+		table.insert(toc_lines, string.format("    - [%s](#%s)", header.title, header.link))
+	end
+
+	-- Insert TOC after current line
+	vim.api.nvim_buf_set_lines(0, cursor_line, cursor_line, false, toc_lines)
+end
+
+-- Create a keymap to trigger the TOC generation
+vim.keymap.set("n", "<leader>toc", generate_table_of_contents, {
+	noremap = true,
+	silent = true,
+	desc = "Generate Markdown Table of Contents",
+})
