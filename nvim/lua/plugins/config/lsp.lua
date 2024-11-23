@@ -40,7 +40,7 @@ local on_attach = function(client, bufnr)
 		keymap("K", "<cmd>lua vim.lsp.buf.hover()<CR>", "Peek definition", "n")
 	end
 	if client.supports_method(methods.textDocument_rename) then
-		keymap("rn", "<cmd>lua vim.lsp.buf.rename()<CR>", "Rename symbol", { "n", "x" })
+		keymap("lrn", "<cmd>lua vim.lsp.buf.rename()<CR>", "Rename symbol", { "n", "x" })
 	end
 	if client.supports_method(methods.textDocument_declaration) then
 		keymap("gD", "<cmd>lua vim.lsp.buf.declaration()<CR>", "Go to declaration", "n")
@@ -53,6 +53,9 @@ local on_attach = function(client, bufnr)
 	end
 	if client.supports_method(methods.textDocument_codeAction) then
 		keymap("ca", "<cmd>lua vim.lsp.buf.code_action()<CR>", "Code actions", { "n", "x" })
+	end
+	if client.supports_method(methods.textDocument_references) then
+		keymap("gr", "<cmd>lua vim.lsp.buf.references()<CR>", "See usage (references)", { "n", "x" })
 	end
 end
 
