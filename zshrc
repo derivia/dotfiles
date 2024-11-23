@@ -20,6 +20,7 @@ setopt HIST_SAVE_NO_DUPS
 # for wslutilities
 if [[ -n "$WSLENV" ]]; then
   export BROWSER="wslview"
+  alias oc="open_command"
 fi
 
 ZSH_THEME="gentoo"
@@ -63,16 +64,13 @@ alias mv='mv -i'
 
 # `multi`cat every file on cwd by extension
 alias mcat='f() { if [ "$#" -ne 1 ]; then echo "usage: mcat <extension>"; return 1; fi; for file in $(find . -maxdepth 1 -name "*.$1"); do echo "--------------- ${file}" && cat "${file}"; done }; f'
+# `multi`cat every file, recursively, by extension
+alias mcatr='f() { if [ "$#" -ne 1 ]; then echo "usage: mcatr <extension>"; return 1; fi; for file in $(find . -type f -name "*.$1"); do echo "--------------- ${file}" && cat "${file}"; done }; f'
 
 # should be added on git.config
 # git config --global alias.ls "log --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit"
 
 # aliases for python environments
-# alias penv="python -m venv .venv_$(basename $(pwd) | cut -c1-16)" # create new .venv based on cwd
-# a function is necessary because "pwd" would be set only one time on the alias
-# penv() {
-#     python -m venv .venv_$(basename "$(pwd)" | cut -c1-16)
-# }
 alias penv='f() { python -m venv .venv_$(basename "$(pwd)" | cut -c1-16); }; f' # create new .venv based on cwd
 alias pact='f() { source .venv_$(basename "$(pwd)" | cut -c1-16)/bin/activate; }; f' # activate venv based on cwd
 
