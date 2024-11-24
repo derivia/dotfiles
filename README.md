@@ -4,7 +4,7 @@
 1. $ sudo pacman -Syyuu (after keyring configuration)
 2. $ sudo pacman -S reflector
 3. $ reflector --country Brazil --age 24 --protocol https --sort rate --save /etc/pacman.d/mirrorlist
-4. $ sudo pacman -S ripgrep-all poppler httpie net-tools tmux lua51 tree-sitter-cli freetype2 fontconfig pkg-config make libxcb libxkbcommon python wofi oniguruma dbus-glib libyaml libnotify bat electron tree-sitter luarocks neovim ripgrep fd base-devel docker docker-compose zsh git openssh glibc libffi libyaml openssl zlib fzf unzip tar zip python python-pipx postgresql sqlite cmake ninja rustup vim wget gzip tar curl man-db less tree man-pages
+4. $ sudo pacman -S ttf-roboto-mono-nerd ripgrep-all poppler httpie net-tools tmux lua51 tree-sitter-cli freetype2 fontconfig pkg-config make libxcb libxkbcommon python wofi oniguruma dbus-glib libyaml libnotify bat electron tree-sitter luarocks neovim ripgrep fd base-devel docker docker-compose zsh git openssh glibc libffi libyaml openssl zlib fzf unzip tar zip python python-pipx postgresql sqlite cmake ninja rustup vim wget gzip tar curl man-db less tree man-pages
     - also install some openjdk
 5. $ rustup default stable
 6. generate ssh keys:
