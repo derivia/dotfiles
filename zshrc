@@ -62,10 +62,16 @@ alias irb="irb --simple-prompt"
 # default to interactive move
 alias mv='mv -i'
 
+# use bat (instead of cat) as viewer if available
+if command -v bat &>/dev/null; then
+  VIEWER=bat
+else
+  VIEWER=cat
+fi
 # `multi`cat every file on cwd by extension
-alias mcat='f() { if [ "$#" -ne 1 ]; then echo "usage: mcat <extension>"; return 1; fi; for file in $(find . -maxdepth 1 -name "*.$1"); do echo "--------------- ${file}" && cat "${file}"; done }; f'
+alias mcat='f() { if [ "$#" -ne 1 ]; then echo "usage: mcat <extension>"; return 1; fi; for file in $(find . -maxdepth 1 -name "*.$1"); do echo "--------------- ${file}" && $VIEWER "${file}"; done }; f'
 # `multi`cat every file, recursively, by extension
-alias mcatr='f() { if [ "$#" -ne 1 ]; then echo "usage: mcatr <extension>"; return 1; fi; for file in $(find . -type f -name "*.$1"); do echo "--------------- ${file}" && cat "${file}"; done }; f'
+alias mcatr='f() { if [ "$#" -ne 1 ]; then echo "usage: mcatr <extension>"; return 1; fi; for file in $(find . -type f -name "*.$1"); do echo "--------------- ${file}" && $VIEWER "${file}"; done }; f'
 
 # should be added on git.config
 # git config --global alias.ls "log --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit"
