@@ -4,12 +4,13 @@ if not status_ok then
 end
 
 plugin.setup({
-	save_path = "~/snaps",
-	has_breadcrumbs = false,
 	bg_color = "#232323",
+	bg_padding = 2,
+	code_font_family = "RobotoMono Nerd Font",
+	has_breadcrumbs = false,
+	has_line_number = true,
+	mac_window_bar = false,
+	save_path = "~/snaps",
 	title = "",
 	watermark = "",
-	has_line_number = true,
-	bg_padding = 2,
-	mac_window_bar = false,
 })
