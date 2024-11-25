@@ -21,7 +21,7 @@ plugin.setup({
 	update_cwd = true,
 	update_focused_file = {
 		enable = true,
-		update_cwd = true,
+		update_cwd = false,
 	},
 	on_attach = own_on_attach,
 	select_prompts = true,
