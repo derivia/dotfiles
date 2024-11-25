@@ -116,9 +116,9 @@ local function generate_table_of_contents()
 		end
 	end
 
-	local toc_lines = { "- Table of contents" }
+	local toc_lines = { "## Table of Contents:", "" }
 	for _, header in ipairs(headers) do
-		table.insert(toc_lines, string.format("    - [%s](#%s)", header.title, header.link))
+		table.insert(toc_lines, string.format("- [%s](#%s)", header.title, header.link))
 	end
 
 	vim.api.nvim_buf_set_lines(0, cursor_line, cursor_line, false, toc_lines)
