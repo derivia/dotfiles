@@ -23,6 +23,11 @@ require("lazy").setup({
 		},
 	},
 
+	-- Project-wide renaming
+	{
+		"nvim-pack/nvim-spectre",
+	},
+
 	-- Diagnostics!
 	{
 		"folke/trouble.nvim",
