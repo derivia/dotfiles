@@ -4,7 +4,6 @@ require("lazy").setup({
 
 	-- Colorscheme(s)
 	{ "rebelot/kanagawa.nvim", lazy = false, priority = 1000 },
-	{ "catppuccin/nvim", name = "catppuccin", lazy = false, priority = 1000 },
 
 	-- Code formatter
 	{
@@ -26,6 +25,9 @@ require("lazy").setup({
 	-- Project-wide renaming
 	{
 		"nvim-pack/nvim-spectre",
+		keys = {
+			{ "<leader>sp", "<cmd>Spectre<cr>", desc = "Open Spectre panel" },
+		},
 	},
 
 	-- Diagnostics!
@@ -153,14 +155,6 @@ require("lazy").setup({
 					delay = 50,
 				},
 			},
-		},
-	},
-
-	-- Comment out and uncomment
-	{
-		"numToStr/Comment.nvim",
-		dependencies = {
-			{ "JoosepAlviste/nvim-ts-context-commentstring" },
 		},
 	},
 
