@@ -1,11 +1,10 @@
-local status_ok_kanagawa, kanagawa = pcall(require, "kanagawa")
-local status_ok_catppuccin, catppuccin = pcall(require, "catppuccin")
-if not status_ok_kanagawa or not status_ok_catppuccin then
+local status_ok, plugin = pcall(require, "kanagawa")
+if not status_ok then
 	vim.notify("colorschemes failed to start")
 	return
 end
 
-kanagawa.setup({
+plugin.setup({
 	compile = false,
 	undercurl = false,
 	commentStyle = { italic = false },
@@ -32,15 +31,10 @@ kanagawa.setup({
 	},
 })
 
-catppuccin.setup({
-	flavour = "frappe",
-	background = {
-		light = "latte",
-		dark = "frappe",
-	},
-	no_italic = true,
-	no_bold = true,
-	no_underline = false,
-})
+local colorscheme = "kanagawa"
 
-pcall(vim.cmd.colorscheme, "kanagawa")
+local status_ok_applied, colorscheme_applied = pcall(vim.cmd.colorscheme, colorscheme)
+if not status_ok_applied then
+	vim.notify(string.format("failed to apply %s", colorscheme_applied))
+	return
+end
