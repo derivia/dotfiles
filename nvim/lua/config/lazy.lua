@@ -11,24 +11,14 @@ require("lazy").setup({
 		main = "ibl",
 		event = { "BufReadPre", "BufNewFile" },
 		opts = {
-			debounce = 100,
-			indent = { char = "┊" },
+			indent = { char = "┇" },
 			exclude = {
 				filetypes = { "markdown" },
-			},
-			scope = {
-				enabled = false,
 			},
 		},
 	},
 
-	-- Show file + filetype above window
-	{
-		"b0o/incline.nvim",
-		event = "VeryLazy",
-	},
-
-	-- Save selectec code as image, with syntax highlighting
+	-- Save selected code as image, with syntax highlighting
 	{
 		"mistricky/codesnap.nvim",
 		build = "make",
@@ -258,9 +248,7 @@ require("lazy").setup({
 					typescriptreact = { "biome", "estlint_d" },
 					yaml = { "biome" },
 				},
-				format_after_save = {
-					enable = false,
-				},
+				format_after_save = nil,
 				vim.keymap.set({ "n", "v" }, "<leader><C-f>", function()
 					conform.format({
 						lsp_fallback = true,
