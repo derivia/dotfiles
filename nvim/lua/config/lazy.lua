@@ -6,12 +6,12 @@ require("lazy").setup({
 	{ "rebelot/kanagawa.nvim", lazy = false, priority = 1000 },
 
 	-- Code formatter
-	{
-		"mhartington/formatter.nvim",
-		keys = {
-			{ "<leader><C-f>", "<cmd>Format<cr>", desc = "Format current file using filetype formatter" },
-		},
-	},
+	-- {
+	-- 	"mhartington/formatter.nvim",
+	-- 	keys = {
+	-- 		{ "<leader><C-f>", "<cmd>Format<cr>", desc = "Format current file using filetype formatter" },
+	-- 	},
+	-- },
 
 	-- Print with syntax highlighting
 	{
@@ -19,6 +19,14 @@ require("lazy").setup({
 		build = "make",
 		keys = {
 			{ "<leader>cc", mode = "x", "<cmd>CodeSnapSave<cr>", desc = "Save current selected text to ~/snaps" },
+		},
+	},
+
+	-- Todo-List Management
+	{
+		"atiladefreitas/dooing",
+		opts = {
+			save_path = vim.fn.stdpath("data") .. "/personal-todos.json",
 		},
 	},
 
@@ -121,13 +129,145 @@ require("lazy").setup({
 	},
 
 	-- Useful UI plugin to use with others
-	{ "stevearc/dressing.nvim" },
+	{
+		"stevearc/dressing.nvim",
+		opts = {
+			input = {
+				enabled = true,
+				default_prompt = "Input",
+				trim_prompt = true,
+				title_pos = "center",
+				start_in_insert = true,
+				border = "rounded",
+				relative = "cursor",
+				prefer_width = 40,
+				width = nil,
+				max_width = { 140, 0.9 },
+				min_width = { 20, 0.2 },
+				buf_options = {},
+				win_options = {
+					wrap = false,
+					list = true,
+					listchars = "precedes:…,extends:…",
+					sidescrolloff = 0,
+				},
+				mappings = {
+					n = {
+						["<Esc>"] = "Close",
+						["<CR>"] = "Confirm",
+					},
+					i = {
+						["<C-c>"] = "Close",
+						["<CR>"] = "Confirm",
+						["<Up>"] = "HistoryPrev",
+						["<Down>"] = "HistoryNext",
+					},
+				},
+				get_config = nil,
+			},
+			select = {
+				enabled = true,
+				backend = { "telescope", "fzf_lua", "fzf", "builtin", "nui" },
+				trim_prompt = true,
+				telescope = nil,
+				fzf = {
+					window = {
+						width = 0.5,
+						height = 0.4,
+					},
+				},
+				builtin = {
+					show_numbers = true,
+					border = "rounded",
+					relative = "editor",
+
+					buf_options = {},
+					win_options = {
+						cursorline = true,
+						cursorlineopt = "both",
+					},
+					width = nil,
+					max_width = { 140, 0.8 },
+					min_width = { 40, 0.2 },
+					height = nil,
+					max_height = 0.9,
+					min_height = { 10, 0.2 },
+					mappings = {
+						["<Esc>"] = "Close",
+						["<C-c>"] = "Close",
+						["<CR>"] = "Confirm",
+					},
+				},
+				format_item_override = {},
+				get_config = nil,
+			},
+		},
+	},
+
+	{
+		"stevearc/conform.nvim",
+		event = { "BufReadPre", "BufNewFile" },
+		config = function()
+			local status_ok, conform = pcall(require, "conform")
+			if not status_ok then
+				return
+			end
+
+			conform.setup({
+				log_level = vim.log.levels.DEBUG,
+				formatters = {
+					clang_format = {
+						command = "clang-format",
+						append_args = function()
+							return {
+								"--style={AllowShortFunctionsOnASingleLine: None, AlignConsecutiveMacros: true, AlignEscapedNewlines: Left, BreakBeforeBraces: Linux, SpaceAfterLogicalNot: false, SpaceAfterTemplateKeyword: false, SpaceAfterCStyleCast: false, ReferenceAlignment: Pointer, PointerAlignment: Right, ReflowComments: false, KeepEmptyLinesAtTheStartOfBlocks: false, KeepEmptyLinesAtEOF: false, IndentWidth: 2, ColumnLimit: 80}",
+							}
+						end,
+					},
+				},
+				formatters_by_ft = {
+					c = { "clang_format" },
+					cpp = { "clang_format" },
+					css = { "biome" },
+					graphql = { "biome" },
+					html = { "biome" },
+					javascript = { "biome", "estlint_d" },
+					javascriptreact = { "biome", "estlint_d" },
+					json = { "biome" },
+					liquid = { "biome" },
+					lua = { "stylua" },
+					python = { "black" },
+					rust = { "rustfmt" }, --
+					svelte = { "biome" },
+					typescript = { "biome", "estlint_d" },
+					typescriptreact = { "biome", "estlint_d" },
+					yaml = { "biome" },
+				},
+				format_after_save = {
+					enable = false,
+				},
+				vim.keymap.set({ "n", "v" }, "<leader><C-f>", function()
+					conform.format({
+						lsp_fallback = true,
+						async = true,
+						timeout_ms = 500,
+					})
+				end, { desc = "Format file | range" }),
+			})
+		end,
+	},
 
 	-- Autopairs
 	{
 		"windwp/nvim-autopairs",
 		event = "InsertEnter",
-		opts = { disable_filetype = { "markdown" } },
+		opts = {
+			disable_filetype = { "markdown" },
+			check_ts = true,
+			ts_config = {
+				javascript = { "template_string" },
+			},
+		},
 	},
 
 	-- Markdown autocmds
