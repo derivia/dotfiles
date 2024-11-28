@@ -29,6 +29,7 @@ masontools.setup({
 
 		-- formatter
 		"black",
+    "biome",
 		"clang-format",
 		"stylua",
 		-- rustfmt should be installed via rustup
