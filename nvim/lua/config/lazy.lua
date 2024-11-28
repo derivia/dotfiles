@@ -5,13 +5,63 @@ require("lazy").setup({
 	-- Colorscheme(s)
 	{ "rebelot/kanagawa.nvim", lazy = false, priority = 1000 },
 
-	-- Code formatter
-	-- {
-	-- 	"mhartington/formatter.nvim",
-	-- 	keys = {
-	-- 		{ "<leader><C-f>", "<cmd>Format<cr>", desc = "Format current file using filetype formatter" },
-	-- 	},
-	-- },
+	{
+		"b0o/incline.nvim",
+		opts = {
+			debounce_threshold = {
+				falling = 50,
+				rising = 10,
+			},
+			hide = {
+				cursorline = false,
+				focused_win = false,
+				only_win = false,
+			},
+			highlight = {
+				groups = {
+					InclineNormal = {
+						default = true,
+						group = "NormalFloat",
+					},
+					InclineNormalNC = {
+						default = true,
+						group = "NormalFloat",
+					},
+				},
+			},
+			ignore = {
+				buftypes = "special",
+				filetypes = {},
+				floating_wins = true,
+				unlisted_buffers = true,
+				wintypes = "special",
+			},
+			render = function(props)
+				local helpers = require("incline.helpers")
+				local devicons = require("nvim-web-devicons")
+				local filename = vim.fn.fnamemodify(vim.api.nvim_buf_get_name(props.buf), ":t")
+				if filename == "" then
+					filename = "[No Name]"
+				end
+				local ft_icon, ft_color = devicons.get_icon_color(filename)
+				local modified = vim.bo[props.buf].modified
+				return {
+					ft_icon and { " ", ft_icon, " ", guibg = ft_color, guifg = helpers.contrast_color(ft_color) } or "",
+					" ",
+					{ filename, gui = modified and "bold,italic" or "bold" },
+					" ",
+					guibg = "#3a3a80",
+				}
+			end,
+			window = {
+				padding = 0,
+				margin = {
+					horizontal = 0,
+				},
+			},
+		},
+		event = "VeryLazy",
+	},
 
 	-- Print with syntax highlighting
 	{
@@ -276,7 +326,6 @@ require("lazy").setup({
 	-- Fuzzy finder
 	{
 		"ibhagwan/fzf-lua",
-		config = true,
 		keys = {
 			{ "<leader>ff", "<cmd>FzfLua files<cr>", desc = "Search files recursively" },
 			{ "<leader>fb", "<cmd>FzfLua buffers<cr>", desc = "Switch between opened buffers" },
@@ -284,18 +333,37 @@ require("lazy").setup({
 			{ "<leader>fo", "<cmd>FzfLua oldfiles<cr>", desc = "Search into recent opened files" },
 			{ "<leader>fr", "<cmd>FzfLua resume<cr>", desc = "Run the last command again" },
 		},
-		opts = {
-			winopts = {
-				split = "belowright new",
-				border = "none",
-				backdrop = 0,
-				fullscreen = false,
-				preview = {
-					border = "noborder",
-					delay = 50,
+		config = function()
+			local actions = require("fzf-lua.actions")
+			local status_ok, fzf_lua = pcall(require, "fzf-lua")
+			if not status_ok then
+				return
+			end
+
+			fzf_lua.setup({
+				winopts = {
+					split = "belowright new",
+					border = "none",
+					backdrop = 0,
+					fullscreen = false,
+					preview = {
+						border = "noborder",
+						delay = 50,
+					},
 				},
-			},
-		},
+				actions = {
+					files = {
+						false,
+						["enter"] = actions.file_edit_or_qf,
+						["ctrl-j"] = actions.file_split,
+						["ctrl-l"] = actions.file_vsplit,
+						["ctrl-t"] = actions.file_tabedit,
+						["alt-q"] = actions.file_sel_to_qf,
+						["alt-Q"] = actions.file_sel_to_ll,
+					},
+				},
+			})
+		end,
 	},
 
 	-- Better typescript LSP & Linting
