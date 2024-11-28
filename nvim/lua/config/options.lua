@@ -49,8 +49,8 @@ o.termguicolors = true
 -- sets the default tab (as spaces) size
 o.shiftwidth = 2
 o.tabstop = 2
--- highlights the current line
-o.cursorline = true
+-- don't highlight the current line
+o.cursorline = false
 -- line numbers
 o.number = true
 o.numberwidth = 2
