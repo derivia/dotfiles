@@ -4,6 +4,12 @@
 VIMRCSTAT="$(cmp --silent "./vimrc" "$HOME/.vimrc"; echo $?)"
 ZSHRCSTAT="$(cmp --silent "./zshrc" "$HOME/.zshrc"; echo $?)"
 TMUXSTAT="$(cmp --silent "./tmux.conf" "$HOME/.tmux.conf"; echo $?)"
+GCSTAT="$(cmp --silent "./gitconfig" "$HOME/.gitconfig"; echo $?)"
+
+if [[ $GCSTAT -ne 0 ]]; then
+  cp "$HOME/.gitconfig" ./gitconfig
+  echo "gitconfig updated"
+fi
 
 if [[ $VIMRCSTAT -ne 0 ]]; then
   cp "$HOME/.vimrc" ./vimrc
