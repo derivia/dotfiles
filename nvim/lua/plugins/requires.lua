@@ -7,7 +7,7 @@ local plugins = {
 	"cmp",
 	"codesnap",
 	"colorizer",
-	-- "formatter",
+	"incline",
 	"lsp",
 	"lualine",
 	"luasnip",
