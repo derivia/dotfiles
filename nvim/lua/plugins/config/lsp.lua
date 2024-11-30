@@ -128,18 +128,36 @@ tstools.setup({
 	},
 })
 
-vim.g.rustaceanvim = {
-	server = {
-		on_attach = on_attach,
-		handlers = handlers,
-	},
-}
-
 local servers = {
 	"clangd",
 	"prismals",
 	"pyright",
 }
+
+lspconfig.rust_analyzer.setup({
+	on_attach = on_attach,
+	handlers = handlers,
+	capabilities = capabilities(),
+	settings = {
+		["rust-analyzer"] = {
+      cachePriming = {
+        enable = false
+      },
+			diagnostics = {
+				enable = true,
+				experimental = {
+					enable = true,
+				},
+				styleLints = {
+					enable = true,
+				},
+			},
+			completion = {
+				hideDeprecated = true,
+			},
+		},
+	},
+})
 
 for _, lsp in ipairs(servers) do
 	lspconfig[lsp].setup({
