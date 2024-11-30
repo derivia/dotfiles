@@ -22,14 +22,14 @@ masontools.setup({
 		"clangd",
 		"lua-language-server",
 		"prisma-language-server",
-		"rust-analyzer",
+		"pyright",
 		"python-lsp-server",
 		"typescript-language-server",
-		"pyright",
+		{ "rust-analyzer", version = "2024-10-21" },
 
 		-- formatter
 		"black",
-    "biome",
+		"biome",
 		"clang-format",
 		"stylua",
 		-- rustfmt should be installed via rustup

@@ -3,20 +3,7 @@ require("lazy").setup({
 	{ "nvim-lua/plenary.nvim" },
 
 	-- Colorscheme(s)
-	{ "rebelot/kanagawa.nvim", lazy = false, priority = 1000 },
-
-	-- Show indentation lines
-	{
-		"lukas-reineke/indent-blankline.nvim",
-		main = "ibl",
-		event = { "BufReadPre", "BufNewFile" },
-		opts = {
-			indent = { char = "┇" },
-			exclude = {
-				filetypes = { "markdown" },
-			},
-		},
-	},
+	{ "derivia/opera-vim", lazy = false, priority = 1000 },
 
 	-- Save selected code as image, with syntax highlighting
 	{
@@ -89,11 +76,11 @@ require("lazy").setup({
 	},
 
 	-- Rust tools
-	{
-		"mrcjkb/rustaceanvim",
-		version = "^5",
-		ft = "rust",
-	},
+	-- {
+	-- 	"mrcjkb/rustaceanvim",
+	-- 	version = "^5",
+	-- 	ft = "rust",
+	-- },
 
 	-- Snippet engine
 	{
@@ -247,6 +234,7 @@ require("lazy").setup({
 					typescript = { "biome", "estlint_d" },
 					typescriptreact = { "biome", "estlint_d" },
 					yaml = { "biome" },
+					["_"] = { "trim_whitespace" }, -- on all filetypes that aren't configured
 				},
 				format_after_save = nil,
 				vim.keymap.set({ "n", "v" }, "<leader><C-f>", function()
@@ -330,7 +318,4 @@ require("lazy").setup({
 }, {
 	ui = { border = "rounded" },
 	change_detection = { notify = false },
-	install = {
-		colorscheme = { "kanagawa" },
-	},
 })
