@@ -12,19 +12,27 @@ local has_words_before = function()
 	return col ~= 0 and vim.api.nvim_buf_get_lines(0, line - 1, line, true)[1]:sub(col, col):match("%s") == nil
 end
 
-local truncate = function(str, len)
-	if #str <= len then
-		return str
+local truncate = function(string, len, filetype)
+	if filetype == "rust" then
+		local use_match = string:match("^(%(use [^)]+%))")
+		if use_match then
+			return use_match:sub(1, len - 1) .. ""
+		end
+	end
+	if #string <= len then
+		return string
 	end
 
-	return str:sub(1, len - 1) .. ""
+	return string:sub(1, len - 1) .. ""
 end
 
 cmp.setup({
 	-- stop preselecting stuff
 	preselect = cmp.PreselectMode.None,
+
 	enabled = function()
 		-- disable completion in comments
+		-- taken from https://github.com/hrsh7th/nvim-cmp/wiki/Advanced-techniques
 		-- keep command mode completion enabled when cursor is in a comment
 		if vim.api.nvim_get_mode().mode == "c" then
 			return true
@@ -32,12 +40,13 @@ cmp.setup({
 			return not context.in_treesitter_capture("comment") and not context.in_syntax_group("Comment")
 		end
 	end,
+
 	-- taken from https://github.com/hrsh7th/nvim-cmp/issues/980
 	formatting = {
 		format = function(_, vim_item)
+			local filetype = vim.bo.filetype
 			local max_width
 			local cols = vim.o.columns
-
 			if cols > 90 then
 				max_width = math.floor(cols * 0.6)
 			else
@@ -45,19 +54,22 @@ cmp.setup({
 			end
 
 			if vim_item.menu then
-				max_width = max_width / 1.5
-				vim_item.menu = truncate(vim_item.menu, max_width)
+				max_width = max_width / 2.5
+				vim_item.menu = truncate(vim_item.menu, max_width, filetype)
 			end
 
-			vim_item.abbr = truncate(vim_item.abbr, max_width)
+			vim_item.abbr = truncate(vim_item.abbr, max_width * 0.3, filetype)
+
 			return vim_item
 		end,
 	},
+
 	snippet = {
 		expand = function(args)
 			luasnip.lsp_expand(args.body)
 		end,
 	},
+
 	window = {
 		completion = cmp.config.window.bordered({
 			winhighlight = "Normal:,FloatBorder:,CursorLine:Visual,Search:None",
