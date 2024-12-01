@@ -45,7 +45,13 @@ require("lazy").setup({
 	},
 
 	-- Treesitter parsing abstraction layer
-	{ "nvim-treesitter/nvim-treesitter", build = ":TSUpdate" },
+	{
+		"nvim-treesitter/nvim-treesitter",
+		build = ":TSUpdate",
+		dependencies = {
+			{ "nvim-treesitter/nvim-treesitter-textobjects" },
+		},
+	},
 
 	-- Auto cd to root
 	{ "ahmedkhalf/project.nvim" },
@@ -305,6 +311,14 @@ require("lazy").setup({
 				},
 			})
 		end,
+	},
+
+	-- Surround text objects with something
+	{
+		"kylechui/nvim-surround",
+		version = "*",
+		event = "VeryLazy",
+		opts = {},
 	},
 
 	-- Better typescript LSP & Linting
