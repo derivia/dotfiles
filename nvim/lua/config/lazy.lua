@@ -19,6 +19,15 @@ require("lazy").setup({
 		"atiladefreitas/dooing",
 		opts = {
 			save_path = vim.fn.stdpath("data") .. "/personal-todos.json",
+			keymaps = {
+				add_due_date = "H", -- Add due date to todo
+			},
+			window = {
+				width = 80,
+			},
+			calendar = {
+				language = "pt",
+			},
 		},
 	},
 
