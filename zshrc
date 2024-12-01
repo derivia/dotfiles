@@ -1,12 +1,15 @@
 export PATH=$HOME/.cargo/bin:$HOME/.local/share/pnpm:$HOME/.local/bin:$HOME/.ghcup/bin:$PATH
 export ZSH="$HOME/.oh-my-zsh"
 export PNPM_HOME="$HOME/.local/share/pnpm"
+
+# BEGIN EDITOR
 export EDITOR="$(which vim)"
 export PSQL_EDITOR="$EDITOR"
 export SYSTEMD_EDITOR="$EDITOR"
 export FCEDIT="$EDITOR"
 export VISUAL="$EDITOR"
 export SUDO_EDITOR="$EDITOR"
+# END EDITOR
 
 # BEGIN HISTORY
 export HISTSIZE=5000000
@@ -82,9 +85,6 @@ if command -v bat &>/dev/null; then
   alias mbatr='f() { if [ "$#" -ne 1 ]; then echo "usage: mbatr <extension>"; return 1; fi; for file in $(find . -type f -name "*.$1"); do echo "--------------- ${file}" && bat "${file}"; done }; f'
 fi
 
-# should be added on git.config
-# git config --global alias.ls "log --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit"
-
 # aliases for python environments
 alias penv='f() { python -m venv .venv_$(basename "$(pwd)" | cut -c1-16); }; f' # create new .venv based on cwd
 alias pact='f() { source .venv_$(basename "$(pwd)" | cut -c1-16)/bin/activate; }; f' # activate venv based on cwd
@@ -98,8 +98,3 @@ eval "$(pyenv init -)"
 
 # completely remove a file historical versions from some repository
 alias git-purge='f() { if [ "$#" -ne 1 ]; then echo "usage: git-purge <file>"; return 1; fi; git filter-branch --force --index-filter "git rm --cached --ignore-unmatch $1" --prune-empty --tag-name-filter cat -- --all; }; f'
-
-# taken from https://www.markhansen.co.nz/auto-start-tmux/
-# if [ -n "$PS1" ] && [ -z "$TMUX" ]; then
-#   tmux new-session -A -s main -c "$PWD"
-# fi
