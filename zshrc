@@ -1,4 +1,4 @@
-export PATH=$PATH:$HOME/.cargo/bin:$HOME/.local/share/pnpm:$HOME/.local/bin
+export PATH=$HOME/.cargo/bin:$HOME/.local/share/pnpm:$HOME/.local/bin:$HOME/.ghcup/bin:$PATH
 export ZSH="$HOME/.oh-my-zsh"
 export PNPM_HOME="$HOME/.local/share/pnpm"
 export EDITOR="$(which vim)"
@@ -95,6 +95,9 @@ alias dpsc="docker ps --format 'table {{.ID}}\t{{.Status}}\t{{.Ports}}\t{{.Names
 export PYENV_ROOT="$HOME/.pyenv"
 [[ -d $PYENV_ROOT/bin ]] && export PATH="$PYENV_ROOT/bin:$PATH"
 eval "$(pyenv init -)"
+
+# completely remove a file historical versions from some repository
+alias git-purge='f() { if [ "$#" -ne 1 ]; then echo "usage: git-purge <file>"; return 1; fi; git filter-branch --force --index-filter "git rm --cached --ignore-unmatch $1" --prune-empty --tag-name-filter cat -- --all; }; f'
 
 # taken from https://www.markhansen.co.nz/auto-start-tmux/
 # if [ -n "$PS1" ] && [ -z "$TMUX" ]; then
