@@ -20,7 +20,7 @@ require("lazy").setup({
 		opts = {
 			save_path = vim.fn.stdpath("data") .. "/personal-todos.json",
 			keymaps = {
-				add_due_date = "H", -- Add due date to todo
+				add_due_date = "H",
 			},
 			window = {
 				width = 80,
