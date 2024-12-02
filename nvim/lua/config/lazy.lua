@@ -25,6 +25,16 @@ require("lazy").setup({
 			window = {
 				width = 80,
 			},
+			formatting = {
+				pending = {
+					icon = "○",
+					format = { "icon", "text", "due_date" },
+				},
+				done = {
+					icon = "✓",
+					format = { "icon", "text" },
+				},
+			},
 			calendar = {
 				language = "pt",
 			},
