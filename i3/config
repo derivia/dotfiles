@@ -1,0 +1,110 @@
+# set modifiers
+set $super Mod4
+set $alt Mod1
+
+# font
+font pango:RobotoMono Nerd Font 9
+
+# wallpaper on startup
+exec --no-startup-id hsetroot -center ~/.wallpaper
+
+# notification daemon
+exec_always --no-startup-id dunst -config ~/.config/dunst/dunstrc
+
+# keybindings
+
+# terminal
+bindsym $super+Return exec i3-sensible-terminal
+
+# dmenu [application launcher]
+bindsym $super+d exec i3-dmenu-desktop --dmenu="dmenu -i -b \
+-fn 'RobotoMono Nerd Font:size=9' -nb '#141c21' -nf '#7A7F7F' \
+-sb '#289c93' -sf '#141c21'"
+
+# screenshot
+bindsym Print exec scrot '%a-%d%b%y_%H.%M.png'
+
+# close focused window
+bindsym $super+c kill
+bindsym $alt+F4 kill
+
+# move focus
+bindsym $super+h focus left
+bindsym $super+j focus down
+bindsym $super+k focus up
+bindsym $super+l focus right
+
+# move window around
+bindsym $super+Shift+h move left
+bindsym $super+Shift+j move down
+bindsym $super+Shift+k move up
+bindsym $super+Shift+l move right
+
+# toggle fullscreen, floating and focus mode
+bindsym $super+f fullscreen toggle
+bindsym $super+space floating toggle
+bindsym $super+Shift+space focus mode_toggle
+
+# workspace keybindings
+bindsym $super+Control+Right workspace next
+bindsym $super+Control+Left workspace prev
+bindsym $super+1 workspace 1:I
+bindsym $super+2 workspace 2:II
+bindsym $super+3 workspace 3:III
+bindsym $super+4 workspace 4:IV
+bindsym $super+5 workspace 5:V
+bindsym $super+6 workspace 6:VI
+bindsym $super+Shift+1 move container to workspace 1:I
+bindsym $super+Shift+2 move container to workspace 2:II
+bindsym $super+Shift+3 move container to workspace 3:III
+bindsym $super+Shift+4 move container to workspace 4:IV
+bindsym $super+Shift+5 move container to workspace 5:V
+bindsym $super+Shift+6 move container to workspace 6:VI
+
+# reload i3 config
+bindsym $super+BackSpace exec "i3-msg restart"
+
+# resize and keybindings
+mode "resize" {
+	bindsym Left resize shrink width 5 px or 5 ppt
+	bindsym Down resize grow height 5 px or 5 ppt
+	bindsym Up resize shrink height 5 px or 5 ppt
+	bindsym Right resize grow width 5 px or 5 ppt
+	bindsym Return mode "default"
+	}
+bindsym $super+r mode "resize"
+
+# bar at the top
+bar {
+	status_command i3status
+	position top
+	workspace_min_width 20
+	padding 5px 3px
+  tray_padding 8
+	strip_workspace_numbers yes
+	colors {
+      background #e8e1d1
+      statusline #020202
+      separator #020202
+
+      # name border background text
+      focused_workspace #c8c7b3 #96d4cf #7A7F7F
+      active_workspace #c8c7b3 #96d4cf #7A7F7F
+      inactive_workspace #c8c7b3 #c8c7b3 #7A7F7F
+      urgent_workspace #c8c7b3 #c73330 #7A7F7F
+	}
+}
+
+client.focused #d12f2c #263640 #7A7F7F #696ebf #2587cc1
+client.focused_inactive #263640 #b08500 #7A7F7F #263640 #263640
+client.unfocused #263640 #b08500 #7A7F7F #263640 #263640
+client.urgent #263640 #b08500 #7A7F7F #263640 #263640
+client.placeholder #263640 #b08500 #7A7F7F #263640 #263640
+client.background #263640
+
+for_window [class=Eog|Sxiv|feh|mpv|Vlc|File-roller|Xarchiver] floating enable
+for_window [class=Eog|Sxiv|feh|mpv|Vlc|File-roller|Xarchiver] focus
+for_window [class=".*"] border pixel 4
+hide_edge_borders smart
+gaps inner 8
+smart_gaps on
