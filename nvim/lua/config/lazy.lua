@@ -37,6 +37,7 @@ require("lazy").setup({
 			},
 			calendar = {
 				language = "pt",
+				icon = "",
 			},
 		},
 	},
@@ -99,13 +100,6 @@ require("lazy").setup({
 		},
 		event = "InsertEnter",
 	},
-
-	-- Rust tools
-	-- {
-	-- 	"mrcjkb/rustaceanvim",
-	-- 	version = "^5",
-	-- 	ft = "rust",
-	-- },
 
 	-- Snippet engine
 	{
@@ -248,16 +242,16 @@ require("lazy").setup({
 					css = { "biome" },
 					graphql = { "biome" },
 					html = { "biome" },
-					javascript = { "biome", "estlint_d" },
-					javascriptreact = { "biome", "estlint_d" },
+					javascript = { "biome" },
+					javascriptreact = { "biome" },
 					json = { "biome" },
 					liquid = { "biome" },
 					lua = { "stylua" },
 					python = { "black" },
 					rust = { "rustfmt" }, --
 					svelte = { "biome" },
-					typescript = { "biome", "estlint_d" },
-					typescriptreact = { "biome", "estlint_d" },
+					typescript = { "biome" },
+					typescriptreact = { "biome" },
 					yaml = { "biome" },
 					["_"] = { "trim_whitespace" }, -- on all filetypes that aren't configured
 				},
