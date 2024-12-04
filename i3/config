@@ -6,10 +6,13 @@ set $alt Mod1
 font pango:RobotoMono Nerd Font 9
 
 # wallpaper on startup
-exec --no-startup-id hsetroot -center ~/.wallpaper
+exec_always --no-startup-id hsetroot -center ~/.wallpaper
 
 # notification daemon
 exec_always --no-startup-id dunst -config ~/.config/dunst/dunstrc
+
+# printscreen "daemon"
+exec_always --no-startup-id flameshot
 
 # keybindings
 
@@ -22,7 +25,7 @@ bindsym $super+d exec i3-dmenu-desktop --dmenu="dmenu -i -b \
 -sb '#289c93' -sf '#141c21'"
 
 # screenshot
-bindsym Print exec scrot '%a-%d%b%y_%H.%M.png'
+bindsym Print exec flameshot gui
 
 # close focused window
 bindsym $super+c kill
