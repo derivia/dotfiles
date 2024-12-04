@@ -1,0 +1,29 @@
+general {
+    output_format = "i3bar"
+    colors = true
+    markup = pango
+    interval = 1
+}
+
+order += "tztime local"
+order += "path_exists TUN"
+order += "path_exists PPP"
+order += "cpu_temperature 0"
+
+tztime local {
+    format = "%d-%m-%Y %H:%M:%S"
+    hide_if_equals_localtime = false
+    separator = false
+}
+
+path_exists TUN {
+    separator = false
+    format="<span>%title</span>"
+    path = "/proc/sys/net/ipv4/conf/tun0"
+}
+
+path_exists PPP {
+    separator = false
+    format="<span>%title</span>"
+    path = "/proc/sys/net/ipv4/conf/ppp0"
+}
