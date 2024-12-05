@@ -1,0 +1,4 @@
+# asdf shims versions
+**/.tool-versions
+# python virtual environments
+**/.venv*
