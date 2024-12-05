@@ -24,7 +24,7 @@ tar thunderbird tmux tree tree-sitter tree-sitter-cli \
 ttf-font-awesome ttf-nerd-fonts-symbols ttf-roboto-mono-nerd \
 unixodbcunzip vim vpnc docker-compose wget wofi xsel zip zlib zsh \
 yad xdotool i3blocks noise-suppression-for-voice ffmpegthumbnailer \
-tumbler vlc pamixer xclip
+tumbler vlc pamixer xclip alsa-utils inter-font zig ly xorg-xinput
 ```
 5. Set rust toolchain default to stable
 ```sh
