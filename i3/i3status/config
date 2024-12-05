@@ -9,6 +9,7 @@ order += "tztime local"
 order += "path_exists TUN"
 order += "path_exists PPP"
 order += "cpu_temperature 0"
+order += "volume master"
 
 tztime local {
     format = "%d-%m-%Y %H:%M:%S"
@@ -26,4 +27,12 @@ path_exists PPP {
     separator = false
     format="<span>%title</span>"
     path = "/proc/sys/net/ipv4/conf/ppp0"
+}
+
+volume master {
+    format = "Audio: %volume"
+    format_muted = "Muted: (%volume)"
+    device = "default"
+    mixer = "Master"
+    mixer_idx = 0
 }
