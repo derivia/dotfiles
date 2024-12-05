@@ -1,0 +1,67 @@
+# Environment
+[env]
+TERM = "xterm-256color"
+
+# Keyboard
+[[keyboard.bindings]]
+action = "Paste"
+key = "V"
+mods = "Control|Shift"
+[[keyboard.bindings]]
+action = "Copy"
+key = "C"
+mods = "Control|Shift"
+
+# Colors
+[colors.primary]
+background = "0x323334"
+foreground = "0xBCBFB4"
+[colors.cursor]
+cursor = "0x93a1a1"
+text = "0x002b36"
+[colors.normal]
+black = "0x657b83"
+blue = "0x80A0C2"
+cyan = "0x86C0D1"
+green = "0xA2BF8A"
+magenta = "0xB58DAE"
+red = "0xF36065"
+white = "0xfdf6e3"
+yellow = "0xECCC87"
+[colors.bright]
+black = "0x657b83"
+blue = "0x80A0C2"
+cyan = "0x86C0D1"
+green = "0xA2BF8A"
+magenta = "0xB58DAE"
+red = "0xF36065"
+white = "0xfdf6e3"
+yellow = "0xECCC87"
+[colors.dim]
+black = "0x657b83"
+blue = "0x80A0C2"
+cyan = "0x86C0D1"
+green = "0xA2BF8A"
+magenta = "0xB58DAE"
+red = "0xF36065"
+white = "0xfdf6e3"
+yellow = "0xECCC87"
+
+# Font
+[font]
+size = 10.0
+[font.offset]
+x = 1
+y = 1
+
+# Window
+[scrolling]
+history = 10000
+[window]
+title = "Alacritty"
+[window.class]
+general = "Alacritty"
+instance = "Alacritty"
+[window.padding]
+x = 0
+y = 0
