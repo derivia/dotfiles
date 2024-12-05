@@ -92,9 +92,5 @@ alias pact='f() { source .venv_$(basename "$(pwd)" | cut -c1-16)/bin/activate; }
 # aliases for docker
 alias dpsc="docker ps --format 'table {{.ID}}\t{{.Status}}\t{{.Ports}}\t{{.Names}}'" # prettier docker ps
 
-export PYENV_ROOT="$HOME/.pyenv"
-[[ -d $PYENV_ROOT/bin ]] && export PATH="$PYENV_ROOT/bin:$PATH"
-eval "$(pyenv init -)"
-
 # completely remove a file historical versions from some repository
 alias git-purge='f() { if [ "$#" -ne 1 ]; then echo "usage: git-purge <file>"; return 1; fi; git filter-branch --force --index-filter "git rm --cached --ignore-unmatch $1" --prune-empty --tag-name-filter cat -- --all; }; f'
