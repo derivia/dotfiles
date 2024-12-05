@@ -8,3 +8,4 @@
 	defaultBranch = main
 [core]
 	editor = vim
+	excludesFile = ~/.gitignore
