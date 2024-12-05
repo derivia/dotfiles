@@ -5,6 +5,7 @@ VIMRCSTAT="$(cmp --silent "./vimrc" "$HOME/.vimrc"; echo $?)"
 ZSHRCSTAT="$(cmp --silent "./zshrc" "$HOME/.zshrc"; echo $?)"
 TMUXSTAT="$(cmp --silent "./tmux.conf" "$HOME/.tmux.conf"; echo $?)"
 GCSTAT="$(cmp --silent "./gitconfig" "$HOME/.gitconfig"; echo $?)"
+GIGNSTAT="$(cmp --silent "./gitignore" "$HOME/.gitignore"; echo $?)"
 I3STAT="$(cmp --silent "./i3/config" "$HOME/.config/i3/config"; echo $?)"
 I3BARSTAT="$(cmp --silent "./i3/i3status/config" "$HOME/.config/i3status/config"; echo $?)"
 I3BLKSTAT="$(cmp --silent "./i3/i3blocks/config" "$HOME/.config/i3blocks/config"; echo $?)"
@@ -14,6 +15,11 @@ DUNSTSTAT="$(cmp --silent "./dunst/dunstrc" "$HOME/.config/dunst/dunstrc"; echo 
 if [[ $GCSTAT -ne 0 ]]; then
   cp "$HOME/.gitconfig" ./gitconfig
   echo "gitconfig updated"
+fi
+
+if [[ $GIGNSTAT -ne 0 ]]; then
+  cp "$HOME/.gitignore" ./gitignore
+  echo "gitignore updated"
 fi
 
 if [[ $VIMRCSTAT -ne 0 ]]; then
