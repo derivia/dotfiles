@@ -1,10 +1,37 @@
 command=$SCRIPT_DIR/$BLOCK_NAME/$BLOCK_NAME
-separator_block_width=15
-separator=false
+separator_block_width=20
+separator=true
 markup=pango
 interval=1
 
+[pipewire_service]
+command=$SCRIPT_DIR/systemd_unit/systemd_unit
+ACTIVE_COLOR=green
+FAILED_COLOR=red
+INACTIVE_COLOR=orange
+UNIT_NAME=pipewire.service
+USER_UNIT=true
+interval=5
+label=Pipewire: 
+
+[docker_service]
+command=$SCRIPT_DIR/systemd_unit/systemd_unit
+markup=pango
+separator=false
+label=Docker: 
+interval=5
+UNIT_NAME=docker.service
+ACTIVE_COLOR=green
+INACTIVE_COLOR=orange
+FAILED_COLOR=red
+
 [docker]
 
+[volume-pipewire]
+DEFAULT_COLOR="#2A2A2A"
+LONG_FORMAT="${SYMB}${VOL}%"
+interval=once
+signal=1
+
 [time]
-command=date '+%d-%m-%Y %H:%M:%S'
+command=date '+%d/%m/%Y %H:%M:%S'

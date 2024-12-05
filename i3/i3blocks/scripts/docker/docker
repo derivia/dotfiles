@@ -4,7 +4,7 @@
 count=$(docker ps -q | wc -l | sed -r 's/^0$//g')
 
 if [[ $count < 1 ]]; then
-  count='No'
+  count='0'
 fi
 
-echo "$LABEL$count running containers"
+echo "$LABEL$count containers running"

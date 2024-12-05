@@ -5,6 +5,9 @@ set $alt Mod1
 # font
 font pango:RobotoMono Nerd Font 9
 
+# disable acceleration on all mouses
+exec_always for id in $(xinput list | grep "pointer" | cut -d '=' -f 2 | cut -f 1); do xinput --set-prop $id 'libinput Accel Profile Enabled' 0, 1; done
+
 # wallpaper on startup
 exec_always --no-startup-id hsetroot -center ~/.wallpaper
 
@@ -21,8 +24,8 @@ bindsym $super+Return exec alacritty
 
 # dmenu [application launcher]
 bindsym $super+d exec i3-dmenu-desktop --dmenu="dmenu -i -b \
--fn 'RobotoMono Nerd Font:size=9' -nb '#141c21' -nf '#7A7F7F' \
--sb '#289c93' -sf '#141c21'"
+-fn 'RobotoMono Nerd Font:size=9' -nb '#E8E1D1' -nf '#7A7F7F' \
+-sb '#96D4CF' -sf '#141C21'"
 
 # screenshot
 bindsym Print exec flameshot gui
@@ -91,11 +94,13 @@ bindsym $super+r mode "resize"
 # bar at the top
 bar {
 	status_command SCRIPT_DIR=~/.config/i3blocks/scripts i3blocks
+  separator_symbol "┇"
 	position top
-	workspace_min_width 20
-	padding 5px 3px
-  tray_padding 8
-	strip_workspace_numbers yes
+  workspace_min_width 20
+  padding 13px 3px 0px 3px
+  tray_padding 9
+  workspace_min_width 30
+  strip_workspace_numbers yes
 	colors {
       background #e8e1d1
       statusline #020202
