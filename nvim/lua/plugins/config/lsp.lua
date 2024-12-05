@@ -92,14 +92,6 @@ lspconfig.lua_ls.setup({
 	},
 })
 
-lspconfig.pylsp.setup({
-	on_attach = on_attach,
-	capabilities = capabilities(),
-	settings = {
-		pylsp = {},
-	},
-})
-
 tstools.setup({
 	on_attach = on_attach,
 	capabilities = capabilities(),
@@ -132,6 +124,7 @@ local servers = {
 	"clangd",
 	"prismals",
 	"pyright",
+  "jedi_language_server",
 }
 
 lspconfig.rust_analyzer.setup({
