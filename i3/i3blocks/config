@@ -1,0 +1,10 @@
+command=$SCRIPT_DIR/$BLOCK_NAME/$BLOCK_NAME
+separator_block_width=15
+separator=false
+markup=pango
+interval=1
+
+[docker]
+
+[time]
+command=date '+%d-%m-%Y %H:%M:%S'

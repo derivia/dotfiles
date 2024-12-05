@@ -42,11 +42,14 @@ bindsym $super+Shift+h move left
 bindsym $super+Shift+j move down
 bindsym $super+Shift+k move up
 bindsym $super+Shift+l move right
+# with mouse if floating
+floating_modifier $alt
 
-# toggle fullscreen, floating and focus mode
+# toggle fullscreen, floating, focus mode and sticky
 bindsym $super+f fullscreen toggle
 bindsym $super+space floating toggle
 bindsym $super+Shift+space focus mode_toggle
+bindsym $super+y sticky toggle
 
 # workspace keybindings
 bindsym $super+Control+Right workspace next
@@ -87,7 +90,7 @@ bindsym $super+r mode "resize"
 
 # bar at the top
 bar {
-	status_command i3status
+	status_command SCRIPT_DIR=~/.config/i3blocks/scripts i3blocks
 	position top
 	workspace_min_width 20
 	padding 5px 3px
@@ -113,9 +116,9 @@ client.urgent #263640 #b08500 #7A7F7F #263640 #263640
 client.placeholder #263640 #b08500 #7A7F7F #263640 #263640
 client.background #263640
 
-for_window [class=Eog|Sxiv|feh|mpv|Vlc|File-roller|Xarchiver] floating enable
+for_window [class=Eog|Yad|Sxiv|feh|mpv|Vlc|File-roller|Xarchiver] floating enable
 for_window [class=Eog|Sxiv|feh|mpv|Vlc|File-roller|Xarchiver] focus
-for_window [class=".*"] border pixel 4
+for_window [class=".*"] border pixel 3
 hide_edge_borders smart
 gaps inner 8
 smart_gaps on
