@@ -1,23 +1,51 @@
 ### Basic setup
-> commands to run are prefixed with $
 
-1. $ sudo pacman -Syyuu (after keyring configuration)
-2. $ sudo pacman -S reflector
-3. $ reflector --country Brazil --age 24 --protocol https --sort rate --save /etc/pacman.d/mirrorlist
-4. $ sudo pacman -S ttf-roboto-mono-nerd ripgrep-all poppler httpie net-tools tmux lua51 tree-sitter-cli freetype2 fontconfig pkg-config make libxcb libxkbcommon python wofi oniguruma dbus-glib libyaml libnotify bat electron tree-sitter luarocks neovim ripgrep fd base-devel docker docker-compose zsh git openssh glibc libffi libyaml openssl zlib fzf unzip tar zip python python-pipx postgresql sqlite cmake ninja rustup vim wget gzip tar curl man-db less tree man-pages
-    - also install some openjdk
-5. $ rustup default stable
-6. generate ssh keys:
-    - $ ssh-keygen -o -a 100 -t ed25519 -f ~/.ssh/id_ed25519 -C "\<email\>"
-7. install:
-    - yay <- aur helper
-    - asdf <- runtime versions manager
-    - tpm <- tmux plugin manager
-    - ohmyzsh <- zsh configuration framework
-    - pnpm <- alternative node package manager
-8. install ruby through asdf
-9. install zsh plugins:
-    - $ git clone https://github.com/zsh-users/zsh-autosuggestions.git $ZSH_CUSTOM/plugins/zsh-autosuggestions
-    - $ git clone https://github.com/zsh-users/zsh-syntax-highlighting.git $ZSH_CUSTOM/plugins/zsh-syntax-highlighting
-10. $ cp vimrc ~/.vimrc && cp zshrc ~/.zshrc && mkdir ~/.config && cp -r nvim ~/.config
-11. setup docker, tmux & postgresql
+1. Configure keyring
+2. Update all packages and database
+```sh
+sudo pacman -Syyuu (after keyring configuration)
+```
+3. Get faster servers [For Brazil]
+```sh
+reflector --country Brazil --age 24 --protocol https --sort rate --save /etc/pacman.d/mirrorlist
+```
+4. Install useful packages
+```sh
+sudo pacman -S alacritty base-devel bat brave-browser cmake curl \
+dbus-glib docker docker-compose electronfd flameshot \
+fontconfig freetype2 fzf git glibc gnumeric \
+grim gzip httpie jq jre8-openjdk less \
+libffi libgnome-keyring libnotify libreoffice-fresh libxcb libxcrypt \
+libxft libxkbcommon libyaml lua51 luarocks make \
+man-db man-pagesncurses neovim net-tools ninja \
+oniguruma openssh openssl pkg-config poppler postgresql \
+python ripgrep ripgrep-allrustup slurp sqlite \
+tar thunderbird tmux tree tree-sitter tree-sitter-cli \
+ttf-font-awesome ttf-nerd-fonts-symbols ttf-roboto-mono-nerd \
+unixodbcunzip vim vpnc docker-compose wget wofi xsel zip zlib zsh
+```
+5. Set rust toolchain default to stable
+```sh
+rustup default stable
+```
+7. Generate ssh key pair
+```sh
+ssh-keygen -o -a 100 -t ed25519 -f ~/.ssh/id_ed25519 -C "\<email\>"
+```
+8. Install other useful tools
+    - yay <- AUR helper
+    - asdf <- Runtime versions manager
+    - tpm <- Tmux plugin manager
+    - ohmyzsh <- Zsh configuration framework
+    - pnpm <- Alternative [better] node package manager
+9. Install ruby and python through asdf
+10. Install zsh plugins:
+```sh
+git clone https://github.com/zsh-users/zsh-autosuggestions.git $ZSH_CUSTOM/plugins/zsh-autosuggestions
+git clone https://github.com/zsh-users/zsh-syntax-highlighting.git $ZSH_CUSTOM/plugins/zsh-syntax-highlighting
+```
+11. Copy configuration files
+```sh
+cp vimrc ~/.vimrc && cp zshrc ~/.zshrc && mkdir ~/.config && cp -r nvim ~/.config && cp -r alacritty ~/.config && cp -r dunst ~/.config
+```
+12. Setup other userful tools/software [docker, postgresql, rabbitmq, etc]
