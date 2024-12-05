@@ -16,9 +16,9 @@ plugin.setup({
 		component_separators = { left = "", right = "" },
 		section_separators = { left = "", right = "" },
 		refresh = {
-			statusline = 1000,
-			tabline = 1000,
-			winbar = 1000,
+			statusline = 100,
+			tabline = 100,
+			winbar = 100,
 		},
 		disabled_filetypes = { "alpha", "NvimTree" },
 	},

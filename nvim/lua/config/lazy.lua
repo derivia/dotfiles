@@ -18,6 +18,7 @@ require("lazy").setup({
 	{
 		"atiladefreitas/dooing",
 		opts = {
+      quick_keys = false,
 			save_path = vim.fn.stdpath("data") .. "/personal-todos.json",
 			keymaps = {
 				add_due_date = "H",

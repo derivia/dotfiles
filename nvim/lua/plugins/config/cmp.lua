@@ -58,7 +58,7 @@ cmp.setup({
 				vim_item.menu = truncate(vim_item.menu, max_width, filetype)
 			end
 
-			vim_item.abbr = truncate(vim_item.abbr, max_width * 0.3, filetype)
+			vim_item.abbr = truncate(vim_item.abbr, max_width * 0.7, filetype)
 
 			return vim_item
 		end,

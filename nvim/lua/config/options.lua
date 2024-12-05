@@ -64,7 +64,7 @@ o.whichwrap:remove({ "w", "b", "h", "l" })
 -- makes the cursor go one more at the end of the line
 o.virtualedit = "onemore"
 -- removes horizontally splitted windows status line
-o.laststatus = 3
+o.laststatus = 0
 -- disable intro message
 o.shortmess:append({ I = true })
 -- keep the cursor kinda centralized
