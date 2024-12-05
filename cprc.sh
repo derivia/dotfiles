@@ -8,7 +8,7 @@ GCSTAT="$(cmp --silent "./gitconfig" "$HOME/.gitconfig"; echo $?)"
 I3STAT="$(cmp --silent "./i3/config" "$HOME/.config/i3/config"; echo $?)"
 I3BARSTAT="$(cmp --silent "./i3/i3status/config" "$HOME/.config/i3status/config"; echo $?)"
 ALACSTAT="$(cmp --silent "./alacritty/alacritty.toml" "$HOME/.config/alacritty/alacritty.toml"; echo $?)"
-
+DUNSTSTAT="$(cmp --silent "./dunst/dunstrc" "$HOME/.config/dunst/dunstrc"; echo $?)"
 
 if [[ $GCSTAT -ne 0 ]]; then
   cp "$HOME/.gitconfig" ./gitconfig
@@ -43,4 +43,9 @@ fi
 if [[ $ALACSTAT -ne 0 ]]; then
   cp "$HOME/.config/alacritty/alacritty.toml" ./alacritty/alacritty.toml
   echo "alacritty.toml updated"
+fi
+
+if [[ $DUNSTSTAT -ne 0 ]]; then
+  cp "$HOME/.config/dunst/dunstrc" ./dunst/dunstrc
+  echo "dunstrc updated"
 fi
