@@ -50,6 +50,13 @@ yellow = "0xECCC87"
 # Font
 [font]
 size = 10.0
+[font.normal]
+family = "RobotoMono Nerd Font"
+style = "Regular"
+[font.bold]
+style = "Bold"
+[font.italic]
+style = "Italic"
 [font.offset]
 x = 1
 y = 1
