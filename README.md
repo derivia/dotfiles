@@ -22,7 +22,9 @@ oniguruma openssh openssl pkg-config poppler postgresql \
 python ripgrep ripgrep-allrustup slurp sqlite \
 tar thunderbird tmux tree tree-sitter tree-sitter-cli \
 ttf-font-awesome ttf-nerd-fonts-symbols ttf-roboto-mono-nerd \
-unixodbcunzip vim vpnc docker-compose wget wofi xsel zip zlib zsh
+unixodbcunzip vim vpnc docker-compose wget wofi xsel zip zlib zsh \
+yad xdotool i3blocks noise-suppression-for-voice ffmpegthumbnailer \
+tumbler vlc pamixer xclip
 ```
 5. Set rust toolchain default to stable
 ```sh
