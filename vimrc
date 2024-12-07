@@ -44,7 +44,6 @@ set modelines=0
 set nomodeline
 set background=dark
 syntax on
-colorscheme gruvbox
 nnoremap $ $l
 
 " stuff to ignore when tab completing
@@ -58,6 +57,7 @@ set wildignore+=*.gem
 set wildignore+=log/**
 set wildignore+=tmp/**
 set wildignore+=*.png,*.jpg,*.gif
+colorscheme slate
 
 " from this: https://vi.stackexchange.com/questions/454/whats-the-simplest-way-to-strip-trailing-whitespace-from-all-lines-in-a-file
 function! TrimWhitespace()

@@ -6,7 +6,7 @@ set $alt Mod1
 font pango:RobotoMono Nerd Font 9
 
 # disable acceleration on all mouses
-exec_always for id in $(xinput list | grep "pointer" | cut -d '=' -f 2 | cut -f 1); do xinput --set-prop $id 'libinput Accel Profile Enabled' 0, 1; done
+exec_always --no-startup-id for id in $(xinput list | grep "pointer" | cut -d '=' -f 2 | cut -f 1); do xinput --set-prop $id 'libinput Accel Profile Enabled' 0, 1; done
 
 # wallpaper on startup
 exec_always --no-startup-id hsetroot -center ~/.wallpaper
@@ -17,10 +17,13 @@ exec_always --no-startup-id dunst -config ~/.config/dunst/dunstrc
 # printscreen "daemon"
 exec_always --no-startup-id flameshot
 
+# faster keyboard repeat rate
+exec_always --no-startup-id xset r rate 200 35
+
 # keybindings
 
 # terminal
-bindsym $super+Return exec alacritty
+bindsym $super+Return exec --no-startup-id alacritty
 
 # dmenu [application launcher]
 bindsym $super+d exec i3-dmenu-desktop --dmenu="dmenu -i -b \
@@ -29,6 +32,9 @@ bindsym $super+d exec i3-dmenu-desktop --dmenu="dmenu -i -b \
 
 # screenshot
 bindsym Print exec flameshot gui
+
+# lock screen
+bindsym Control+$super+l exec "i3lock -c 202020"
 
 # close focused window
 bindsym $super+c kill
@@ -124,7 +130,6 @@ client.background       #ffffff
 
 for_window [class=Eog|Yad|Sxiv|feh|mpv|Vlc|File-roller|Xarchiver] floating enable
 for_window [class=Eog|Sxiv|feh|mpv|Vlc|File-roller|Xarchiver] focus
-for_window [class=".*"] border pixel 4
-hide_edge_borders smart
-gaps inner 8
-smart_gaps on
+for_window [class=".*"] border pixel 3
+gaps inner 10
+smart_gaps off

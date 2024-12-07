@@ -75,6 +75,9 @@ alias irb="irb --simple-prompt"
 # default to interactive move
 alias mv='mv -i'
 
+# get list of files by extension
+alias lfe='f() { if [ "$#" -ne 1 ]; then echo "usage: lfe <extension>"; return 1; fi; ls -l | awk "{print \$9}" | grep "^.*\.$1" | cat }; f'
+
 # `multi`cat every file on cwd by extension
 alias mcat='f() { if [ "$#" -ne 1 ]; then echo "usage: mcat <extension>"; return 1; fi; for file in $(find . -maxdepth 1 -name "*.$1"); do echo "--------------- ${file}" && cat "${file}"; done }; f'
 # `multi`cat every file, recursively, by extension
