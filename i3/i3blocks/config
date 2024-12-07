@@ -1,11 +1,11 @@
-command=$SCRIPT_DIR/$BLOCK_NAME/$BLOCK_NAME
+command=$SCRIPT_DIR/$BLOCK_NAME
 separator_block_width=20
 separator=true
 markup=pango
 interval=1
 
 [pipewire_service]
-command=$SCRIPT_DIR/systemd_unit/systemd_unit
+command=$SCRIPT_DIR/systemd_unit
 ACTIVE_COLOR=green
 FAILED_COLOR=red
 INACTIVE_COLOR=orange
@@ -15,8 +15,7 @@ interval=5
 label=Pipewire: 
 
 [docker_service]
-command=$SCRIPT_DIR/systemd_unit/systemd_unit
-markup=pango
+command=$SCRIPT_DIR/systemd_unit
 separator=false
 label=Docker: 
 interval=5
@@ -26,6 +25,12 @@ INACTIVE_COLOR=orange
 FAILED_COLOR=red
 
 [docker]
+
+[ifstat]
+IF=tun0
+
+[ifstat]
+IF=ppp0
 
 [volume-pipewire]
 DEFAULT_COLOR="#2A2A2A"
