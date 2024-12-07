@@ -7,4 +7,4 @@ if [[ $count < 1 ]]; then
   count='0'
 fi
 
-echo "$LABEL$count containers running"
+echo "$count containers running"

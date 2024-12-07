@@ -1,0 +1,16 @@
+#!/usr/bin/env bash
+
+interface_status=$(ip a show $IF 2>/dev/null | grep -oP '(?<=state )\w+')
+
+case "$interface_status" in
+  down)
+    echo "<span color='#F83721'>$IF</span>"
+    ;;
+  up)
+    echo "<span color='#123F12'>$IF</span>"
+    ;;
+  *)
+    echo "<span color='#F83721'>$IF</span>" # treat unkown as down
+    ;;
+esac
+
