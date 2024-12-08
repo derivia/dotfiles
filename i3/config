@@ -33,6 +33,9 @@ bindsym $super+d exec i3-dmenu-desktop --dmenu="dmenu -i -b \
 # screenshot
 bindsym Print exec flameshot gui
 
+# open file explorer
+bindsym $super+e exec --no-startup-id thunar
+
 # lock screen
 bindsym Control+$super+l exec "i3lock -c 202020"
 
