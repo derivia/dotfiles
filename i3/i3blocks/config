@@ -28,6 +28,7 @@ FAILED_COLOR=red
 
 [ifstat]
 IF=tun0
+separator=false
 
 [ifstat]
 IF=ppp0
