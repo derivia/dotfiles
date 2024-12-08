@@ -48,52 +48,162 @@ compinit -C
 
 source $ZSH/oh-my-zsh.sh
 
-# for all files in first given extension on cwd, convert them to the second given extension using imagemagick
-alias cvt='f() { if [ "$#" -ne 2 ]; then echo "usage: cvt <extension> <extension>"; return 1; fi; for file in *.$1; do magick "$file" "${file%.$1}.$2"; done }; f'
+# convert all files in current working directory from one extension to another using ImageMagick
+alias cvt='f() {
+    if [ "$#" -ne 2 ]; then
+        echo "Usage: cvt <source_extension> <target_extension>"
+        return 1
+    fi
 
-# for all folders on cwd, git pull their configured remote
-alias rgp="find . -maxdepth 1 -type d -exec sh -c 'if [ -d \"{}/.git\" ]; then echo {}: && git -C {} pull; fi' \;"
+    for file in *."$1"; do
+        magick "$file" "${file%."$1"}.$2"
+    done
+}; f'
 
-# for all folders on cwd, outputs their git status
-alias rgs="find . -maxdepth 1 -type d -exec sh -c 'if [ -d \"{}/.git\" ]; then echo {}: && git -C {} status --short; fi' \;"
+# git pull for all repositories in current directory
+alias rgp='find . -maxdepth 1 -type d -exec sh -c '\''
+    if [ -d "{}/.git" ]; then
+        echo "{}:";
+        git -C {} pull
+    fi
+'\'' \;'
 
-# for all files on cwd, change " " to "_"
-alias rsff='for file in *; do if [ -f "$file" ]; then newname=$(echo "$file" | tr " " "_"); mv "$file" "$newname"; fi; done'
+# show git status for all repositories in current directory
+alias rgs='find . -maxdepth 1 -type d -exec sh -c '\''
+    if [ -d "{}/.git" ]; then
+        echo "{}:";
+        git -C {} status --short
+    fi
+'\'' \;'
 
-# for all foldesr on cwd, lowercase them
-alias lcf='for dir in */; do dir="${dir%/}"; lower_dir=$(echo "$dir" | tr "[:upper:]" "[:lower:]"); if [ "$dir" != "$lower_dir" ]; then mv "$dir" "_temp_$dir"; mv "_temp_$dir" "$lower_dir"; fi; done'
+# replace spaces with underscores in filenames
+alias rsff='for file in *; do
+    if [ -f "$file" ]; then
+        newname=$(echo "$file" | tr " " "_")
+        mv "$file" "$newname"
+    fi
+done'
 
-# better default ls
+# convert folder names to lowercase
+alias lcf='for dir in */; do
+    dir="${dir%/}"
+    lower_dir=$(echo "$dir" | tr "[:upper:]" "[:lower:]")
+
+    if [ "$dir" != "$lower_dir" ]; then
+        mv "$dir" "_temp_$dir"
+        mv "_temp_$dir" "$lower_dir"
+    fi
+done'
+
+# ls with better default options
 alias ls='ls --tabsize=0 --color=auto --human-readable --group-directories-first'
 
-# recursively find all todos
+# recursively find todos
 alias todos="rg --glob '!{.git,node_modules}' -i '\@\bTODO\b'"
 
-# default irb to simple-prompt
+# default irb to simple prompt
 alias irb="irb --simple-prompt"
 
-# default to interactive move
+# interactive move
 alias mv='mv -i'
 
-# get list of files by extension
-alias lfe='f() { if [ "$#" -ne 1 ]; then echo "usage: lfe <extension>"; return 1; fi; ls -l | awk "{print \$9}" | grep "^.*\.$1" | cat }; f'
+# list files by extension
+alias lfe='f() {
+    if [ "$#" -ne 1 ]; then
+        echo "Usage: lfe <extension>"
+        return 1
+    fi
 
-# `multi`cat every file on cwd by extension
-alias mcat='f() { if [ "$#" -ne 1 ]; then echo "usage: mcat <extension>"; return 1; fi; for file in $(find . -maxdepth 1 -name "*.$1"); do echo "--------------- ${file}" && cat "${file}"; done }; f'
-# `multi`cat every file, recursively, by extension
-alias mcatr='f() { if [ "$#" -ne 1 ]; then echo "usage: mcatr <extension>"; return 1; fi; for file in $(find . -type f -name "*.$1"); do echo "--------------- ${file}" && cat "${file}"; done }; f'
-# also add bat alternatives
+    ls -l | awk "{print \$9}" | grep "^.*\.$1" | cat
+}; f'
+
+# multicat files by extension in current directory
+alias mcat='f() {
+    if [ "$#" -ne 1 ]; then
+        echo "Usage: mcat <extension>"
+        return 1
+    fi
+
+    for file in $(find . -maxdepth 1 -name "*.$1"); do
+        echo "--------------- ${file}"
+        cat "${file}"
+    done
+}; f'
+
+# multicat files by extension recursively
+alias mcatr='f() {
+    if [ "$#" -ne 1 ]; then
+        echo "Usage: mcatr <extension>"
+        return 1
+    fi
+
+    for file in $(find . -type f -name "*.$1"); do
+        echo "--------------- ${file}"
+        cat "${file}"
+    done
+}; f'
+# bat alternatives if bat is available
 if command -v bat &>/dev/null; then
-  alias mbat='f() { if [ "$#" -ne 1 ]; then echo "usage: mbat <extension>"; return 1; fi; for file in $(find . -maxdepth 1 -name "*.$1"); do echo "--------------- ${file}" && bat "${file}"; done }; f'
-  alias mbatr='f() { if [ "$#" -ne 1 ]; then echo "usage: mbatr <extension>"; return 1; fi; for file in $(find . -type f -name "*.$1"); do echo "--------------- ${file}" && bat "${file}"; done }; f'
+    alias mbat='f() {
+        if [ "$#" -ne 1 ]; then
+            echo "Usage: mbat <extension>"
+            return 1
+        fi
+
+        for file in $(find . -maxdepth 1 -name "*.$1"); do
+            echo "--------------- ${file}"
+            bat "${file}"
+        done
+    }; f'
+
+    alias mbatr='f() {
+        if [ "$#" -ne 1 ]; then
+            echo "Usage: mbatr <extension>"
+            return 1
+        fi
+
+        for file in $(find . -type f -name "*.$1"); do
+            echo "--------------- ${file}"
+            bat "${file}"
+        done
+    }; f'
 fi
 
-# aliases for python environments
-alias penv='f() { python -m venv .venv_$(basename "$(pwd)" | cut -c1-16); }; f' # create new .venv based on cwd
-alias pact='f() { source .venv_$(basename "$(pwd)" | cut -c1-16)/bin/activate; }; f' # activate venv based on cwd
+# count pages and words in PDF files
+alias cpwpdf='f() {
+    if [[ $# -ne 0 ]]; then
+        echo "Usage: cpwpdf"
+        return 1
+    fi
 
-# aliases for docker
-alias dpsc="docker ps --format 'table {{.ID}}\t{{.Status}}\t{{.Ports}}\t{{.Names}}'" # prettier docker ps
+    for pdf in *.pdf; do
+        if [[ -f "$pdf" ]]; then
+            name=$(basename "$pdf" .pdf)
+            pages=$(pdftk "$pdf" dump_data | grep "NumberOfPages" | cut -d ":" -f 2 | tr -d " ")
+            words=$(pdftotext "$pdf" - | wc -w)
+            printf "%s - %d pages - %d words\n" "$name" "$pages" "$words"
+        fi
+    done
+}; f'
 
-# completely remove a file historical versions from some repository
-alias git-purge='f() { if [ "$#" -ne 1 ]; then echo "usage: git-purge <file>"; return 1; fi; git filter-branch --force --index-filter "git rm --cached --ignore-unmatch $1" --prune-empty --tag-name-filter cat -- --all; }; f'
+# python virtual environment aliases
+alias penv='f() {
+    python -m venv .venv_$(basename "$(pwd)" | cut -c1-16)
+}; f'
+
+alias pact='f() {
+    source .venv_$(basename "$(pwd)" | cut -c1-16)/bin/activate
+}; f'
+
+# docker process list with prettier formatting
+alias dpsc="docker ps --format 'table {{.ID}}\t{{.Status}}\t{{.Ports}}\t{{.Names}}'"
+
+# git history file purge
+alias git-purge='f() {
+    if [ "$#" -ne 1 ]; then
+        echo "Usage: git-purge <file>"
+        return 1
+    fi
+
+    git filter-branch --force --index-filter "git rm --cached --ignore-unmatch $1" --prune-empty --tag-name-filter cat -- --all
+}; f'
