@@ -36,6 +36,9 @@ bindsym Print exec flameshot gui
 # lock screen
 bindsym Control+$super+l exec "i3lock -c 202020"
 
+# emoji utilizy
+bindsym $super+period exec --no-startup-id "~/.local/bin/dmoji"
+
 # close focused window
 bindsym $super+c kill
 bindsym $alt+F4 kill
