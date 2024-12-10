@@ -123,7 +123,7 @@ tstools.setup({
 local servers = {
 	"clangd",
 	"prismals",
-	"pyright",
+	-- "pyright",
   "jedi_language_server",
 }
 

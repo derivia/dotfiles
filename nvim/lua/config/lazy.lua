@@ -18,8 +18,11 @@ require("lazy").setup({
 	{
 		"atiladefreitas/dooing",
 		opts = {
-      quick_keys = false,
+			quick_keys = false,
 			save_path = vim.fn.stdpath("data") .. "/personal-todos.json",
+			notes = {
+				icon = "📓",
+			},
 			keymaps = {
 				add_due_date = "H",
 			},
@@ -29,7 +32,7 @@ require("lazy").setup({
 			formatting = {
 				pending = {
 					icon = "○",
-					format = { "icon", "text", "due_date" },
+					format = { "icon", "notes_icon", "text", "due_date" },
 				},
 				done = {
 					icon = "✓",
