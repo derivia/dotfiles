@@ -7,6 +7,9 @@ interval=1
 [pomodoro]
 WORK_TIME=40
 BREAK_TIME=10
+WORK_MSG=Work time
+BREAK_MSG=Break time
+ALARM_SOUND=$SCRIPT_DIR/resources/beep.wav
 
 [pipewire_service]
 command=$SCRIPT_DIR/systemd_unit
