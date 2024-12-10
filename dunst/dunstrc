@@ -4,7 +4,7 @@ monitor = 0
 
 # width and height of notification
 width = 300
-height = (0, 195)
+height = (0, 250)
 
 # position
 origin = top-right
@@ -47,7 +47,7 @@ separator_color = frame
 gap_size = 12
 
 # text
-font = RobotoMono Nerd Font Regular 8
+font = Inter 9
 markup = full
 line_height = 0
 
