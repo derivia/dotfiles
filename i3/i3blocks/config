@@ -4,6 +4,10 @@ separator=true
 markup=pango
 interval=1
 
+[pomodoro]
+WORK_TIME=40
+BREAK_TIME=10
+
 [pipewire_service]
 command=$SCRIPT_DIR/systemd_unit
 ACTIVE_COLOR=green

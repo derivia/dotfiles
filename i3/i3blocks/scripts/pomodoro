@@ -1,0 +1,78 @@
+#!/bin/bash
+
+POMODORO_FILE="/tmp/pomodoro-i3"
+WORK_MINUTES=$WORK_TIME
+BREAK_MINUTES=$BREAK_TIME
+
+# initialize file or existing state
+if [[ -f "$POMODORO_FILE" ]]; then
+    . "$POMODORO_FILE"
+else
+    STATE="stopped"
+    MODE="work"
+    SECONDS_LEFT=$((WORK_MINUTES * 60))
+fi
+
+# update the file in /tmp based on the state, mode and seconds
+update_file() {
+    echo "STATE=$STATE" > "$POMODORO_FILE"
+    echo "MODE=$MODE" >> "$POMODORO_FILE"
+    echo "SECONDS_LEFT=$SECONDS_LEFT" >> "$POMODORO_FILE"
+}
+
+# handle clicks
+case "$BLOCK_BUTTON" in
+    1) # left click: pause/unpause
+        if [[ "$STATE" == "running" ]]; then
+            STATE="paused"
+        else
+            STATE="running"
+        fi
+        ;;
+    3) # right click: reset
+        STATE="stopped"
+        MODE="work"
+        SECONDS_LEFT=$((WORK_MINUTES * 60))
+        ;;
+esac
+
+# handle update of timer
+if [[ "$STATE" == "running" ]]; then
+    if ((SECONDS_LEFT > 0)); then
+        SECONDS_LEFT=$((SECONDS_LEFT - 1))
+    else
+        if [[ "$MODE" == "work" ]]; then
+            MODE="break"
+            SECONDS_LEFT=$((BREAK_MINUTES * 60))
+        else
+            MODE="work"
+            SECONDS_LEFT=$((WORK_MINUTES * 60))
+        fi
+    fi
+fi
+
+# call the update function with the new values
+update_file
+
+MINUTES=$((SECONDS_LEFT / 60))
+SECONDS=$((SECONDS_LEFT % 60))
+
+# make it colored
+case "$STATE" in
+    "stopped")
+        COLOR="#CF1020"  # red when stopped
+        ;;
+    "paused")
+        COLOR="#EFA500"  # yellow when paused
+        ;;
+    "running")
+        if [[ "$MODE" == "work" ]]; then
+            COLOR="#12AA42"  # green when running and in work mode
+        fi
+        ;;
+    *)
+        COLOR="#FFFFFF"  # white as fallback
+        ;;
+esac
+
+printf "%02d:%02d\n%s\n%s\n" "$MINUTES" "$SECONDS" "$MODE" "$COLOR"
