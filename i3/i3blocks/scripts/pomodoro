@@ -45,11 +45,13 @@ if [[ "$STATE" == "running" ]]; then
         if [[ "$MODE" == "work" ]]; then
             MODE="break"
             SECONDS_LEFT=$((BREAK_MINUTES * 60))
-            notify-send "Break time."
+            eval aplay "$ALARM_SOUND" &
+            notify-send "$BREAK_MSG"
         else
             MODE="work"
             SECONDS_LEFT=$((WORK_MINUTES * 60))
-            notify-send "Work time."
+            eval aplay "$ALARM_SOUND" &
+            notify-send "$WORK_MSG"
         fi
     fi
 fi
