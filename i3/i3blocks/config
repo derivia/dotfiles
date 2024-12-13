@@ -1,35 +1,15 @@
 command=$SCRIPT_DIR/$BLOCK_NAME
-separator_block_width=20
+separator_block_width=15
 separator=true
 markup=pango
 interval=1
 
 [pomodoro]
-WORK_TIME=40
+WORK_TIME=30
 BREAK_TIME=10
 WORK_MSG=Work time
 BREAK_MSG=Break time
 ALARM_SOUND=$SCRIPT_DIR/resources/beep.wav
-
-[pipewire_service]
-command=$SCRIPT_DIR/systemd_unit
-ACTIVE_COLOR=green
-FAILED_COLOR=red
-INACTIVE_COLOR=orange
-UNIT_NAME=pipewire.service
-USER_UNIT=true
-interval=5
-label=Pipewire: 
-
-[docker_service]
-command=$SCRIPT_DIR/systemd_unit
-separator=false
-label=Docker: 
-interval=5
-UNIT_NAME=docker.service
-ACTIVE_COLOR=green
-INACTIVE_COLOR=orange
-FAILED_COLOR=red
 
 [docker]
 
