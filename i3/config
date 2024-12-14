@@ -18,7 +18,7 @@ exec_always --no-startup-id dunst -config ~/.config/dunst/dunstrc
 exec_always --no-startup-id flameshot
 
 # faster keyboard repeat rate
-exec_always xset r rate 200 35
+exec_always xset r rate 210 42
 
 # keybindings
 
