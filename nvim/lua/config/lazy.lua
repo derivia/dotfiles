@@ -8,7 +8,7 @@ require("lazy").setup({
 	-- Save selected code as image, with syntax highlighting
 	{
 		"mistricky/codesnap.nvim",
-		build = "make",
+		build = "make build_generator",
 		keys = {
 			{ "<leader>cc", mode = "x", "<cmd>CodeSnapSave<cr>", desc = "Save current selected text to ~/snaps" },
 		},
@@ -20,9 +20,6 @@ require("lazy").setup({
 		opts = {
 			quick_keys = false,
 			save_path = vim.fn.stdpath("data") .. "/personal-todos.json",
-			notes = {
-				icon = "📓",
-			},
 			keymaps = {
 				add_due_date = "H",
 			},
@@ -32,7 +29,7 @@ require("lazy").setup({
 			formatting = {
 				pending = {
 					icon = "○",
-					format = { "icon", "notes_icon", "text", "due_date" },
+					format = { "icon", "text", "due_date", "ect" },
 				},
 				done = {
 					icon = "✓",
