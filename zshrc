@@ -198,6 +198,8 @@ alias pact='f() {
 # docker process list with prettier formatting
 alias dpsc="docker ps --format 'table {{.ID}}\t{{.Status}}\t{{.Ports}}\t{{.Names}}'"
 
+alias oc='open_command'
+
 # git history file purge
 alias git-purge='f() {
     if [ "$#" -ne 1 ]; then
