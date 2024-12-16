@@ -198,7 +198,11 @@ alias pact='f() {
 # docker process list with prettier formatting
 alias dpsc="docker ps --format 'table {{.ID}}\t{{.Status}}\t{{.Ports}}\t{{.Names}}'"
 
+# just a simpler command
 alias oc='open_command'
+
+# copy stdout to xclip, use as last stdout receiver to copy
+alias cpstd='xclip -sel clip'
 
 # git history file purge
 alias git-purge='f() {
