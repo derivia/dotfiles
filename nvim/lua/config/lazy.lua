@@ -14,6 +14,24 @@ require("lazy").setup({
 		},
 	},
 
+	-- Format textwidth on markdown files
+	{
+		"paulshuker/textangle.nvim",
+		version = "*",
+		opts = {
+			line_width = 80,
+			keep_indent = true,
+			keep_prefixes = { "-- ", "// ", "# " },
+			hyphenate = false,
+			hyphenate_minimum_gap = 10,
+			hyphenate_overflow = true,
+			disable = false,
+		},
+		keys = {
+			{ "<leader>gl", mode = "n", "<cmd>TextangleLine<CR>", desc = "Break line into textwidth" },
+		},
+	},
+
 	-- Todo-List Management
 	{
 		"atiladefreitas/dooing",
@@ -253,7 +271,7 @@ require("lazy").setup({
 					svelte = { "biome" },
 					typescript = { "biome" },
 					typescriptreact = { "biome" },
-					yaml = { "biome" },
+					yaml = { "yamlfmt" },
 					["_"] = { "trim_whitespace" }, -- on all filetypes that aren't configured
 				},
 				format_after_save = nil,
@@ -261,7 +279,7 @@ require("lazy").setup({
 					conform.format({
 						lsp_fallback = true,
 						async = true,
-						timeout_ms = 500,
+						timeout_ms = 300,
 					})
 				end, { desc = "Format file | range" }),
 			})

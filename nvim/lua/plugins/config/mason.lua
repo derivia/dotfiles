@@ -21,7 +21,7 @@ masontools.setup({
 		-- lsp
 		"clangd",
 		"lua-language-server",
-    "jedi-language-server",
+		"jedi-language-server",
 		"prisma-language-server",
 		"pyright",
 		-- "python-lsp-server",
@@ -36,6 +36,7 @@ masontools.setup({
 		-- rustfmt should be installed via rustup
 		"prettierd",
 		"standardrb",
+		"yamlfmt",
 	},
 	run_on_start = true,
 	start_delay = 128,

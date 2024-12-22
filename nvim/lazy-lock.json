@@ -32,6 +32,7 @@
   "opera-vim": { "branch": "main", "commit": "9af07ef88d72e8aadfd250cb1d894bb9864db4b0" },
   "plenary.nvim": { "branch": "master", "commit": "2d9b06177a975543726ce5c73fca176cedbffe9d" },
   "project.nvim": { "branch": "main", "commit": "8c6bad7d22eef1b71144b401c9f74ed01526a4fb" },
+  "textangle.nvim": { "branch": "main", "commit": "13c0257ad9d4343a60a0722c8176c4a0b6bbc0e7" },
   "trouble.nvim": { "branch": "main", "commit": "46cf952fc115f4c2b98d4e208ed1e2dce08c9bf6" },
   "typescript-tools.nvim": { "branch": "master", "commit": "35e397ce467bedbbbb5bfcd0aa79727b59a08d4a" }
 }
