@@ -1,1 +1,1 @@
-{"tsdev":{"body":"\"dev\": \"ts-node-dev --ignore-watch node_modules --respawn --transpile-only src\/app.ts\"","prefix":"tsdev"},"drizzle":{"body":["\"generate\": \"drizzle-kit generate\",","\"migrate\": \"drizzle-kit migrate\""],"prefix":"drizzle"}}
+{"drizzle":{"body":["\"generate\": \"drizzle-kit generate\",","\"migrate\": \"drizzle-kit migrate\""],"prefix":"drizzle"},"tsdev":{"prefix":"tsdev","body":"\"dev\": \"NODE_ENV=development ts-node-dev --ignore-watch node_modules --respawn --transpile-only src\/app.ts\""}}
