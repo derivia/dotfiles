@@ -213,3 +213,7 @@ alias git-purge='f() {
 
     git filter-branch --force --index-filter "git rm --cached --ignore-unmatch $1" --prune-empty --tag-name-filter cat -- --all
 }; f'
+
+if command -v cowthink &>/dev/null && command -v fortune &>/dev/null; then
+  cowthink -f small $(fortune -s -n 100)
+fi
