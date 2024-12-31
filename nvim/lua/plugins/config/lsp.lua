@@ -40,7 +40,7 @@ local on_attach = function(client, bufnr)
 		keymap("K", "<cmd>lua vim.lsp.buf.hover()<CR>", "Peek definition", "n")
 	end
 	if client.supports_method(methods.textDocument_rename) then
-		keymap("lrn", "<cmd>lua vim.lsp.buf.rename()<CR>", "Rename symbol", { "n", "x" })
+		keymap("<leader>lrn", "<cmd>lua vim.lsp.buf.rename()<CR>", "Rename symbol", { "n", "x" })
 	end
 	if client.supports_method(methods.textDocument_declaration) then
 		keymap("gD", "<cmd>lua vim.lsp.buf.declaration()<CR>", "Go to declaration", "n")
@@ -52,7 +52,7 @@ local on_attach = function(client, bufnr)
 		keymap("gi", "<cmd>lua vim.lsp.buf.implementation()<CR>", "Go to implementation", "n")
 	end
 	if client.supports_method(methods.textDocument_codeAction) then
-		keymap("ca", "<cmd>lua vim.lsp.buf.code_action()<CR>", "Code actions", { "n", "x" })
+		keymap("<leader>ca", "<cmd>lua vim.lsp.buf.code_action()<CR>", "Code actions", { "n", "x" })
 	end
 	if client.supports_method(methods.textDocument_references) then
 		keymap("gr", "<cmd>lua vim.lsp.buf.references()<CR>", "See usage (references)", { "n", "x" })
@@ -124,7 +124,7 @@ local servers = {
 	"clangd",
 	"prismals",
 	-- "pyright",
-  "jedi_language_server",
+	"jedi_language_server",
 }
 
 lspconfig.rust_analyzer.setup({
@@ -133,9 +133,9 @@ lspconfig.rust_analyzer.setup({
 	capabilities = capabilities(),
 	settings = {
 		["rust-analyzer"] = {
-      cachePriming = {
-        enable = false
-      },
+			cachePriming = {
+				enable = false,
+			},
 			diagnostics = {
 				enable = true,
 				experimental = {
