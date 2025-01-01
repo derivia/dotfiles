@@ -103,6 +103,9 @@ mode "resize" {
 	}
 bindsym $super+r mode "resize"
 
+# clicking with keyboard
+bindsym --release Pause exec --no-startup-id xdotool click 1
+
 # bar at the top
 bar {
 	status_command SCRIPT_DIR=~/.config/i3blocks/scripts i3blocks
