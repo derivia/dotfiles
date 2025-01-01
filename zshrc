@@ -214,6 +214,16 @@ alias git-purge='f() {
     git filter-branch --force --index-filter "git rm --cached --ignore-unmatch $1" --prune-empty --tag-name-filter cat -- --all
 }; f'
 
+# update licenses with 2024 -> 2024-2025
+alias licc='f() {
+    find . -type d -name ".git" -prune -exec dirname {} \; | while read -r git_dir; do
+        license_file="$git_dir/LICENSE"
+        if [[ -f "$license_file" ]]; then
+            sed -i 's/2024/2024-2025/g' "$license_file"
+            echo "Updated $license_file"
+        fi
+done}; f'
+
 if command -v cowthink &>/dev/null && command -v fortune &>/dev/null; then
   cowthink -f small $(fortune -s -n 100)
 fi
