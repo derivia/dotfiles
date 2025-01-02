@@ -25,7 +25,7 @@ exec_always xset r rate 210 42
 # terminal
 bindsym $super+Return exec --no-startup-id alacritty
 
-# dmenu [application launcher]
+# dmenu application launcher
 bindsym $super+d exec i3-dmenu-desktop --dmenu="dmenu -i -b \
 -fn 'RobotoMono Nerd Font:size=9' -nb '#E8E1D1' -nf '#7A7F7F' \
 -sb '#96D4CF' -sf '#141C21'"
@@ -39,14 +39,13 @@ bindsym $super+e exec --no-startup-id thunar
 # lock screen
 bindsym Control+$super+l exec "i3lock -c 202020"
 
-# emoji utilizy
+# emoji utility
 bindsym $super+period exec --no-startup-id "~/.local/bin/dmoji"
 
 # close focused window
 bindsym $super+c kill
-bindsym $alt+F4 kill
 
-# move focus
+# move focus between windows
 bindsym $super+h focus left
 bindsym $super+j focus down
 bindsym $super+k focus up
@@ -57,7 +56,7 @@ bindsym $super+Shift+h move left
 bindsym $super+Shift+j move down
 bindsym $super+Shift+k move up
 bindsym $super+Shift+l move right
-# with mouse if floating
+# move with mouse + mouse_1 if window is floating
 floating_modifier $alt
 
 # toggle fullscreen, floating, focus mode and sticky
@@ -69,6 +68,8 @@ bindsym $super+y sticky toggle
 # workspace keybindings
 bindsym $super+Control+Right workspace next
 bindsym $super+Control+Left workspace prev
+
+# move focus between workspaces
 bindsym $super+1 workspace 1:I
 bindsym $super+2 workspace 2:II
 bindsym $super+3 workspace 3:III
@@ -79,6 +80,8 @@ bindsym $super+7 workspace 7:VII
 bindsym $super+8 workspace 8:VIII
 bindsym $super+9 workspace 9:IX
 bindsym $super+0 workspace 10:X
+
+# move focused window from current workspace to another one
 bindsym $super+Shift+1 move container to workspace 1:I
 bindsym $super+Shift+2 move container to workspace 2:II
 bindsym $super+Shift+3 move container to workspace 3:III
@@ -89,6 +92,18 @@ bindsym $super+Shift+7 move container to workspace 7:VII
 bindsym $super+Shift+8 move container to workspace 8:VIII
 bindsym $super+Shift+9 move container to workspace 9:IX
 bindsym $super+Shift+0 move container to workspace 10:X
+
+# move all windows from the current workspace to another one
+bindsym $super+Ctrl+Shift+1 [workspace=__focused__] move container to workspace 1:I
+bindsym $super+Ctrl+Shift+2 [workspace=__focused__] move container to workspace 2:II
+bindsym $super+Ctrl+Shift+3 [workspace=__focused__] move container to workspace 3:III
+bindsym $super+Ctrl+Shift+4 [workspace=__focused__] move container to workspace 4:IV
+bindsym $super+Ctrl+Shift+5 [workspace=__focused__] move container to workspace 5:V
+bindsym $super+Ctrl+Shift+6 [workspace=__focused__] move container to workspace 6:VI
+bindsym $super+Ctrl+Shift+7 [workspace=__focused__] move container to workspace 7:VII
+bindsym $super+Ctrl+Shift+8 [workspace=__focused__] move container to workspace 8:VIII
+bindsym $super+Ctrl+Shift+9 [workspace=__focused__] move container to workspace 9:IX
+bindsym $super+Ctrl+Shift+0 [workspace=__focused__] move container to workspace 0:X
 
 # reload i3 config
 bindsym $super+BackSpace exec "i3-msg restart"
@@ -104,7 +119,8 @@ mode "resize" {
 bindsym $super+r mode "resize"
 
 # clicking with keyboard
-bindsym --release Pause exec --no-startup-id xdotool click 1
+bindsym --release Pause exec --no-startup-id xdotool mousemove_relative 0 0 click 1
+bindsym $super+Pause exec --no-startup-id ~/.config/i3/scripts/autoclick
 
 # bar at the top
 bar {
