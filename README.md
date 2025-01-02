@@ -23,8 +23,11 @@ python ripgrep ripgrep-allrustup slurp sqlite \
 tar thunderbird tmux tree tree-sitter tree-sitter-cli \
 ttf-font-awesome ttf-nerd-fonts-symbols ttf-roboto-mono-nerd \
 unixodbcunzip vim vpnc docker-compose wget wofi xsel zip zlib zsh \
-yad xdotool i3blocks noise-suppression-for-voice ffmpegthumbnailer \
-tumbler vlc pamixer xclip alsa-utils inter-font zig ly xorg-xinput
+yad xdotool i3blocks i3lock noise-suppression-for-voice ffmpegthumbnailer \
+tumbler vlc pamixer xclip alsa-utils inter-font zig ly xorg-xinput \
+pipewire-pulse pipewire-alsa pipewire-alsa wireplumber pipewire-libcamera \
+imagemagick dust pdftk djvulibre ufw neofetch exiftool \
+ncurses cowsay xdotool python-xlib
 ```
 5. Set rust toolchain default to stable
 ```sh
