@@ -48,6 +48,9 @@ compinit -C
 
 source $ZSH/oh-my-zsh.sh
 
+# list all dirs on cwd
+alias cwdirs='for dir in $(find . -maxdepth 1 -type d  | sed "1d"); do echo "$dir"; done;'
+
 # convert all files in current working directory from one extension to another using ImageMagick
 alias cvt='f() {
     if [ "$#" -ne 2 ]; then
@@ -60,13 +63,25 @@ alias cvt='f() {
     done
 }; f'
 
-# git pull for all repositories in current directory
-alias rgp='find . -maxdepth 1 -type d -exec sh -c '\''
-    if [ -d "{}/.git" ]; then
-        echo "{}:";
-        git -C {} pull
+# compare remote branches with local ones and echo differences
+alias grbs='f() {
+  for dir in $(cwdirs); do
+    if [[ -d "$dir/.git" ]]; then
+      cd "$dir" || continue
+      echo "$dir:"
+      git fetch --all
+      for branch in $(git branch --list | sed "s/*//"); do
+        for remote in $(git remote); do
+          diff_count=$(git diff --stat "$branch" "$remote/$branch" | wc -l)
+          if [[ $diff_count -gt 0 ]]; then
+            echo "  $branch -> $remote/$branch [$diff_count]"
+          fi
+        done
+      done
+      cd .. || continue
     fi
-'\'' \;'
+  done
+}; f'
 
 # show git status for all repositories in current directory
 alias rgs='find . -maxdepth 1 -type d -exec sh -c '\''
@@ -214,15 +229,23 @@ alias git-purge='f() {
     git filter-branch --force --index-filter "git rm --cached --ignore-unmatch $1" --prune-empty --tag-name-filter cat -- --all
 }; f'
 
-# update licenses with 2024 -> 2024-2025
+# update licenses to current year based on command `date`
+# only updates LICENSE files inside directories that have a .git folder
 alias licc='f() {
+    current_year=$(date +"%Y")
+
     find . -type d -name ".git" -prune -exec dirname {} \; | while read -r git_dir; do
         license_file="$git_dir/LICENSE"
         if [[ -f "$license_file" ]]; then
-            sed -i 's/2024/2024-2025/g' "$license_file"
-            echo "Updated $license_file"
+            # Only update if the file does not already contain the current year or the format X-Y with current year
+            if ! grep -qE "(^|[^0-9])$current_year([^0-9]|$)" "$license_file"; then
+              sed -i "s/\([0-9]\+\)/\1-$current_year/g" "$license_file"
+                echo "$git_dir/LICENSE updated"
+            fi
         fi
-done}; f'
+    done
+}; f'
+
 
 if command -v cowthink &>/dev/null && command -v fortune &>/dev/null; then
   cowthink -f small $(fortune -s -n 100)
