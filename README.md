@@ -38,11 +38,11 @@ rustup default stable
 ssh-keygen -o -a 100 -t ed25519 -f ~/.ssh/id_ed25519 -C "\<email\>"
 ```
 8. Install other useful tools
-    - yay <- AUR helper
-    - asdf <- Runtime versions manager
-    - tpm <- Tmux plugin manager
-    - ohmyzsh <- Zsh configuration framework
-    - pnpm <- Alternative [better] node package manager
+    - yay (AUR helper)
+    - asdf (Runtime versions manager)
+    - tpm (Tmux plugin manager)
+    - ohmyzsh (Zsh configuration framework)
+    - pnpm (Better node package manager)
 9. Install ruby and python through asdf
 10. Install zsh plugins:
 ```sh
@@ -50,7 +50,4 @@ git clone https://github.com/zsh-users/zsh-autosuggestions.git $ZSH_CUSTOM/plugi
 git clone https://github.com/zsh-users/zsh-syntax-highlighting.git $ZSH_CUSTOM/plugins/zsh-syntax-highlighting
 ```
 11. Copy configuration files
-```sh
-cp vimrc ~/.vimrc && cp zshrc ~/.zshrc && mkdir ~/.config && cp -r nvim ~/.config && cp -r alacritty ~/.config && cp -r dunst ~/.config
-```
 12. Setup other userful tools/software [docker, postgresql, rabbitmq, etc]
