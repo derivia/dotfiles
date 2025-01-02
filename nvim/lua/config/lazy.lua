@@ -24,7 +24,7 @@ require("lazy").setup({
 			keep_prefixes = { "-- ", "// ", "# " },
 			hyphenate = false,
 			hyphenate_minimum_gap = 10,
-			hyphenate_overflow = true,
+			hyphenate_overflow = false,
 			disable = false,
 		},
 		keys = {
