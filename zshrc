@@ -246,6 +246,13 @@ alias licc='f() {
     done
 }; f'
 
+alias mkicon='f() {
+    if [ "$#" -ne 1 ]; then
+        echo "Usage: mkicon <image_file>"
+        return 1
+    fi
+    for size in 16 48 128; do magick $1 -resize "${size}x${size}!" "$size.png"; done;
+}; f'
 
 if command -v cowthink &>/dev/null && command -v fortune &>/dev/null; then
   cowthink -f small $(fortune -s -n 100)
