@@ -1,3 +1,10 @@
+" Map alt modifier
+execute "set <M-j>=\ej"
+execute "set <M-k>=\ek"
+execute "set <M-l>=\el"
+execute "set <M-h>=\eh"
+
+let mapleader=" "
 set nocompatible
 set number
 set relativenumber
@@ -8,6 +15,7 @@ set showcmd
 set autoread
 set nofoldenable
 set path+=**
+set clipboard=unnamedplus
 set wildmenu
 set noerrorbells
 set noswapfile
@@ -57,7 +65,12 @@ set wildignore+=*.gem
 set wildignore+=log/**
 set wildignore+=tmp/**
 set wildignore+=*.png,*.jpg,*.gif
-colorscheme slate
+" set colorscheme based on opera colorscheme existance
+if !empty(globpath(&rtp, 'colors/opera.vim'))
+  colorscheme opera
+else
+  colorscheme habamax
+endif
 
 " from this: https://vi.stackexchange.com/questions/454/whats-the-simplest-way-to-strip-trailing-whitespace-from-all-lines-in-a-file
 function! TrimWhitespace()
@@ -68,12 +81,21 @@ endfun
 command! TrimWhitespace call TrimWhitespace()
 nnoremap <C-f> :call TrimWhitespace()<CR>
 
-" move lines on normal & visual mode using ctrl
-nnoremap <C-j> :m+1<CR>
-nnoremap <C-k> :m-2<CR>
-nnoremap <C-h> <<
-nnoremap <C-l> >>
-xnoremap <C-j> :move '>+1<CR>gv-gv
-xnoremap <C-k> :move '<-2<CR>gv-gv
-xnoremap <C-h> <gv
-xnoremap <C-l> >gv
+" clear highlights
+nnoremap <leader>h :noh<CR>
+
+" move between panes
+nnoremap <C-h> <C-w>h
+nnoremap <C-j> <C-w>j
+nnoremap <C-k> <C-w>k
+nnoremap <C-l> <C-w>l
+
+" move lines on normal & visual mode using alt
+nnoremap <M-j> :m+1<CR>
+nnoremap <M-k> :m-2<CR>
+nnoremap <M-h> <<
+nnoremap <M-l> >>
+xnoremap <M-j> :move '>+1<CR>gv-gv
+xnoremap <M-k> :move '<-2<CR>gv-gv
+xnoremap <M-h> <gv
+xnoremap <M-l> >gv
