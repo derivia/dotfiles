@@ -70,8 +70,6 @@ o.shortmess:append({ I = true })
 -- keep the cursor kinda centralized
 o.scrolloff = 8
 o.sidescrolloff = 2
--- share clipboard between neovim and system
-o.clipboard = "unnamedplus"
 
 -- disable health checks for these providers
 vim.g.loaded_python3_provider = 0

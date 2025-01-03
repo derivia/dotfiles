@@ -15,7 +15,6 @@ set showcmd
 set autoread
 set nofoldenable
 set path+=**
-set clipboard=unnamedplus
 set wildmenu
 set noerrorbells
 set noswapfile
