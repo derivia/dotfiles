@@ -32,6 +32,18 @@ require("lazy").setup({
 		},
 	},
 
+	{
+		"danymat/neogen",
+		version = "*",
+		opts = {
+			type = "func",
+			-- snippet_engine = "luasnip",
+		},
+		keys = {
+			{ "<leader>nf", mode = "n", "<cmd>Neogen<CR>", desc = "Annotate based on scope" },
+		},
+	},
+
 	-- Todo-List Management
 	{
 		"atiladefreitas/dooing",

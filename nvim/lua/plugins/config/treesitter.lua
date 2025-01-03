@@ -6,12 +6,17 @@ end
 plugin.setup({
 	ensure_installed = {
 		"c",
+		"java",
 		"javascript",
+		"json",
 		"lua",
 		"markdown",
 		"markdown_inline",
+		"python",
 		"query",
+		"ruby",
 		"rust",
+		"tsx",
 		"typescript",
 		"vim",
 		"vimdoc",
@@ -21,7 +26,7 @@ plugin.setup({
 	ignore_install = {},
 	highlight = {
 		enable = true,
-		disable = { "markdown" },
+		disable = { "markdown", "txt", "git" },
 		additional_vim_regex_highlighting = false,
 	},
 })
