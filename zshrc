@@ -65,6 +65,9 @@ alias cvt='f() {
 
 # compare remote branches with local ones and echo differences
 alias grbs='f() {
+  original_dir=$(pwd)
+  trap "cd \"$original_dir\"; return" SIGINT
+
   for dir in $(cwdirs); do
     if [[ -d "$dir/.git" ]]; then
       cd "$dir" || continue
@@ -78,9 +81,10 @@ alias grbs='f() {
           fi
         done
       done
-      cd .. || continue
+      cd "$original_dir" || break
     fi
   done
+  cd "$original_dir"
 }; f'
 
 # show git status for all repositories in current directory
@@ -237,7 +241,6 @@ alias licc='f() {
     find . -type d -name ".git" -prune -exec dirname {} \; | while read -r git_dir; do
         license_file="$git_dir/LICENSE"
         if [[ -f "$license_file" ]]; then
-            # Only update if the file does not already contain the current year or the format X-Y with current year
             if ! grep -qE "(^|[^0-9])$current_year([^0-9]|$)" "$license_file"; then
               sed -i "s/\([0-9]\+\)/\1-$current_year/g" "$license_file"
                 echo "$git_dir/LICENSE updated"
