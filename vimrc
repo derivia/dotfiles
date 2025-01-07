@@ -1,9 +1,3 @@
-" Map alt modifier
-execute "set <M-j>=\ej"
-execute "set <M-k>=\ek"
-execute "set <M-l>=\el"
-execute "set <M-h>=\eh"
-
 let mapleader=" "
 set nocompatible
 set number
@@ -90,11 +84,11 @@ nnoremap <C-k> <C-w>k
 nnoremap <C-l> <C-w>l
 
 " move lines on normal & visual mode using alt
-nnoremap <M-j> :m+1<CR>
-nnoremap <M-k> :m-2<CR>
-nnoremap <M-h> <<
-nnoremap <M-l> >>
-xnoremap <M-j> :move '>+1<CR>gv-gv
-xnoremap <M-k> :move '<-2<CR>gv-gv
-xnoremap <M-h> <gv
-xnoremap <M-l> >gv
+nnoremap <C-J> :m+1<CR>
+nnoremap <C-K> :m-2<CR>
+nnoremap <C-H> <<
+nnoremap <C-L> >>
+xnoremap <C-J> :move '>+1<CR>gv-gv
+xnoremap <C-K> :move '<-2<CR>gv-gv
+xnoremap <C-H> <gv
+xnoremap <C-L> >gv
