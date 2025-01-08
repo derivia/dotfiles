@@ -262,6 +262,6 @@ if command -v cowthink &>/dev/null && command -v fortune &>/dev/null; then
 fi
 
 # taken from https://www.markhansen.co.nz/auto-start-tmux/
-if [ -n "$PS1" ] && [ -z "$TMUX" ]; then
-  tmux new-session -A -s main -c "$PWD"
-fi
+# if [ -n "$PS1" ] && [ -z "$TMUX" ]; then
+#   tmux new-session -A -s main -c "$PWD"
+# fi
