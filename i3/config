@@ -1,15 +1,17 @@
-# set modifiers
+# modifiers
 set $super Mod4
 set $alt Mod1
 
 # font
 font pango:RobotoMono Nerd Font 9
 
+# -- Startup --
+
 # disable acceleration on all mouses
 exec_always --no-startup-id for id in $(xinput list | grep "pointer" | cut -d '=' -f 2 | cut -f 1); do xinput --set-prop $id 'libinput Accel Profile Enabled' 0, 1; done
 
 # wallpaper on startup
-exec_always --no-startup-id hsetroot -center ~/.wallpaper
+exec_always --no-startup-id hsetroot -center ~/.wallpaper-light
 
 # notification daemon
 exec_always --no-startup-id dunst -config ~/.config/dunst/dunstrc
@@ -20,10 +22,13 @@ exec_always --no-startup-id flameshot
 # faster keyboard repeat rate
 exec_always xset r rate 210 42
 
-# keybindings
+# -- Keybindings --
 
 # terminal
 bindsym $super+Return exec --no-startup-id alacritty
+
+# color picker
+bindsym --release $super+p exec xcolor --selection
 
 # dmenu application launcher
 bindsym $super+d exec i3-dmenu-desktop --dmenu="dmenu -i -b \
@@ -122,39 +127,45 @@ bindsym $super+r mode "resize"
 bindsym --release Pause exec --no-startup-id xdotool mousemove_relative 0 0 click 1
 bindsym $super+Pause exec --no-startup-id ~/.config/i3/scripts/autoclick
 
-# bar at the top
+# -- Bar --
+
 bar {
 	status_command SCRIPT_DIR=~/.config/i3blocks/scripts i3blocks
   separator_symbol "┇"
 	position top
-  workspace_min_width 20
   padding 13px 3px 0px 3px
   tray_padding 9
-  workspace_min_width 30
+  workspace_min_width 33
   strip_workspace_numbers yes
 	colors {
-      background #e8e1d1
-      statusline #020202
-      separator #020202
+      background #d6d0c9
+      statusline #262b2c
+      separator #262b2c
 
-      # name border background text
-      focused_workspace #c8c7b3 #96d4cf #7A7F7F
-      active_workspace #c8c7b3 #96d4cf #7A7F7F
-      inactive_workspace #c8c7b3 #c8c7b3 #7A7F7F
-      urgent_workspace #c8c7b3 #c73330 #7A7F7F
+      # name #border #background #text
+      focused_workspace #D6D0C9 #56545A #EFEFEF
+      active_workspace #D6D0C9 #46544F #7A7F7F
+      inactive_workspace #D6D0C9 #C8C7B8 #7A7F7F
+      urgent_workspace #D6D0C9 #C73330 #7A7F7F
 	}
 }
 
-# name border background text indicator child_border
-client.focused          #4c7899 #285577 #FFFFFF #7F80A8 #7F80A8
-client.focused_inactive #333333 #5f676a #ffffff #484e50 #5f676a
-client.unfocused        #333333 #222222 #888888 #292d2e #222222
-client.urgent           #2f343a #900000 #ffffff #900000 #900000
-client.placeholder      #000000 #0c0c0c #ffffff #000000 #0c0c0c
-client.background       #ffffff
+# -- Windows --
+
+# from i3 docs: "Note that for the window decorations, the color around the child
+# window is the 'child_border', and 'border' color is only the two thin lines
+# around the titlebar."
+
+# name #border #background #text #indicator #child_border
+client.focused          #4C7899 #285577 #FFFFFF #7F8088 #7F8088
+client.focused_inactive #333333 #5F676A #FFFFFF #484E50 #5F676A
+client.unfocused        #333333 #222222 #888888 #292D2E #220222
+client.urgent           #2F343A #700000 #FFFFFF #700000 #700000
+client.placeholder      #000000 #0C0C0C #FFFFFF #000000 #0C0C0C
+client.background       #FFFFFF
 
 for_window [class=Eog|Yad|Sxiv|feh|mpv|Vlc|File-roller|Xarchiver] floating enable
 for_window [class=Eog|Sxiv|feh|mpv|Vlc|File-roller|Xarchiver] focus
 for_window [class=".*"] border pixel 3
-gaps inner 10
+gaps inner 8
 smart_gaps off
