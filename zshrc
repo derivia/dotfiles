@@ -151,12 +151,17 @@ alias mcat='f() {
 
 # multicat files by extension recursively
 alias mcatr='f() {
-    if [ "$#" -ne 1 ]; then
-        echo "Usage: mcatr <extension>"
+    if [ "$#" -lt 1 ] || [ "$#" -gt 2 ]; then
+        echo "Usage: mcatr <extension> [ignore-dir]"
         return 1
     fi
 
-    for file in $(find . -type f -name "*.$1"); do
+    local find_args="-type f -name \"*.$1\""
+    if [ "$#" -eq 2 ]; then
+        find_args="$find_args -not -path \"*/$2/*\""
+    fi
+
+    eval "find . $find_args" | while read -r file; do
         echo "--------------- ${file}"
         cat "${file}"
     done
@@ -209,7 +214,6 @@ alias cpwpdf='f() {
 alias penv='f() {
     python -m venv .venv_$(basename "$(pwd)" | cut -c1-16)
 }; f'
-
 alias pact='f() {
     source .venv_$(basename "$(pwd)" | cut -c1-16)/bin/activate
 }; f'
@@ -249,6 +253,7 @@ alias licc='f() {
     done
 }; f'
 
+# make extension-sized icons from png image
 alias mkicon='f() {
     if [ "$#" -ne 1 ]; then
         echo "Usage: mkicon <image_file>"
@@ -257,6 +262,7 @@ alias mkicon='f() {
     for size in 16 48 128; do magick $1 -resize "${size}x${size}!" "$size.png"; done;
 }; f'
 
+# cow on startup!
 if command -v cowthink &>/dev/null && command -v fortune &>/dev/null; then
   cowthink -f small $(fortune -s -n 100)
 fi
