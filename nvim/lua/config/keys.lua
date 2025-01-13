@@ -13,13 +13,10 @@ keymap("", "<C-y>", "<Nop>", opts)
 keymap("", "<C-d>", "<Nop>", opts)
 keymap("", "<C-f>", "<Nop>", opts)
 keymap("", "<C-v>", "<Nop>", opts)
-keymap("", "<S-j>", "<Nop>", opts)
-keymap("", "<S-k>", "<Nop>", opts)
-keymap("", "<K>", "<Nop>", opts)
 
 -- center search results
-keymap("n", "n", "nzz", opts)
-keymap("n", "N", "Nzz", opts)
+keymap("n", "n", ":normal! nzz<CR>", opts)
+keymap("n", "N", ":normal! Nzz<CR>", opts)
 
 -- to move windows around
 -- <C-w><shift-direction>
