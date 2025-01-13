@@ -14,7 +14,7 @@ require("lazy").setup({
 		},
 	},
 
-	-- Format textwidth on markdown files
+	-- Format textwidth on files
 	{
 		"paulshuker/textangle.nvim",
 		version = "*",
@@ -279,7 +279,7 @@ require("lazy").setup({
 					liquid = { "biome" },
 					lua = { "stylua" },
 					python = { "black" },
-					rust = { "rustfmt" }, --
+					rust = { "rustfmt" },
 					svelte = { "biome" },
 					typescript = { "biome" },
 					typescriptreact = { "biome" },
@@ -357,12 +357,9 @@ require("lazy").setup({
 		end,
 	},
 
-	-- Surround text objects with something
+	-- Surround text objects
 	{
-		"kylechui/nvim-surround",
-		version = "*",
-		event = "VeryLazy",
-		opts = {},
+		"machakann/vim-sandwich",
 	},
 
 	-- Better typescript LSP & Linting
