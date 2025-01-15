@@ -262,6 +262,9 @@ alias mkicon='f() {
     for size in 16 48 128; do magick $1 -resize "${size}x${size}!" "$size.png"; done;
 }; f'
 
+# use neovim as manpager
+export MANPAGER='nvim +Man!'
+
 # cow on startup!
 if command -v cowthink &>/dev/null && command -v fortune &>/dev/null; then
   cowthink -f small $(fortune -s -n 100)
