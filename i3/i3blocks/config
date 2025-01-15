@@ -1,6 +1,6 @@
 command=$SCRIPT_DIR/$BLOCK_NAME
 separator_block_width=15
-separator=true
+separator=false
 markup=pango
 interval=1
 
