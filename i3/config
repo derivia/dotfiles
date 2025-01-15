@@ -164,9 +164,9 @@ exec_always --no-startup-id ~/.config/polybar/launch.sh
 # around the titlebar."
 
 # name #border #background #text #indicator #child_border
-client.focused          #4C7899 #285577 #FFFFFF #7F8088 #7F8088
+client.focused          #4C7899 #285577 #FFFFFF #E8E6DF #E8E6DF
 client.focused_inactive #333333 #5F676A #FFFFFF #484E50 #5F676A
-client.unfocused        #333333 #222222 #888888 #292D2E #220222
+client.unfocused        #333333 #222222 #888888 #1D1D1D #1D1D1D
 client.urgent           #2F343A #700000 #FFFFFF #700000 #700000
 client.placeholder      #000000 #0C0C0C #FFFFFF #000000 #0C0C0C
 client.background       #FFFFFF
@@ -176,6 +176,6 @@ focus_follows_mouse no
 
 for_window [class=Eog|Yad|Sxiv|feh|mpv|Vlc|File-roller|Xarchiver] floating enable
 for_window [class=Eog|Sxiv|feh|mpv|Vlc|File-roller|Xarchiver] focus
-for_window [class=".*"] border pixel 4
-gaps inner 8
+for_window [class=".*"] border pixel 5
+gaps inner 6
 smart_gaps off
