@@ -1,24 +1,11 @@
 [global]
-# where to show notification
 monitor = 0
-
-# width and height of notification
-width = 300
-height = (0, 250)
-
-# position
+geometry = "250x50-50+55"
 origin = top-right
-
-# offset from the origin
 offset = (10, 50)
-
-# maximum nofications
 notification_limit = 20
-
-# some padding
-horizontal_padding = 6
-
-# progress bar
+padding = 16
+horizontal_padding = 16
 progress_bar = true
 progress_bar_height = 7
 progress_bar_frame_width = 1
@@ -26,73 +13,46 @@ progress_bar_min_width = 150
 progress_bar_max_width = 300
 progress_bar_corner_radius = 20
 progress_bar_corners = all
-
-# indicate how many notifications are hidden
 indicate_hidden = yes
-
-# window transparency [0 = opaque]
+show_indicators = yes
+shrink = yes
 transparency = 0
-
-# width of frame around the notification window
-frame_width = 0
-
-# defines color of the frame around the notification window.
-frame_color = "#E8E1D1"
-
-# separators
+frame_width = 2
+frame_color = "#212121"
 separator_height = 0
-separator_color = frame
-
-# gap to the right
-gap_size = 12
-
-# text
+gap_size = 0
+gap_color = "#252525"
+sort = true
 font = Inter 9
 markup = full
 line_height = 0
-
-# formatting
-format = "<b>%s</b>\n%b"
+format = "%s\n%b"
 alignment = left
 vertical_alignment = center
-
-# age configuration
+word_wrap = yes
+ignore_newline = no
 show_age_threshold = 60
-
-# where to make an ellipsis in long lines.
 ellipsize = middle
-
-# stack equal notifications
-stack_duplicates = true
-
-# disable icon
-icon_position = off
-
-# rounded notification
+stack_duplicates = false
+icon_position = left
+show_icons = left
+max_icon_size = 32
+icon_path = /usr/share/icons/Papirus-Light/16x16/status/:/usr/share/icons/Papirus-Light/16x16/devices/
 corner_radius = 4
 corners = all
 
-### mouse
-mouse_left_click = close_current
-mouse_middle_click = do_action, close_current
-mouse_right_click = close_all
-
-### colors based on urgency
 [urgency_low]
-background = "#E8E1D1"
-foreground = "#2A2F2F"
-timeout = 10
-default_icon = dialog-information
+background = "#252525"
+foreground = "#dfdfdf"
+timeout = 5
+
 [urgency_normal]
-background = "#E8E1D1"
-foreground = "#2A2F2F"
-timeout = 10
-override_pause_level = 30
-default_icon = dialog-information
+background = "#252525"
+foreground = "#dfdfdf"
+timeout = 5
+
 [urgency_critical]
-background = "#E8E1D1"
-foreground = "#2A2F2F"
-frame_color = "#ff0000"
+background = "#252525"
+foreground = "#dfdfdf"
+frame_color = "#f07178"
 timeout = 0
-override_pause_level = 60
-default_icon = dialog-warning
