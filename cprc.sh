@@ -11,6 +11,7 @@ declare -A FILES=(
   ["./i3/i3status/config"]="$HOME/.config/i3status/config"
   ["./polybar/config"]="$HOME/.config/polybar/config.ini"
   ["./polybar/launch"]="$HOME/.config/polybar/launch.sh"
+  ["./picom/picom.conf"]="$HOME/.config/picom/picom.conf"
   ["./alacritty/alacritty.toml"]="$HOME/.config/alacritty/alacritty.toml"
   ["./dunst/dunstrc"]="$HOME/.config/dunst/dunstrc"
 )
@@ -19,6 +20,6 @@ for dest in "${!FILES[@]}"; do
   src="${FILES[$dest]}"
   if ! cmp -s "$dest" "$src"; then
     cp -r "$src" "$dest"
-    echo "$(basename "$dest") updated"
+    echo "$dest updated"
   fi
 done

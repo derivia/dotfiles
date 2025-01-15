@@ -171,6 +171,9 @@ client.urgent           #2F343A #700000 #FFFFFF #700000 #700000
 client.placeholder      #000000 #0C0C0C #FFFFFF #000000 #0C0C0C
 client.background       #FFFFFF
 
+# stop changing focus with mouse hover
+focus_follows_mouse no
+
 for_window [class=Eog|Yad|Sxiv|feh|mpv|Vlc|File-roller|Xarchiver] floating enable
 for_window [class=Eog|Sxiv|feh|mpv|Vlc|File-roller|Xarchiver] focus
 for_window [class=".*"] border pixel 4
