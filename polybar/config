@@ -27,7 +27,7 @@ separator-foreground = ${colors.disabled}
 font-0 = "RobotoMono Nerd Font:size=10:weight=light;2"
 
 modules-left = xworkspaces i3
-modules-right = pulseaudio memory cpu eth tun0 ppp0 date systray
+modules-right = playerctl pulseaudio memory cpu tun0 ppp0 date systray
 
 cursor-click = pointer
 cursor-scroll = ns-resize
@@ -131,6 +131,12 @@ show-urgent = true
 enable-scroll = false
 format = <label-mode>
 label-mode = |%mode%-mode|
+
+[module/playerctl]
+type = custom/script
+interval = 2
+exec = ~/.config/polybar/media.sh
+exec-if = playerctl metadata -f {{playerName}} 2>/dev/null | grep -Ev 'mopidy' >/dev/null
 
 [settings]
 screenchange-reload = true
