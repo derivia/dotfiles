@@ -11,8 +11,7 @@ font pango:RobotoMono Nerd Font 9
 exec_always --no-startup-id for id in $(xinput list | grep "pointer" | cut -d '=' -f 2 | cut -f 1); do xinput --set-prop $id 'libinput Accel Profile Enabled' 0, 1; done
 
 # wallpaper on startup
-exec_always --no-startup-id hsetroot -center ~/.wallpaper-light
-
+exec_always --no-startup-id hsetroot -cover ~/.wo-1.jpg
 # notification daemon
 exec_always --no-startup-id dunst -config ~/.config/dunst/dunstrc
 
@@ -49,6 +48,9 @@ bindsym $super+period exec --no-startup-id "~/.local/bin/dmoji"
 
 # close focused window
 bindsym $super+c kill
+
+# show exit message
+# bindsym $super+Shift+e exec --no-startup-id "i3-nagbar -t normal -m 'Exit?' -b 'Yes, exit i3' 'i3-msg exit'"
 
 # move focus between windows
 bindsym $super+h focus left
@@ -108,7 +110,7 @@ bindsym $super+Ctrl+Shift+6 [workspace=__focused__] move container to workspace 
 bindsym $super+Ctrl+Shift+7 [workspace=__focused__] move container to workspace 7:VII
 bindsym $super+Ctrl+Shift+8 [workspace=__focused__] move container to workspace 8:VIII
 bindsym $super+Ctrl+Shift+9 [workspace=__focused__] move container to workspace 9:IX
-bindsym $super+Ctrl+Shift+0 [workspace=__focused__] move container to workspace 0:X
+bindsym $super+Ctrl+Shift+0 [workspace=__focused__] move container to workspace 10:X
 
 # reload i3 config
 bindsym $super+BackSpace exec "i3-msg restart"
@@ -129,30 +131,35 @@ bindsym $super+Pause exec --no-startup-id ~/.config/i3/scripts/autoclick
 
 # -- Bar --
 
-bar {
-	status_command SCRIPT_DIR=~/.config/i3blocks/scripts i3blocks
-  separator_symbol "┇"
-	position top
-  padding 13px 3px 0px 3px
-  tray_padding 9
-  workspace_min_width 33
-  strip_workspace_numbers yes
-	colors {
-      background #d6d0c9
-      statusline #262b2c
-      separator #262b2c
+# -- i3blocks bar --
+# bar {
+# 	status_command SCRIPT_DIR=~/.config/i3blocks/scripts i3blocks
+#   separator_symbol "┇"
+# 	position top
+#   padding 13px 3px 0px 3px
+#   tray_padding 9
+#   workspace_min_width 33
+#   strip_workspace_numbers yes
+# 	colors {
+#       background #d6d0c9
+#       statusline #262b2c
+#       separator #262b2c
+#
+#       # name #border #background #text
+#       focused_workspace #D6D0C9 #56545A #EFEFEF
+#       active_workspace #D6D0C9 #46544F #7A7F7F
+#       inactive_workspace #D6D0C9 #C8C7B8 #7A7F7F
+#       urgent_workspace #D6D0C9 #C73330 #7A7F7F
+# 	}
+# }
 
-      # name #border #background #text
-      focused_workspace #D6D0C9 #56545A #EFEFEF
-      active_workspace #D6D0C9 #46544F #7A7F7F
-      inactive_workspace #D6D0C9 #C8C7B8 #7A7F7F
-      urgent_workspace #D6D0C9 #C73330 #7A7F7F
-	}
-}
+## -- polybar --
+exec_always --no-startup-id ~/.config/polybar/launch.sh
 
 # -- Windows --
 
-# from i3 docs: "Note that for the window decorations, the color around the child
+# from i3 docs:
+# Note that for the window decorations, the color around the child
 # window is the 'child_border', and 'border' color is only the two thin lines
 # around the titlebar."
 
@@ -166,6 +173,6 @@ client.background       #FFFFFF
 
 for_window [class=Eog|Yad|Sxiv|feh|mpv|Vlc|File-roller|Xarchiver] floating enable
 for_window [class=Eog|Sxiv|feh|mpv|Vlc|File-roller|Xarchiver] focus
-for_window [class=".*"] border pixel 3
+for_window [class=".*"] border pixel 4
 gaps inner 8
 smart_gaps off
