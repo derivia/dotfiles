@@ -31,8 +31,8 @@ bindsym --release $super+p exec xcolor --selection
 
 # dmenu application launcher
 bindsym $super+d exec i3-dmenu-desktop --dmenu="dmenu -i -b \
--fn 'RobotoMono Nerd Font:size=9' -nb '#E8E1D1' -nf '#7A7F7F' \
--sb '#96D4CF' -sf '#141C21'"
+-fn 'RobotoMono Nerd Font:size=10' -nb '#E8E6DF' -nf '#323334' \
+-sb '#C3C0B8' -sf '#141C18'"
 
 # screenshot
 bindsym Print exec flameshot gui
@@ -41,7 +41,7 @@ bindsym Print exec flameshot gui
 bindsym $super+e exec --no-startup-id thunar
 
 # lock screen
-bindsym Control+$super+l exec "i3lock -c 202020"
+bindsym Control+$super+l exec "i3lock -c 323334"
 
 # emoji utility
 bindsym $super+period exec --no-startup-id "~/.local/bin/dmoji"
@@ -117,10 +117,10 @@ bindsym $super+BackSpace exec "i3-msg restart"
 
 # resize and keybindings
 mode "resize" {
-	bindsym Left resize shrink width 5 px or 5 ppt
-	bindsym Down resize grow height 5 px or 5 ppt
-	bindsym Up resize shrink height 5 px or 5 ppt
-	bindsym Right resize grow width 5 px or 5 ppt
+	bindsym h resize shrink width 5 px or 5 ppt
+	bindsym j resize grow height 5 px or 5 ppt
+	bindsym k resize shrink height 5 px or 5 ppt
+	bindsym l resize grow width 5 px or 5 ppt
 	bindsym Return mode "default"
 	}
 bindsym $super+r mode "resize"
@@ -130,28 +130,6 @@ bindsym --release Pause exec --no-startup-id xdotool mousemove_relative 0 0 clic
 bindsym $super+Pause exec --no-startup-id ~/.config/i3/scripts/autoclick
 
 # -- Bar --
-
-# -- i3blocks bar --
-# bar {
-# 	status_command SCRIPT_DIR=~/.config/i3blocks/scripts i3blocks
-#   separator_symbol "┇"
-# 	position top
-#   padding 13px 3px 0px 3px
-#   tray_padding 9
-#   workspace_min_width 33
-#   strip_workspace_numbers yes
-# 	colors {
-#       background #d6d0c9
-#       statusline #262b2c
-#       separator #262b2c
-#
-#       # name #border #background #text
-#       focused_workspace #D6D0C9 #56545A #EFEFEF
-#       active_workspace #D6D0C9 #46544F #7A7F7F
-#       inactive_workspace #D6D0C9 #C8C7B8 #7A7F7F
-#       urgent_workspace #D6D0C9 #C73330 #7A7F7F
-# 	}
-# }
 
 ## -- polybar --
 exec_always --no-startup-id ~/.config/polybar/launch.sh

@@ -15,7 +15,7 @@ background = ${colors.background}
 foreground = ${colors.foreground}
 line-size = 2pt
 border-size = 0pt
-border-color = #0000000
+border-color = #000000
 
 padding-left = 0
 padding-right = 1
@@ -26,7 +26,7 @@ separator-foreground = ${colors.disabled}
 
 font-0 = "RobotoMono Nerd Font:size=10:weight=light;2"
 
-modules-left = xworkspaces
+modules-left = xworkspaces i3
 modules-right = pulseaudio memory cpu eth tun0 ppp0 date systray
 
 cursor-click = pointer
@@ -124,6 +124,13 @@ exec = ~/.config/polybar/ifstat.sh tun0
 [module/ppp0]
 inherit = module/base-ifstat
 exec = ~/.config/polybar/ifstat.sh ppp0
+
+[module/i3]
+type = internal/i3
+show-urgent = true
+enable-scroll = false
+format = <label-mode>
+label-mode = |%mode%-mode|
 
 [settings]
 screenchange-reload = true
