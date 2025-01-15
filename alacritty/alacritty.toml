@@ -70,5 +70,5 @@ title = "Alacritty"
 general = "Alacritty"
 instance = "Alacritty"
 [window.padding]
-x = 0
-y = 0
+x = 4
+y = 4
