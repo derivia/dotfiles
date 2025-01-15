@@ -9,6 +9,8 @@ declare -A FILES=(
   ["./gitignore"]="$HOME/.gitignore"
   ["./i3/config"]="$HOME/.config/i3/config"
   ["./i3/i3status/config"]="$HOME/.config/i3status/config"
+  ["./polybar/config"]="$HOME/.config/polybar/config.ini"
+  ["./polybar/launch"]="$HOME/.config/polybar/launch.sh"
   ["./alacritty/alacritty.toml"]="$HOME/.config/alacritty/alacritty.toml"
   ["./dunst/dunstrc"]="$HOME/.config/dunst/dunstrc"
 )
