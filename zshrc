@@ -63,8 +63,32 @@ alias cvt='f() {
     done
 }; f'
 
-# compare remote branches with local ones and echo differences
+# compare remote branches with local ones after fetching and echo differences
+# maybe i've forgot to update something on the remotes, idk
 alias grbs='f() {
+  original_dir=$(pwd)
+  trap "cd \"$original_dir\"; return" SIGINT
+
+  for dir in $(cwdirs); do
+    if [[ -d "$dir/.git" ]]; then
+      cd "$dir" || continue
+      echo "$dir:"
+      for branch in $(git branch --list | sed "s/*//"); do
+        for remote in $(git remote); do
+          diff_count=$(git diff --stat "$branch" "$remote/$branch" | wc -l)
+          if [[ $diff_count -gt 0 ]]; then
+            echo "  $branch -> $remote/$branch [$diff_count]"
+          fi
+        done
+      done
+      cd "$original_dir" || break
+    fi
+  done
+  cd "$original_dir"
+}; f'
+
+# compare remote branches with local ones after fetching and echo differences
+alias grfbs='f() {
   original_dir=$(pwd)
   trap "cd \"$original_dir\"; return" SIGINT
 
@@ -260,6 +284,27 @@ alias mkicon='f() {
         return 1
     fi
     for size in 16 48 128; do magick $1 -resize "${size}x${size}!" "$size.png"; done;
+}; f'
+
+alias headrock='f() {
+    if [ "$#" -lt 1 ]; then
+        echo "Usage: headrock <limit> [length]"
+        return 1
+    fi
+
+    if [ ! -f /usr/share/wordlists/rockyou.txt ]; then
+        echo "Error: rockyou.txt not found at /usr/share/wordlists/rockyou.txt"
+        return 1
+    fi
+
+    limit="$1"
+    length="$2"
+
+    if [ -z "$length" ]; then
+        head -n "$limit" /usr/share/wordlists/rockyou.txt
+    else
+        awk -v len="$length" '\''length($0) == len'\'' /usr/share/wordlists/rockyou.txt | head -n "$limit"
+    fi
 }; f'
 
 # use neovim as manpager
