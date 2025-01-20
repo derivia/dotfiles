@@ -33,10 +33,12 @@ unsetopt HIST_BEEP              # don't beep
 # for wslutilities
 if [[ -n "$WSLENV" ]]; then
   export BROWSER="wslview"
-  alias oc="open_command"
 fi
 
 ZSH_THEME="gentoo"
+
+# JAVA_HOME
+export JAVA_HOME=/usr/lib/jvm/java-23-openjdk/
 
 plugins=(asdf git zsh-autosuggestions zsh-syntax-highlighting)
 

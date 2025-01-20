@@ -83,6 +83,9 @@ nnoremap <C-j> <C-w>j
 nnoremap <C-k> <C-w>k
 nnoremap <C-l> <C-w>l
 
+" make I the same as i | stop going back the line
+nnoremap I i
+
 " move lines on normal & visual mode using alt
 nnoremap <C-J> :m+1<CR>
 nnoremap <C-K> :m-2<CR>
