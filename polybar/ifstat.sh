@@ -13,7 +13,7 @@ IF="$1"
 if [[ "$IF" == "tun0" || "$IF" == "ppp0" ]]; then
   # check if tun0 or ppp0 exists in 'ip a'
   if ip a show $IF &>/dev/null; then
-    echo "%{F#6ADE67}$IF%{F-}"
+    echo "%{F#3AAE37}$IF%{F-}"
   else
     echo "%{F#C54242}$IF%{F-}"
   fi
@@ -23,7 +23,7 @@ else
 
   case "$interface_status" in
     up)
-      echo "%{F#8ADE87}$IF%{F-}"
+      echo "%{F#3AAE37}$IF%{F-}"
       ;;
     down)
       echo "%{F#C54242}$IF%{F-}"
