@@ -24,7 +24,7 @@ separator-foreground = ${colors.disabled}
 font-0 = "RobotoMono Nerd Font:size=10:weight=light;2"
 
 # -- Modules --
-modules-left = xworkspaces i3
+modules-left = xworkspaces pomodoro i3
 modules-right = playerctl pulseaudio memory cpu tun0 ppp0 date systray
 
 cursor-click = default
@@ -127,6 +127,13 @@ show-urgent = true
 enable-scroll = false
 format = <label-mode>
 label-mode = |%mode%-mode|
+
+[module/pomodoro]
+type = custom/script
+exec = ~/.config/polybar/pomodoro.sh
+interval = 1
+click-left = ~/.config/polybar/pomodoro.sh left
+click-right = ~/.config/polybar/pomodoro.sh right
 
 [module/playerctl]
 type = custom/script
