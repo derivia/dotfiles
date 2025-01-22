@@ -24,3 +24,12 @@ for dest in "${!FILES[@]}"; do
     echo "$dest updated"
   fi
 done
+
+for src_file in "$HOME"/.config/polybar/*.sh; do
+  dest_file="./polybar/$(basename "$src_file")"
+  if [[ -f "$src_file" ]] && ! cmp -s "$src_file" "$dest_file"; then
+    mkdir -p "$(dirname "$dest_file")"
+    cp "$src_file" "$dest_file"
+    echo "$dest_file updated"
+  fi
+done

@@ -132,6 +132,8 @@ label-mode = |%mode%-mode|
 type = custom/script
 exec = ~/.config/polybar/pomodoro.sh
 interval = 1
+format = <label>
+label = %output%
 click-left = ~/.config/polybar/pomodoro.sh left
 click-right = ~/.config/polybar/pomodoro.sh right
 

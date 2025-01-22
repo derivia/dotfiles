@@ -65,7 +65,7 @@ alias cvt='f() {
     done
 }; f'
 
-# compare remote branches with local ones after fetching and echo differences
+# compare remote branches with local ones and echo differences
 # maybe i've forgot to update something on the remotes, idk
 alias grbs='f() {
   original_dir=$(pwd)
