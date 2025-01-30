@@ -32,6 +32,9 @@ bindsym $super+Return exec --no-startup-id alacritty
 # color picker
 bindsym --release $super+p exec xcolor --selection
 
+# place thunderbird on workspace 10 at startup
+exec --no-startup-id i3-msg 'workspace 10:X; exec /sbin/thunderbird; workspace 1:I'
+
 # dmenu application launcher
 bindsym $super+d exec i3-dmenu-desktop --dmenu="dmenu -i -b \
 -fn 'RobotoMono Nerd Font:size=10' -nb '#E8E6DF' -nf '#323334' \
@@ -157,7 +160,7 @@ focus_follows_mouse no
 
 for_window [class=Eog|Yad|Sxiv|feh|mpv|Vlc|File-roller|Xarchiver] floating enable
 for_window [class=Eog|Sxiv|feh|mpv|Vlc|File-roller|Xarchiver] focus
-for_window [class=".*"] border pixel 5
+for_window [class=".*"] border pixel 3
 gaps inner 6
 gaps outer 6
 smart_gaps off
