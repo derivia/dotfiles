@@ -49,9 +49,9 @@ yellow = "0xECCC87"
 
 # Font
 [font]
-size = 8.0
+size = 10
 [font.normal]
-family = "RobotoMono Nerd Font"
+family = "Iosevka Nerd Font"
 style = "Regular"
 [font.bold]
 style = "Bold"
@@ -59,7 +59,7 @@ style = "Bold"
 style = "Italic"
 [font.offset]
 x = 1
-y = 1
+y = 0
 
 # Window
 [scrolling]
