@@ -38,7 +38,7 @@ fi
 ZSH_THEME="gentoo"
 
 # JAVA_HOME
-export JAVA_HOME=/usr/lib/jvm/java-23-openjdk/
+export JAVA_HOME=/usr/lib/jvm/java-21-openjdk/
 
 plugins=(asdf git zsh-autosuggestions zsh-syntax-highlighting)
 
