@@ -246,6 +246,7 @@ require("lazy").setup({
 		},
 	},
 
+	-- Code formatting
 	{
 		"stevearc/conform.nvim",
 		event = { "BufReadPre", "BufNewFile" },
@@ -261,8 +262,10 @@ require("lazy").setup({
 					clang_format = {
 						command = "clang-format",
 						append_args = function()
+							local home_dir = os.getenv("HOME")
+							local clang_format_path = home_dir .. "/.clang-format"
 							return {
-								"--style={AllowShortFunctionsOnASingleLine: None, AlignConsecutiveMacros: true, AlignEscapedNewlines: Left, BreakBeforeBraces: Linux, SpaceAfterLogicalNot: false, SpaceAfterTemplateKeyword: false, SpaceAfterCStyleCast: false, ReferenceAlignment: Pointer, PointerAlignment: Right, ReflowComments: false, KeepEmptyLinesAtTheStartOfBlocks: false, KeepEmptyLinesAtEOF: false, IndentWidth: 2, ColumnLimit: 80}",
+								"--style=file:" .. clang_format_path,
 							}
 						end,
 					},
@@ -357,9 +360,13 @@ require("lazy").setup({
 		end,
 	},
 
-	-- Surround text objects
 	{
-		"machakann/vim-sandwich",
+		"kylechui/nvim-surround",
+		version = "*",
+		event = "VeryLazy",
+		config = function()
+			require("nvim-surround").setup({})
+		end,
 	},
 
 	-- Better typescript LSP & Linting
