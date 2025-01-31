@@ -1,0 +1,26 @@
+BasedOnStyle: LLVM
+Language: Cpp
+AlignConsecutiveMacros: true
+AlignEscapedNewlines: Left
+AlignTrailingComments: true
+AllowShortFunctionsOnASingleLine: None
+BreakBeforeBraces: Linux
+ColumnLimit: 79
+IncludeBlocks: Merge
+IndentWidth: 4
+KeepEmptyLinesAtEOF: false
+KeepEmptyLinesAtTheStartOfBlocks: false
+PointerAlignment: Right
+ReferenceAlignment: Pointer
+ReflowComments: true
+SpaceAfterCStyleCast: false
+SpaceAfterLogicalNot: false
+SpaceAfterTemplateKeyword: false
+SpacesInParens: Custom
+SpacesInParensOptions:
+  ExceptDoubleParentheses: false
+  InCStyleCasts: false
+  InConditionalStatements: false
+  InEmptyParentheses: false
+  Other: false
+Standard: c++17
