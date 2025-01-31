@@ -22,10 +22,12 @@ module-margin = 1
 separator = |
 separator-foreground = ${colors.disabled}
 font-0 = "RobotoMono Nerd Font:size=10:weight=light;2"
+font-1 = "Font Awesome 6 Free Solid:size=10;2"
+font-2 = "Symbols Nerd Font:size=10;2"
 
 # -- Modules --
 modules-left = xworkspaces pomodoro i3
-modules-right = playerctl pulseaudio memory cpu tun0 ppp0 date systray
+modules-right = playerctl pulseaudio memory cpu tun0 ppp0 date dunst-dnd systray
 
 cursor-click = default
 cursor-scroll = default
@@ -136,6 +138,12 @@ format = <label>
 label = %output%
 click-left = ~/.config/polybar/pomodoro.sh left
 click-right = ~/.config/polybar/pomodoro.sh right
+
+[module/dunst-dnd]
+type = custom/script
+exec = "~/.config/polybar/dunst_dnd.sh"
+click-left = ~/.config/polybar/dunst_dnd.sh left
+interval = 2
 
 [module/playerctl]
 type = custom/script
