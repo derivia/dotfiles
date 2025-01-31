@@ -15,6 +15,7 @@ declare -A FILES=(
   ["./picom/picom.conf"]="$HOME/.config/picom/picom.conf"
   ["./alacritty/alacritty.toml"]="$HOME/.config/alacritty/alacritty.toml"
   ["./dunst/dunstrc"]="$HOME/.config/dunst/dunstrc"
+  ["./clang-format"]="$HOME/.clang-format"
 )
 
 for dest in "${!FILES[@]}"; do
