@@ -4,6 +4,38 @@ require("lazy").setup({
 
 	-- Colorscheme(s)
 	{ "derivia/opera-vim", lazy = false, priority = 1000 },
+	{
+		"navarasu/onedark.nvim",
+		lazy = false,
+		priority = 1000,
+		opts = {
+			style = "dark",
+			transparent = false,
+			term_colors = true,
+			ending_tildes = false,
+			cmp_itemkind_reverse = false,
+			code_style = {
+				comments = "none",
+				keywords = "none",
+				functions = "none",
+				strings = "none",
+				variables = "none",
+			},
+
+			lualine = {
+				transparent = false,
+			},
+
+			colors = {},
+			highlights = {},
+
+			diagnostics = {
+				darker = true,
+				undercurl = true,
+				background = true,
+			},
+		},
+	},
 
 	-- Save selected code as image, with syntax highlighting
 	{
@@ -32,6 +64,7 @@ require("lazy").setup({
 		},
 	},
 
+	-- Annotate classes and functions based on scope
 	{
 		"danymat/neogen",
 		version = "*",
