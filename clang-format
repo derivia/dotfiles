@@ -7,7 +7,7 @@ AllowShortFunctionsOnASingleLine: None
 BreakBeforeBraces: Linux
 ColumnLimit: 79
 IncludeBlocks: Merge
-IndentWidth: 4
+IndentWidth: 2
 KeepEmptyLinesAtEOF: false
 KeepEmptyLinesAtTheStartOfBlocks: false
 PointerAlignment: Right
