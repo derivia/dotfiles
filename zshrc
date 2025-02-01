@@ -40,7 +40,7 @@ ZSH_THEME="gentoo"
 # JAVA_HOME
 export JAVA_HOME=/usr/lib/jvm/java-21-openjdk/
 
-plugins=(asdf git zsh-autosuggestions zsh-syntax-highlighting)
+plugins=(git zsh-autosuggestions zsh-syntax-highlighting)
 
 autoload -Uz compinit
 for dump in ~/.zcompdump(N.mh+24); do
@@ -311,6 +311,14 @@ alias headrock='f() {
 
 # use neovim as manpager
 export MANPAGER='nvim +Man!'
+
+# ruby environment manager
+eval "$(rbenv init -)"
+
+# python environment manager
+export PYENV_ROOT="$HOME/.pyenv"
+[[ -d $PYENV_ROOT/bin ]] && export PATH="$PYENV_ROOT/bin:$PATH"
+eval "$(pyenv init - zsh)"
 
 # cow on startup!
 if command -v cowthink &>/dev/null && command -v fortune &>/dev/null; then
