@@ -375,7 +375,7 @@ require("lazy").setup({
 					fullscreen = false,
 					preview = {
 						border = "noborder",
-						delay = 50,
+						delay = 0,
 					},
 				},
 				actions = {
