@@ -22,9 +22,7 @@ masontools.setup({
 		"clangd",
 		"lua-language-server",
 		"jedi-language-server",
-		"prisma-language-server",
 		"pyright",
-		-- "python-lsp-server",
 		"typescript-language-server",
 		{ "rust-analyzer", version = "2024-10-21" },
 

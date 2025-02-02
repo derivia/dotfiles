@@ -121,11 +121,20 @@ tstools.setup({
 })
 
 local servers = {
-	"clangd",
 	"prismals",
 	-- "pyright",
 	"jedi_language_server",
 }
+
+lspconfig.clangd.setup({
+	cmd = {
+		"clangd",
+		"--clang-tidy",
+	},
+	on_attach = on_attach,
+	handlers = handlers,
+	capabilities = capabilities(),
+})
 
 lspconfig.rust_analyzer.setup({
 	on_attach = on_attach,
