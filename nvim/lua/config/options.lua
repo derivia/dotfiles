@@ -70,6 +70,8 @@ o.shortmess:append({ I = true })
 -- keep the cursor kinda centralized
 o.scrolloff = 8
 o.sidescrolloff = 2
+-- bigger history
+o.shada = "'1000,<50,s25,h"
 
 -- disable health checks for these providers
 vim.g.loaded_python3_provider = 0
