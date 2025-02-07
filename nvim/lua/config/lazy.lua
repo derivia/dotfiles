@@ -70,7 +70,6 @@ require("lazy").setup({
 		version = "*",
 		opts = {
 			type = "func",
-			-- snippet_engine = "luasnip",
 		},
 		keys = {
 			{ "<leader>nf", mode = "n", "<cmd>Neogen<CR>", desc = "Annotate based on scope" },
