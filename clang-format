@@ -3,6 +3,9 @@ Language: Cpp
 AlignConsecutiveMacros: true
 AlignEscapedNewlines: Left
 AlignTrailingComments: true
+AlignConsecutiveShortCaseStatements:
+  Enabled: true
+AllowShortCaseExpressionOnASingleLine: true
 AllowShortFunctionsOnASingleLine: None
 BreakBeforeBraces: Linux
 ColumnLimit: 79

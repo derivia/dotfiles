@@ -238,10 +238,19 @@ alias cpwpdf='f() {
 
 # python virtual environment aliases
 alias penv='f() {
-    python -m venv .venv_$(basename "$(pwd)" | cut -c1-16)
+    py_version=$(python --version | awk "{print \$2}" | cut -d. -f1-3)
+    python -m venv ".venv_$(basename "$(pwd)" | cut -c1-16)_$py_version"
 }; f'
 alias pact='f() {
-    source .venv_$(basename "$(pwd)" | cut -c1-16)/bin/activate
+    version=$(python --version | awk "{print \$2}" | cut -d. -f1-3)
+    venv_path=$(find . -maxdepth 1 -type d -name ".venv_$(basename "$(pwd)" | cut -c1-16)_$version" | head -n 1)
+
+    if [ -z "$venv_path" ]; then
+        echo "No virtual environment found for version: $version"
+        return 1
+    fi
+
+    source "$venv_path/bin/activate"
 }; f'
 
 # docker process list with prettier formatting
@@ -321,9 +330,9 @@ export PYENV_ROOT="$HOME/.pyenv"
 eval "$(pyenv init - zsh)"
 
 # cow on startup!
-if command -v cowthink &>/dev/null && command -v fortune &>/dev/null; then
-  cowthink -f small $(fortune -s -n 100)
-fi
+# if command -v cowthink &>/dev/null && command -v fortune &>/dev/null; then
+#   cowthink -f small $(fortune -s -n 100)
+# fi
 
 # taken from https://www.markhansen.co.nz/auto-start-tmux/
 # if [ -n "$PS1" ] && [ -z "$TMUX" ]; then
