@@ -24,7 +24,7 @@ masontools.setup({
 		"jedi-language-server",
 		"pyright",
 		"typescript-language-server",
-		{ "rust-analyzer", version = "2024-10-21" },
+		"rust-analyzer",
 
 		-- formatter
 		"black",

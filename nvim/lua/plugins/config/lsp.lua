@@ -120,12 +120,6 @@ tstools.setup({
 	},
 })
 
-local servers = {
-	"prismals",
-	-- "pyright",
-	"jedi_language_server",
-}
-
 lspconfig.clangd.setup({
 	cmd = {
 		"clangd",
@@ -136,30 +130,11 @@ lspconfig.clangd.setup({
 	capabilities = capabilities(),
 })
 
-lspconfig.rust_analyzer.setup({
-	on_attach = on_attach,
-	handlers = handlers,
-	capabilities = capabilities(),
-	settings = {
-		["rust-analyzer"] = {
-			cachePriming = {
-				enable = false,
-			},
-			diagnostics = {
-				enable = true,
-				experimental = {
-					enable = true,
-				},
-				styleLints = {
-					enable = true,
-				},
-			},
-			completion = {
-				hideDeprecated = true,
-			},
-		},
-	},
-})
+local servers = {
+	"jedi_language_server",
+	"prismals",
+	"rust_analyzer",
+}
 
 for _, lsp in ipairs(servers) do
 	lspconfig[lsp].setup({
