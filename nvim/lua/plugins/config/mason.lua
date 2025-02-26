@@ -31,7 +31,6 @@ masontools.setup({
 		"biome",
 		"clang-format",
 		"stylua",
-		-- rustfmt should be installed via rustup
 		"prettierd",
 		"standardrb",
 		"yamlfmt",
