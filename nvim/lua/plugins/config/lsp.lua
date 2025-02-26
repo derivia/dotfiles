@@ -132,7 +132,6 @@ lspconfig.clangd.setup({
 
 local servers = {
 	"jedi_language_server",
-	"prismals",
 	"rust_analyzer",
 }
 
