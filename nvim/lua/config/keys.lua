@@ -18,11 +18,6 @@ keymap("", "<C-v>", "<Nop>", opts)
 keymap("n", "n", ":normal! nzz<CR>", opts)
 keymap("n", "N", ":normal! Nzz<CR>", opts)
 
--- to move windows around
--- <C-w><shift-direction>
--- as example: <C-w>L
--- moves the current focused window to the right
-
 -- window navigation
 keymap("n", "<C-h>", "<C-w>h", opts)
 keymap("n", "<C-j>", "<C-w>j", opts)

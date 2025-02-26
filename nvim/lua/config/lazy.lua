@@ -5,6 +5,7 @@ require("lazy").setup({
 	-- Colorscheme(s)
 	{ "derivia/opera-vim", lazy = false, priority = 1000 },
 	{
+
 		"navarasu/onedark.nvim",
 		lazy = false,
 		priority = 1000,
@@ -241,7 +242,7 @@ require("lazy").setup({
 			},
 			select = {
 				enabled = true,
-				backend = { "telescope", "fzf_lua", "fzf", "builtin", "nui" },
+				backend = { "fzf_lua", "fzf", "builtin", "nui" },
 				trim_prompt = true,
 				telescope = nil,
 				fzf = {
@@ -349,7 +350,7 @@ require("lazy").setup({
 	-- Markdown autocmds
 	{ "jakewvincent/mkdnflow.nvim", ft = "markdown" },
 
-	-- Fuzzy finder
+	-- Fuzzy finder | Live grep | Etc
 	{
 		"ibhagwan/fzf-lua",
 		keys = {
@@ -359,6 +360,7 @@ require("lazy").setup({
 			{ "<leader>fo", "<cmd>FzfLua oldfiles<cr>", desc = "Search into recent opened files" },
 			{ "<leader>fr", "<cmd>FzfLua resume<cr>", desc = "Run the last command again" },
 		},
+
 		config = function()
 			local actions = require("fzf-lua.actions")
 			local status_ok, fzf_lua = pcall(require, "fzf-lua")
@@ -368,13 +370,18 @@ require("lazy").setup({
 
 			fzf_lua.setup({
 				winopts = {
-					split = "belowright new",
-					border = "none",
-					backdrop = 0,
+					height = 0.85,
+					width = 0.80,
+					row = 0.35,
+					col = 0.50,
+					border = "rounded",
+					backdrop = 60,
 					fullscreen = false,
 					preview = {
-						border = "noborder",
+						border = "rounded",
+						default = "builtin",
 						delay = 0,
+						layout = "flex",
 					},
 				},
 				actions = {
