@@ -1,13 +1,11 @@
-// Read lines til EOF
-/* 
+/* Read lines til EOF
 char *line = NULL;
 size_t len = 0;
 size_t read;
 while ((read = getline(&line, &len, stdin)) != -1) { }
 */
 
-// Read line til '\n'
-/*
+/* Read line til '\n'
 void read_line(char *str)
 {
   scanf(" %[^\n]", str);
@@ -53,6 +51,29 @@ void reverse_string(char *str)
     str[i] = str[len - i - 1];
     str[len - i - 1] = temp;
   }
+}
+*/
+
+/*
+void bubblesort(int arr[], size_t size)
+{
+  for (int i = 0; i < size - 1; i++) {
+    for (int j = 0; j < size - i - 1; j++) {
+      if (arr[j] > arr[j + 1]) {
+        int temp = arr[j];
+        arr[j] = arr[j + 1];
+        arr[j + 1] = temp;
+      }
+    }
+  }
+}
+*/
+
+
+/* Integer comparison for stdlib qsort
+int compare(const void* a, const void* b)
+{
+  return (*(int*) a - *(int*) b);
 }
 */
 
