@@ -11,7 +11,8 @@ font pango:RobotoMono Nerd Font 9
 exec_always --no-startup-id for id in $(xinput list | grep "pointer" | cut -d '=' -f 2 | cut -f 1); do xinput --set-prop $id 'libinput Accel Profile Enabled' 0, 1; done
 
 # wallpaper on startup
-exec_always --no-startup-id hsetroot -cover ~/.wo-4.jpg
+exec_always --no-startup-id hsetroot -cover ~/.wallpaper.jpg
+
 # notification daemon
 exec_always --no-startup-id dunst -config ~/.config/dunst/dunstrc
 
