@@ -151,7 +151,7 @@ require("lazy").setup({
 		},
 	},
 
-	-- Completion
+	-- Completion plugins
 	{
 		"hrsh7th/nvim-cmp",
 		dependencies = {
@@ -163,6 +163,42 @@ require("lazy").setup({
 			{ "saadparwaiz1/cmp_luasnip" },
 		},
 		event = "InsertEnter",
+	},
+	{
+		"saghen/blink.cmp",
+		dependencies = "rafamadriz/friendly-snippets",
+		version = "*",
+		opts = {
+			keymap = {
+				preset = "default",
+				["<Tab>"] = {
+					function(cmp)
+						if cmp.snippet_active() then
+							return cmp.accept()
+						else
+							return cmp.select_and_accept()
+						end
+					end,
+					"snippet_forward",
+					"fallback",
+				},
+				["<Up>"] = { "select_prev", "fallback" },
+				["<Down>"] = { "select_next", "fallback" },
+				["<C-k>"] = { "scroll_documentation_up", "fallback" },
+				["<C-j>"] = { "scroll_documentation_down", "fallback" },
+				["<C-space>"] = {
+					function(cmp)
+						cmp.show({ providers = { "snippets" } })
+					end,
+				},
+			},
+			completion = {
+				menu = { border = "none" },
+				documentation = { window = { border = "none" }, auto_show = true, auto_show_delay_ms = 0 },
+				ghost_text = { enabled = false },
+			},
+			signature = { enabled = true, window = { border = "none" } },
+		},
 	},
 
 	-- Snippet engine
