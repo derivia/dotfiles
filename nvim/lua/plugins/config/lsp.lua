@@ -1,8 +1,9 @@
 local status_ok_lspconfig, lspconfig = pcall(require, "lspconfig")
 local status_ok_cmp_lsp, cmp_lsp = pcall(require, "cmp_nvim_lsp")
 local status_ok_tstools, tstools = pcall(require, "typescript-tools")
+local status_ok_blinkcmp, blink_cmp = pcall(require, "blink.cmp")
 
-if not status_ok_lspconfig and status_ok_cmp_lsp and status_ok_tstools then
+if not status_ok_lspconfig or not status_ok_cmp_lsp or not status_ok_tstools or not status_ok_blinkcmp then
 	return
 end
 
@@ -60,7 +61,9 @@ local on_attach = function(client, bufnr)
 end
 
 local capabilities = function()
-	return vim.tbl_deep_extend("force", vim.lsp.protocol.make_client_capabilities(), cmp_lsp.default_capabilities())
+	local default_capabilities = vim.lsp.protocol.make_client_capabilities()
+	local blink_capabilities = blink_cmp.get_lsp_capabilities()
+	return vim.tbl_deep_extend("force", default_capabilities, blink_capabilities)
 end
 
 require("lspconfig.ui.windows").default_options.border = "rounded"
