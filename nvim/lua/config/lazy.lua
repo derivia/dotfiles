@@ -169,9 +169,12 @@ require("lazy").setup({
 		dependencies = "rafamadriz/friendly-snippets",
 		version = "*",
 		opts = {
+			fuzzy = {
+				implementation = "prefer_rust_with_warning",
+			},
 			keymap = {
 				preset = "default",
-				["<Tab>"] = {
+				["<Enter>"] = {
 					function(cmp)
 						if cmp.snippet_active() then
 							return cmp.accept()
@@ -182,8 +185,8 @@ require("lazy").setup({
 					"snippet_forward",
 					"fallback",
 				},
-				["<Up>"] = { "select_prev", "fallback" },
-				["<Down>"] = { "select_next", "fallback" },
+				["<Tab>"] = { "select_next", "snippet_forward", "fallback" },
+				["<S-Tab>"] = { "select_prev", "fallback" },
 				["<C-k>"] = { "scroll_documentation_up", "fallback" },
 				["<C-j>"] = { "scroll_documentation_down", "fallback" },
 				["<C-space>"] = {
@@ -196,6 +199,16 @@ require("lazy").setup({
 				menu = { border = "none" },
 				documentation = { window = { border = "none" }, auto_show = true, auto_show_delay_ms = 0 },
 				ghost_text = { enabled = false },
+				list = {
+					selection = {
+						preselect = function()
+							return not require("blink.cmp").snippet_active({ direction = 1 })
+						end,
+					},
+				},
+				trigger = {
+					show_in_snippet = false,
+				},
 			},
 			signature = { enabled = true, window = { border = "none" } },
 		},
