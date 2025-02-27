@@ -7,6 +7,9 @@ AlignConsecutiveShortCaseStatements:
   Enabled: true
 AllowShortCaseExpressionOnASingleLine: true
 AllowShortFunctionsOnASingleLine: None
+AllowShortIfStatementsOnASingleLine: AllIfsAndElse
+AllowShortLoopsOnASingleLine: true
+AllowShortBlocksOnASingleLine: Never
 BreakBeforeBraces: Linux
 ColumnLimit: 79
 IncludeBlocks: Merge
