@@ -4,8 +4,6 @@ local config = "plugins.config."
 pcall(require, config .. "colorscheme")
 
 local plugins = {
-	-- "cmp",
-	"codesnap",
 	"colorizer",
 	"lsp",
 	"lualine",

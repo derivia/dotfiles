@@ -1,7 +1,7 @@
 local status_ok_mason, mason = pcall(require, "mason")
 local status_ok_masontools, masontools = pcall(require, "mason-tool-installer")
 
-if not status_ok_mason and status_ok_masontools then
+if not status_ok_mason or not status_ok_masontools then
 	return
 end
 
@@ -21,7 +21,6 @@ masontools.setup({
 		-- lsp
 		"clangd",
 		"lua-language-server",
-		"jedi-language-server",
 		"pyright",
 		"typescript-language-server",
 		"rust-analyzer",
