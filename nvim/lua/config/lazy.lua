@@ -38,15 +38,6 @@ require("lazy").setup({
 		},
 	},
 
-	-- Save selected code as image, with syntax highlighting
-	{
-		"mistricky/codesnap.nvim",
-		build = "make build_generator",
-		keys = {
-			{ "<leader>cc", mode = "x", "<cmd>CodeSnapSave<cr>", desc = "Save current selected text to ~/snaps" },
-		},
-	},
-
 	-- Format textwidth on files
 	{
 		"paulshuker/textangle.nvim",
@@ -151,19 +142,6 @@ require("lazy").setup({
 		},
 	},
 
-	-- Completion plugins
-	{
-		"hrsh7th/nvim-cmp",
-		dependencies = {
-			{ "hrsh7th/cmp-buffer" },
-			{ "hrsh7th/cmp-path" },
-			{ "hrsh7th/cmp-cmdline" },
-			{ "hrsh7th/cmp-nvim-lsp" },
-			{ "hrsh7th/cmp-nvim-lsp-signature-help" },
-			{ "saadparwaiz1/cmp_luasnip" },
-		},
-		event = "InsertEnter",
-	},
 	{
 		"saghen/blink.cmp",
 		dependencies = "rafamadriz/friendly-snippets",
@@ -171,6 +149,9 @@ require("lazy").setup({
 		opts = {
 			fuzzy = {
 				implementation = "prefer_rust_with_warning",
+			},
+			cmdline = {
+				enabled = true,
 			},
 			keymap = {
 				preset = "default",
@@ -196,7 +177,9 @@ require("lazy").setup({
 				},
 			},
 			completion = {
-				menu = { border = "none" },
+				menu = {
+					border = "none",
+				},
 				documentation = { window = { border = "none" }, auto_show = true, auto_show_delay_ms = 0 },
 				ghost_text = { enabled = false },
 				list = {

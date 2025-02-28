@@ -1,9 +1,9 @@
 local status_ok_lspconfig, lspconfig = pcall(require, "lspconfig")
-local status_ok_cmp_lsp, cmp_lsp = pcall(require, "cmp_nvim_lsp")
 local status_ok_tstools, tstools = pcall(require, "typescript-tools")
 local status_ok_blinkcmp, blink_cmp = pcall(require, "blink.cmp")
 
-if not status_ok_lspconfig or not status_ok_cmp_lsp or not status_ok_tstools or not status_ok_blinkcmp then
+if not status_ok_lspconfig or not status_ok_tstools or not status_ok_blinkcmp then
+	vim.notify("Something went wrong with LSP startup.")
 	return
 end
 
@@ -134,7 +134,7 @@ lspconfig.clangd.setup({
 })
 
 local servers = {
-	"jedi_language_server",
+	"pyright",
 	"rust_analyzer",
 }
 
