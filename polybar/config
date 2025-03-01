@@ -128,7 +128,7 @@ type = internal/i3
 show-urgent = true
 enable-scroll = false
 format = <label-mode>
-label-mode = |%mode%-mode|
+label-mode = %mode%-mode
 
 [module/pomodoro]
 type = custom/script
