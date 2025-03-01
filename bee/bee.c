@@ -69,11 +69,17 @@ void bubblesort(int arr[], size_t size)
 }
 */
 
-
 /* Integer comparison for stdlib qsort
 int compare(const void* a, const void* b)
 {
   return (*(int*) a - *(int*) b);
+}
+*/
+
+/*
+int factorial(int n)
+{
+  return (n == 0) ? 1 : n * factorial(n - 1);
 }
 */
 
