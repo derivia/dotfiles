@@ -184,9 +184,7 @@ require("lazy").setup({
 				ghost_text = { enabled = false },
 				list = {
 					selection = {
-						preselect = function()
-							return not require("blink.cmp").snippet_active({ direction = 1 })
-						end,
+						preselect = false,
 					},
 				},
 				trigger = {
@@ -194,6 +192,21 @@ require("lazy").setup({
 				},
 			},
 			signature = { enabled = true, window = { border = "none" } },
+			sources = {
+				---@diagnostic disable-next-line: unused-local
+				default = function(ctx)
+					local success, node = pcall(vim.treesitter.get_node)
+					if
+						success
+						and node
+						and vim.tbl_contains({ "comment", "line_comment", "block_comment" }, node:type())
+					then
+						return {}
+					else
+						return { "lsp", "path", "snippets" }
+					end
+				end,
+			},
 		},
 	},
 
