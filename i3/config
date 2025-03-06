@@ -11,7 +11,7 @@ font pango:RobotoMono Nerd Font 9
 exec_always --no-startup-id for id in $(xinput list | grep "pointer" | cut -d '=' -f 2 | cut -f 1); do xinput --set-prop $id 'libinput Accel Profile Enabled' 0, 1; done
 
 # wallpaper on startup
-exec_always --no-startup-id hsetroot -cover ~/.wallpaper.jpg
+exec_always --no-startup-id hsetroot -cover ~/.wallpaper.png
 
 # notification daemon
 exec_always --no-startup-id dunst -config ~/.config/dunst/dunstrc
@@ -142,7 +142,6 @@ bindsym $super+Pause exec --no-startup-id ~/.config/i3/scripts/autoclick
 exec_always --no-startup-id ~/.config/polybar/launch.sh
 
 # -- Windows --
-
 # from i3 docs:
 # Note that for the window decorations, the color around the child
 # window is the 'child_border', and 'border' color is only the two thin lines
@@ -161,7 +160,7 @@ focus_follows_mouse no
 
 for_window [class=Eog|Yad|Sxiv|feh|mpv|Vlc|File-roller|Xarchiver] floating enable
 for_window [class=Eog|Sxiv|feh|mpv|Vlc|File-roller|Xarchiver] focus
-for_window [class=".*"] border pixel 3
-gaps inner 6
-gaps outer 6
+for_window [class=".*"] border pixel 0
+gaps inner 0
+gaps outer 0
 smart_gaps off
