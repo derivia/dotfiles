@@ -1,6 +1,6 @@
 [colors]
 background = #E8E6DF
-background-alt = #D3D0C8
+background-alt = #B8B8B5
 foreground = #2D2D2D
 primary = #606060
 secondary = #8ABEB7
@@ -27,7 +27,7 @@ font-2 = "Symbols Nerd Font:size=10;2"
 
 # -- Modules --
 modules-left = xworkspaces pomodoro i3
-modules-right = playerctl pulseaudio memory cpu tun0 ppp0 date dunst-dnd systray
+modules-right = pulseaudio memory cpu tun0 ppp0 date dunst-dnd systray
 
 cursor-click = default
 cursor-scroll = default

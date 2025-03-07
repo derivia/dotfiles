@@ -256,6 +256,10 @@ alias pact='f() {
 # docker process list with prettier formatting
 alias dpsc="docker ps --format 'table {{.ID}}\t{{.Status}}\t{{.Ports}}\t{{.Names}}'"
 
+# docker container and images deleting
+alias ddcp='docker rm -vf $(docker ps -aq)'
+alias ddip='docker rmi -f $(docker images -aq)'
+
 # just a simpler command
 alias oc='open_command'
 
@@ -297,6 +301,7 @@ alias mkicon='f() {
     for size in 16 48 128; do magick $1 -resize "${size}x${size}!" "$size.png"; done;
 }; f'
 
+# read `limit` lines from rockyou & `length` max-sized-lines
 alias headrock='f() {
     if [ "$#" -lt 1 ]; then
         echo "Usage: headrock <limit> [length]"
@@ -317,6 +322,8 @@ alias headrock='f() {
         awk -v len="$length" '\''length($0) == len'\'' /usr/share/wordlists/rockyou.txt | head -n "$limit"
     fi
 }; f'
+
+
 
 # use neovim as manpager
 export MANPAGER='nvim +Man!'
