@@ -172,7 +172,7 @@ require("lazy").setup({
 				["<C-j>"] = { "scroll_documentation_down", "fallback" },
 				["<C-space>"] = {
 					function(cmp)
-						cmp.show({ providers = { "snippets" } })
+						cmp.show({ providers = { "lsp", "path", "snippets" } })
 					end,
 				},
 			},

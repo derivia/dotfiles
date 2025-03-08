@@ -9,5 +9,4 @@ local snippetDir = vim.fn.stdpath("config") .. "/snippets"
 plugin.filetype_extend("javascriptreact", { "html" })
 plugin.filetype_extend("typescriptreact", { "html" })
 
-require("luasnip.loaders.from_vscode").lazy_load()
 require("luasnip.loaders.from_vscode").lazy_load({ paths = { snippetDir } })
