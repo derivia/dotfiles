@@ -24,6 +24,17 @@ void remove_character(char *str, char c)
 }
 */
 
+/* Reverse array
+void shuffle(int arr[], int n)
+{
+  for (int i = 0; i < n / 2; i++) {
+    int temp = arr[i];
+    arr[i] = arr[n - i - 1];
+    arr[n - i - 1] = temp;
+  }
+}
+*/
+
 /*
 int count_words(char *str)
 {
