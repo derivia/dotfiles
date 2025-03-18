@@ -36,6 +36,9 @@ bindsym --release $super+p exec xcolor --selection
 # place thunderbird on workspace 10 at startup
 exec --no-startup-id i3-msg 'workspace 10:X; exec /sbin/thunderbird; workspace 1:I'
 
+# disable screen power management
+exec --no-startup-id xset s off && xset -dpms
+
 # dmenu application launcher
 bindsym $super+d exec i3-dmenu-desktop --dmenu="dmenu -i -b \
 -fn 'RobotoMono Nerd Font:size=10' -nb '#E8E6DF' -nf '#323334' \
