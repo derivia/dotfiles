@@ -15,26 +15,26 @@ sudo pacman -S --needed git base-devel && git clone https://aur.archlinux.org/ya
 ```
 5. Install useful packages
 ```sh
-yay -S alacritty bat cmake curl \
-dbus-glib docker electronfd flameshot \
-fontconfig freetype2 fzf glibc gnumeric \
-grim gzip httpie jq jre8-openjdk less \
-libffi libgnome-keyring libnotify libreoffice-fresh libxcb libxcrypt \
-libxft libxkbcommon libyaml lua51 luarocks make \
-man-db man-pages ncurses neovim net-tools ninja \
-oniguruma openssh openssl pkg-config poppler postgresql \
-python ripgrep rustup sqlite ttf-iosevka-nerd ttf-firacode-nerd \
-ttf-iosevkaterm-nerd ttf-iosevkatermslab-nerd  \
-tar thunderbird tmux tree tree-sitter tree-sitter-cli \
-ttf-font-awesome ttf-nerd-fonts-symbols ttf-roboto-mono-nerd \
-unixodbcunzip vim vpnc docker-compose wget wofi xsel zip zlib zsh \
-yad i3blocks i3lock noise-suppression-for-voice ffmpegthumbnailer \
-tumbler vlc pamixer xclip alsa-utils inter-font zig ly xorg-xinput \
-pipewire-pulse pipewire-alsa wireplumber pipewire-libcamera \
-imagemagick dust pdftk djvulibre ufw neofetch exiftool \
-xdotool python-xlib zen-browser-bin scrcpy audacity \
-ethtool traceroute thunar-archive-plugin rnote \
-dosfstools calibre bear asciinema
+yay -S alacritty alsa-utils asciinema audacity bat bear \
+calibre cmake curl dbus-glib djvulibre docker \
+docker-compose dosfstools dust electronfd ethtool \
+exiftool ffmpegthumbnailer flameshot fontconfig \
+freetype2 fzf glibc gnumeric grim gzip httpie \
+i3blocks i3lock imagemagick inter-font jq jre8-openjdk \
+less libffi libgnome-keyring libnotify libreoffice-fresh \
+libxcb libxcrypt libxft libxkbcommon libyaml lua51 \
+luarocks ly make man-db man-pages ncurses neofetch \
+neovim net-tools ninja noise-suppression-for-voice oniguruma \
+openssh openssl pamixer pdftk pipewire-alsa pipewire-libcamera \
+pipewire-pulse pkg-config poppler postgresql python python-xlib \
+ripgrep rnote rustup scrcpy sqlite tar thunar-archive-plugin \
+thunderbird tmux traceroute tree tree-sitter tree-sitter-cli \
+ttf-firacode-nerd ttf-font-awesome ttf-iosevka-nerd \
+ttf-iosevkaterm-nerd ttf-iosevkatermslab-nerd \
+ttf-nerd-fonts-symbols ttf-roboto-mono-nerd \
+tumbler ufw unixodbcunzip vim vlc vpnc wget wireplumber \
+wofi xclip xdotool xorg-xinput xsel yad zen-browser-bin
+zig zip zlib zsh
 ```
 6. Set rust toolchain default to stable
 ```sh
@@ -45,7 +45,6 @@ rustup default stable
 ssh-keygen -o -a 100 -t ed25519 -f ~/.ssh/id_ed25519 -C <email>
 ```
 8. Install other useful tools
-    - yay (AUR helper)
     - tpm (tmux plugin manager)
     - ohmyzsh (zsh configuration framework)
     - rbenv (ruby version manager)
