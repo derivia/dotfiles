@@ -32,7 +32,9 @@ yad i3blocks i3lock noise-suppression-for-voice ffmpegthumbnailer \
 tumbler vlc pamixer xclip alsa-utils inter-font zig ly xorg-xinput \
 pipewire-pulse pipewire-alsa wireplumber pipewire-libcamera \
 imagemagick dust pdftk djvulibre ufw neofetch exiftool \
-xdotool python-xlib
+xdotool python-xlib zen-browser-bin scrcpy audacity \
+ethtool traceroute thunar-archive-plugin rnote \
+dosfstools calibre bear asciinema
 ```
 6. Set rust toolchain default to stable
 ```sh
