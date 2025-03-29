@@ -55,4 +55,5 @@ git clone https://github.com/zsh-users/zsh-autosuggestions.git $ZSH_CUSTOM/plugi
 git clone https://github.com/zsh-users/zsh-syntax-highlighting.git $ZSH_CUSTOM/plugins/zsh-syntax-highlighting
 ```
 10. Copy configuration files
-11. Setup other userful tools/software [docker, postgresql, rabbitmq, etc]
+11. Make sure to add noise supression for voice configuration file on pipewire
+12. Setup other userful tools/software [docker, postgresql, rabbitmq, etc]
