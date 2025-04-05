@@ -3,9 +3,7 @@ require("lazy").setup({
 	{ "nvim-lua/plenary.nvim" },
 
 	-- Colorscheme(s)
-	{ "derivia/opera-vim", lazy = false, priority = 1000 },
 	{
-
 		"navarasu/onedark.nvim",
 		lazy = false,
 		priority = 1000,
@@ -65,35 +63,6 @@ require("lazy").setup({
 		},
 		keys = {
 			{ "<leader>nf", mode = "n", "<cmd>Neogen<CR>", desc = "Annotate based on scope" },
-		},
-	},
-
-	-- Todo-List Management
-	{
-		"atiladefreitas/dooing",
-		opts = {
-			quick_keys = false,
-			save_path = vim.fn.stdpath("data") .. "/personal-todos.json",
-			keymaps = {
-				add_due_date = "H",
-			},
-			window = {
-				width = 80,
-			},
-			formatting = {
-				pending = {
-					icon = "○",
-					format = { "icon", "text", "due_date", "ect" },
-				},
-				done = {
-					icon = "✓",
-					format = { "icon", "text" },
-				},
-			},
-			calendar = {
-				language = "pt",
-				icon = "",
-			},
 		},
 	},
 
@@ -453,13 +422,7 @@ require("lazy").setup({
 		end,
 	},
 
-	-- Better typescript LSP & Linting
-	{ "pmizio/typescript-tools.nvim" },
-
-	-- Show color background preview on HEX colors
-	{ "norcalli/nvim-colorizer.lua" },
-
-	-- Add status line below
+	-- Status line below
 	{ "nvim-lualine/lualine.nvim" },
 }, {
 	ui = { border = "rounded" },
