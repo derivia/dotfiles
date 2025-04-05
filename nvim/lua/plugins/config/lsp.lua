@@ -1,8 +1,7 @@
 local status_ok_lspconfig, lspconfig = pcall(require, "lspconfig")
-local status_ok_tstools, tstools = pcall(require, "typescript-tools")
 local status_ok_blinkcmp, blink_cmp = pcall(require, "blink.cmp")
 
-if not status_ok_lspconfig or not status_ok_tstools or not status_ok_blinkcmp then
+if not status_ok_lspconfig or not status_ok_blinkcmp then
 	vim.notify("Something went wrong with LSP startup.")
 	return
 end
@@ -91,34 +90,6 @@ lspconfig.lua_ls.setup({
 				-- get the language server to recognize the `vim` global
 				globals = { "vim" },
 			},
-		},
-	},
-})
-
-tstools.setup({
-	on_attach = on_attach,
-	capabilities = capabilities(),
-	handlers = handlers,
-	single_file_support = true,
-	settings = {
-		separate_diagnostic_server = true,
-		publish_diagnostic_on = "insert_leave",
-		expose_as_code_action = "all",
-		tsserver_max_memory = "auto",
-		tsserver_file_preferences = {
-			quotePreference = "double",
-			includeCompletionsForModuleExports = true,
-			includeCompletionsForImportStatements = true,
-			importModuleSpecifierEnding = "index",
-		},
-		tsserver_locale = "en",
-		complete_function_calls = true,
-		include_completions_with_insert_text = true,
-		code_lens = "off",
-		disable_member_code_lens = true,
-		jsx_close_tag = {
-			enable = true,
-			filetypes = { "javascriptreact", "typescriptreact" },
 		},
 	},
 })
