@@ -336,6 +336,18 @@ export PYENV_ROOT="$HOME/.pyenv"
 [[ -d $PYENV_ROOT/bin ]] && export PATH="$PYENV_ROOT/bin:$PATH"
 eval "$(pyenv init - zsh)"
 
+# save code screenshot as png to downloads
+alias grim='f() {
+    if [ "$#" -lt 1 ]; then
+        echo "Usage: grim <file-name>"
+        return 1
+    fi
+    filename="${1%.*}"
+    freeze "$1" -o "$HOME/downloads/$filename.png" -c user
+}; f'
+
+
+
 # cow on startup!
 # if command -v cowthink &>/dev/null && command -v fortune &>/dev/null; then
 #   cowthink -f small $(fortune -s -n 100)
