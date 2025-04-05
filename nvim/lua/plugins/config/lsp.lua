@@ -9,24 +9,19 @@ end
 local methods = vim.lsp.protocol.Methods
 
 local handlers = {
-	["textDocument/hover"] = vim.lsp.with(vim.lsp.handlers.hover, { border = "rounded" }),
-	["textDocument/signatureHelp"] = vim.lsp.with(vim.lsp.handlers.signature_help, { border = "rounded" }),
-	["textDocument/publishDiagnostics"] = vim.lsp.with(vim.lsp.diagnostic.on_publish_diagnostics, {
-		underline = true,
-		signs = {
-			severity = {
-				vim.diagnostic.severity.HINT,
-				vim.diagnostic.severity.ERROR,
-			},
-		},
-		virtual_text = {
-			spacing = 2,
-			severity = {
-				vim.diagnostic.severity.WARN,
-				vim.diagnostic.severity.ERROR,
-			},
-		},
-	}),
+	["textDocument/hover"] = function(_, result, ctx, config)
+		config = config or { border = "rounded" }
+		if not (result and result.contents) then
+			return
+		end
+		vim.lsp.util.focusable_float(ctx.bufnr, function()
+			return vim.lsp.util.open_floating_preview(
+				vim.lsp.util.convert_input_to_markdown_lines(result.contents),
+				"markdown",
+				config
+			)
+		end)
+	end,
 }
 
 local on_attach = function(client, bufnr)
@@ -45,9 +40,6 @@ local on_attach = function(client, bufnr)
 	if client.supports_method(methods.textDocument_declaration) then
 		keymap("gD", "<cmd>lua vim.lsp.buf.declaration()<CR>", "Go to declaration", "n")
 	end
-	if client.supports_method(methods.textDocument_signatureHelp) then
-		keymap("gK", "<cmd>lua vim.lsp.buf.signature_help()<CR>", "Signature help", "n")
-	end
 	if client.supports_method(methods.textDocument_implementation) then
 		keymap("gi", "<cmd>lua vim.lsp.buf.implementation()<CR>", "Go to implementation", "n")
 	end
@@ -57,6 +49,24 @@ local on_attach = function(client, bufnr)
 	if client.supports_method(methods.textDocument_references) then
 		keymap("gr", "<cmd>lua vim.lsp.buf.references()<CR>", "See usage (references)", { "n", "x" })
 	end
+
+	-- Set diagnostics config per client
+	vim.diagnostic.config({
+		underline = true,
+		signs = {
+			severity = {
+				vim.diagnostic.severity.INFO,
+				vim.diagnostic.severity.ERROR,
+			},
+		},
+		virtual_text = {
+			spacing = 2,
+			severity = {
+				vim.diagnostic.severity.WARN,
+				vim.diagnostic.severity.ERROR,
+			},
+		},
+	}, vim.lsp.diagnostic.get_namespace(client.id))
 end
 
 local capabilities = function()
@@ -87,7 +97,6 @@ lspconfig.lua_ls.setup({
 	settings = {
 		Lua = {
 			diagnostics = {
-				-- get the language server to recognize the `vim` global
 				globals = { "vim" },
 			},
 		},
