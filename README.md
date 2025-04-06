@@ -19,7 +19,7 @@ yay -S alacritty alsa-utils asciinema audacity bat bear \
 calibre cmake curl dbus-glib djvulibre docker \
 docker-compose dosfstools dust electronfd ethtool \
 exiftool ffmpegthumbnailer flameshot fontconfig \
-freetype2 fzf glibc gnumeric grim gzip httpie \
+freetype2 fzf ghc glibc gnumeric grim gzip httpie \
 i3blocks i3lock imagemagick inter-font jq jre8-openjdk \
 less libffi libgnome-keyring libnotify libreoffice-fresh \
 libxcb libxcrypt libxft libxkbcommon libyaml lua51 \

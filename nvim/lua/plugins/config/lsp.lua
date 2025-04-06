@@ -116,6 +116,7 @@ lspconfig.clangd.setup({
 local servers = {
 	"pyright",
 	"rust_analyzer",
+	"ts_ls", -- typescript language server [no vue support]
 }
 
 for _, lsp in ipairs(servers) do
