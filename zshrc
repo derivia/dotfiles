@@ -346,6 +346,15 @@ alias grim='f() {
     freeze "$1" -o "$HOME/downloads/$filename.png" -c user
 }; f'
 
+# run and delete simple C file
+alias rd='f() {
+    if [ "$#" -lt 1 ]; then
+        echo "Usage: rd <file-name>.c"
+        return 1
+    fi
+    filename="${1%.*}"
+    gcc "$1" -o "$filename" -lm -Wall -O2 && ./"$filename" && rm "$filename"
+}; f'
 
 
 # cow on startup!
