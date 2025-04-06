@@ -59,9 +59,6 @@ bindsym $super+period exec --no-startup-id "~/.local/bin/dmoji"
 # close focused window
 bindsym $super+c kill
 
-# show exit message
-# bindsym $super+Shift+e exec --no-startup-id "i3-nagbar -t normal -m 'Exit?' -b 'Yes, exit i3' 'i3-msg exit'"
-
 # move focus between windows
 bindsym $super+h focus left
 bindsym $super+j focus down
