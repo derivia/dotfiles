@@ -1,0 +1,36 @@
+#!/bin/sh -eu
+
+MY_NAME="$( basename "${0}" )"
+MY_LOG_DIR="${HOME}/.log"
+MY_LOG_FILE="${MY_LOG_DIR}/${MY_NAME}.err"
+MY_DATE="$( date '+%Y-%m-%d' )"
+MY_TIME="$( date '+%H:%M:%S' )"
+
+if [ ! -d "${MY_LOG_DIR}" ]; then
+	mkdir -p "${MY_LOG_DIR}"
+fi
+if [ ! -f "${MY_LOG_FILE}" ]; then
+	touch "${MY_LOG_FILE}"
+fi
+if [ ! -w "${MY_LOG_FILE}" ]; then
+	chmod u+w "${MY_LOG_FILE}"
+fi
+
+error() {
+	printf "%s\n" "${1}" >&2
+	printf "[%s] [%s] %s\n" "${MY_DATE}" "${MY_TIME}" "${1}" >> "${MY_LOG_FILE}"
+}
+
+for cmd in grabc xclip; do
+	if ! command -v "${cmd}" >/dev/null 2>&1; then
+		error "Binary '${cmd}' not available"
+		exit 1
+	fi
+done
+
+echo "Click on a pixel to pick its color..."
+color="$( grabc 2>/dev/null )"
+
+hex_color="${color}"
+
+echo -n "${hex_color}" | xclip -selection clipboard

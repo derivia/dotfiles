@@ -31,7 +31,7 @@ exec_always --no-startup-id picom
 bindsym $super+Return exec --no-startup-id alacritty
 
 # color picker
-bindsym --release $super+p exec xcolor --selection
+bindsym $super+p exec --no-startup-id ~/.config/i3/scripts/colorpicker
 
 # place thunderbird on workspace 10 at startup
 exec --no-startup-id i3-msg 'workspace 10:X; exec /sbin/thunderbird; workspace 1:I'
