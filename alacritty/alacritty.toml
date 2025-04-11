@@ -18,7 +18,7 @@ mods = "Control|Shift"
 
 # Font
 [font]
-size = 10
+size = 11
 [font.normal]
 family = "Iosevka Nerd Font"
 style = "Regular"
