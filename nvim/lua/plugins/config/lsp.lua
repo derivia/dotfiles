@@ -1,10 +1,15 @@
 local status_ok_lspconfig, lspconfig = pcall(require, "lspconfig")
 local status_ok_blinkcmp, blink_cmp = pcall(require, "blink.cmp")
+local status_ok_java, java = pcall(require, "java")
 
-if not status_ok_lspconfig or not status_ok_blinkcmp then
+if not status_ok_lspconfig or not status_ok_blinkcmp or not status_ok_java then
 	vim.notify("Something went wrong with LSP startup.")
 	return
 end
+
+-- Necessary setup call for nvim-java/nvim-java
+-- https://github.com/nvim-java/nvim-java?tab=readme-ov-file#custom-configuration-instructions
+java.setup();
 
 local methods = vim.lsp.protocol.Methods
 
@@ -117,6 +122,7 @@ local servers = {
 	"pyright",
 	"rust_analyzer",
 	"ts_ls", -- typescript language server [no vue support]
+	"jdtls", -- java language server from nvim-java/nvim-java
 }
 
 for _, lsp in ipairs(servers) do
