@@ -54,6 +54,10 @@ keymap("n", "$", "$l", opts)
 keymap("v", "$", "$h", opts)
 keymap("x", "$", "$h", opts)
 
+-- go to manpage of current symbol under cursor
+-- keymap("n", "<leader>fm", [[:Man <cword><CR>]], opts)
+keymap("n", "<leader>fm", [[:lua vim.cmd('Man ' .. vim.fn.expand('<cword>'))<CR>]], opts)
+
 if vim.fn.getenv("WSLENV") ~= vim.NIL then
 	vim.keymap.set("n", "gx", ":silent :execute '!wslview ' . shellescape(expand('<cfile>'), 1)<CR>", opts)
 end

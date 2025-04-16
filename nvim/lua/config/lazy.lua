@@ -20,14 +20,11 @@ require("lazy").setup({
 				strings = "none",
 				variables = "none",
 			},
-
 			lualine = {
 				transparent = false,
 			},
-
 			colors = {},
 			highlights = {},
-
 			diagnostics = {
 				darker = true,
 				undercurl = true,
@@ -77,13 +74,29 @@ require("lazy").setup({
 	-- Diagnostics!
 	{
 		"folke/trouble.nvim",
-		opts = {},
+		opts = {
+			modes = {
+				symbols = {
+					win = {
+						type = "split",
+						relative = "win", -- relative to current window
+						position = "right", -- right side
+						size = 0.4, -- 40% of the window
+					},
+				},
+			},
+		},
 		cmd = "Trouble",
 		keys = {
 			{
 				"<leader>fx",
 				"<cmd>Trouble diagnostics toggle<cr>",
 				desc = "Diagnostics (Trouble)",
+			},
+			{
+				"<leader>fs",
+				"<cmd>Trouble symbols toggle focus=false<cr>",
+				desc = "Symbols (Trouble)",
 			},
 		},
 	},
@@ -323,6 +336,7 @@ require("lazy").setup({
 					css = { "biome" },
 					graphql = { "biome" },
 					html = { "biome" },
+					java = { "clang_format" },
 					javascript = { "biome" },
 					javascriptreact = { "biome" },
 					json = { "biome" },
@@ -424,6 +438,9 @@ require("lazy").setup({
 
 	-- Status line below
 	{ "nvim-lualine/lualine.nvim" },
+
+	-- Java/Spring development
+	{ "nvim-java/nvim-java" },
 }, {
 	ui = { border = "rounded" },
 	change_detection = { notify = false },
