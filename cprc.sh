@@ -17,6 +17,9 @@ declare -A FILES=(
   ["./dunst/dunstrc"]="$HOME/.config/dunst/dunstrc"
   ["./clang-format"]="$HOME/.clang-format"
   ["./hyprland/hyprland.conf"]="$HOME/.config/hypr/hyprland.conf"
+  ["./hyprland/hyprpaper.conf"]="$HOME/.config/hypr/hyprpaper.conf"
+  ["./waybar/config"]="$HOME/.config/waybar/config"
+  ["./waybar/style.css"]="$HOME/.config/waybar/style.css"
 )
 
 for dest in "${!FILES[@]}"; do
