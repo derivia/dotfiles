@@ -33,8 +33,9 @@ ttf-firacode-nerd ttf-font-awesome ttf-iosevka-nerd \
 ttf-iosevkaterm-nerd ttf-iosevkatermslab-nerd \
 ttf-nerd-fonts-symbols ttf-roboto-mono-nerd \
 tumbler ufw unixodbcunzip vim vlc vpnc wget wireplumber \
-wofi xclip xdotool xorg-xinput xsel yad zen-browser-bin
-zig zip zlib zsh
+wofi xclip xdotool xorg-xinput xsel yad zen-browser-bin \
+zig zip zlib zsh waybar hyprland hyprlock hyprpaper \
+dbeaver wl-clipboard-x11
 ```
 6. Set rust toolchain default to stable
 ```sh
