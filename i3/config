@@ -20,7 +20,7 @@ exec_always --no-startup-id dunst -config ~/.config/dunst/dunstrc
 exec_always --no-startup-id flameshot
 
 # faster keyboard repeat rate
-exec_always xset r rate 210 42
+exec_always --no-startup-id xset r rate 210 42
 
 # compositor
 exec_always --no-startup-id picom
@@ -33,25 +33,22 @@ bindsym $super+Return exec --no-startup-id alacritty
 # color picker
 bindsym $super+p exec --no-startup-id ~/.config/i3/scripts/colorpicker
 
-# place thunderbird on workspace 10 at startup
-exec --no-startup-id i3-msg 'workspace 10:X; exec /sbin/thunderbird; workspace 1:I'
-
 # disable screen power management
 exec --no-startup-id xset s off && xset -dpms
 
 # dmenu application launcher
-bindsym $super+d exec i3-dmenu-desktop --dmenu="dmenu -i -b \
+bindsym $super+d exec --no-startup-id i3-dmenu-desktop --dmenu="dmenu -i -b \
 -fn 'RobotoMono Nerd Font:size=10' -nb '#E8E6DF' -nf '#323334' \
 -sb '#C3C0B8' -sf '#141C18'"
 
 # screenshot
-bindsym Print exec flameshot gui
+bindsym Print exec --no-startup-id flameshot gui
 
 # open file explorer
 bindsym $super+e exec --no-startup-id thunar
 
 # lock screen
-bindsym Control+$super+l exec "i3lock -c 323334"
+bindsym Control+$super+l exec --no-startup-id "i3lock -c 323334"
 
 # emoji utility
 bindsym $super+period exec --no-startup-id "~/.local/bin/dmoji"
