@@ -16,6 +16,7 @@ declare -A FILES=(
   ["./alacritty/alacritty.toml"]="$HOME/.config/alacritty/alacritty.toml"
   ["./dunst/dunstrc"]="$HOME/.config/dunst/dunstrc"
   ["./clang-format"]="$HOME/.clang-format"
+  ["./hyprland/hyprland.conf"]="$HOME/.config/hypr/hyprland.conf"
 )
 
 for dest in "${!FILES[@]}"; do
