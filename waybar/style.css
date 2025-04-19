@@ -1,19 +1,21 @@
-@define-color base00 #181818;
-@define-color base01 #2b2e37;
-@define-color base02 #3b3e47;
-@define-color base03 #585858;
-@define-color base04 #b8b8b8;
-@define-color base05 #d8d8d8;
-@define-color base06 #e8e8e8;
-@define-color base07 #f8f8f8;
-@define-color base08 #ab4642;
-@define-color base09 #dc9656;
-@define-color base0A #f7ca88;
-@define-color base0B #a1b56c;
-@define-color base0C #86c1b9;
-@define-color base0D #7cafc2;
-@define-color base0E #ba8baf;
-@define-color base0F #a16946;
+@define-color white          #fefefe;
+@define-color surface        #e0e0e0;
+@define-color accent-cool    #d6e2e9;
+@define-color accent-warm    #a1887f;
+@define-color clay           #d7ccc8;
+@define-color light          #f5f5f5;
+@define-color pink           #f48fb1;
+@define-color red            #fd6f81;
+@define-color peach          #ffcc80;
+@define-color yellow         #fff59d;
+@define-color green          #aed581;
+@define-color cyan           #80deea;
+@define-color blue           #90caf9;
+@define-color lavender       #ce93d8;
+@define-color rose           #bcaaa4;
+@define-color magenta        #ba8baf;
+@define-color brown          #a16946;
+@define-color text-dark      #4a4a4a;
 
 * {
   transition: none;
@@ -21,11 +23,11 @@
 }
 
 #waybar {
-	font-family: 'Source Code Pro', sans-serif;
-	font-size: 1.2em;
-	font-weight: 400;
-  color: @base04;
-  background: @base01;
+  font-family: 'Source Code Pro', sans-serif;
+  font-size: 1.1em;
+  font-weight: 400;
+  color: @text-dark;
+  background: @surface;
 }
 
 #workspaces {
@@ -35,66 +37,70 @@
 #workspaces button {
   margin: 4px 0;
   padding: 0 4px;
-  color: @base05;
-}
-
-#workspaces button.visible {
+  color: @text-dark;
 }
 
 #workspaces button.active {
   border-radius: 4px;
-  background-color: @base02;
+  background-color: @rose;
 }
 
 #workspaces button.urgent {
-  color: rgba(238, 46, 36, 1);
+  color: @red;
+  font-weight: bold;
 }
 
 #tray {
   margin: 4px 4px 4px 4px;
   padding: 0 6px 0 0;
   border-radius: 4px;
-  background-color: @base02;
+  background-color: @rose;
 }
 
 #tray * {
   padding: 0 0 0 6px;
 }
 
-#mode, #battery, #cpu, #memory, #network, #pulseaudio, #idle_inhibitor, #backlight, #custom-storage, #custom-updates, #custom-weather, #custom-mail, #clock, #temperature, #language{
+#mode, #battery, #cpu, #memory, 
+#network, #pulseaudio, #idle_inhibitor, 
+#backlight, #custom-storage, #custom-updates, 
+#custom-weather, #custom-mail, #clock, #temperature, #language {
   margin: 4px 2px;
   padding: 0 6px;
-  background-color: @base02;
+  background-color: @rose;
   border-radius: 4px;
   min-width: 20px;
+  color: @text-dark;
 }
 
 #pulseaudio.muted {
-  color: @base0F;
+  color: @brown;
 }
 
 #pulseaudio.bluetooth {
-  color: @base0C;
+  color: @cyan;
 }
 
 #clock {
   margin-left: 0px;
   margin-right: 4px;
-  background-color: transparent;
+  background-color: @rose;
 }
 
 #temperature.critical {
-  color: @base0F;
+  color: @brown;
 }
 
 #window {
   font-size: 0.9em;
-	font-weight: 400;
-	font-family: sans-serif;
+  font-weight: 400;
+  font-family: sans-serif;
+  color: @text-dark;
 }
 
 #language {
-	font-size: 0.9em;
-	font-weight: 500;
-	letter-spacing: -1px;
+  font-size: 0.9em;
+  font-weight: 500;
+  letter-spacing: -1px;
+  color: @text-dark;
 }
