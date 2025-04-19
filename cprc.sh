@@ -18,6 +18,8 @@ declare -A FILES=(
   ["./clang-format"]="$HOME/.clang-format"
   ["./hyprland/hyprland.conf"]="$HOME/.config/hypr/hyprland.conf"
   ["./hyprland/hyprpaper.conf"]="$HOME/.config/hypr/hyprpaper.conf"
+  ["./hyprland/hyprlock.conf"]="$HOME/.config/hypr/hyprlock.conf"
+  ["./hyprland/wallpaper.png"]="$HOME/.config/hypr/wallpaper.png"
   ["./waybar/config"]="$HOME/.config/waybar/config"
   ["./waybar/style.css"]="$HOME/.config/waybar/style.css"
 )
