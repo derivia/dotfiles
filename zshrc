@@ -353,3 +353,23 @@ alias rd='f() {
     filename="${1%.*}"
     gcc "$1" -o "$filename" -lm -Wall -O2 && ./"$filename" && rm "$filename"
 }; f'
+
+# multiple cat with file spacing
+alias zat='f() {
+    if [ "$#" -lt 1 ]; then
+        echo "Usage: zat <file1> [file2] [file3] ..."
+        return 1
+    fi
+    for file in "$@"; do
+        if [ ! -f "$file" ]; then
+            echo "Error: $file is not a valid file"
+            continue
+        fi
+        separator="------------------"
+        echo "$separator"
+        echo "- $file"
+        echo "$separator"
+        cat "$file"
+        echo "$separator"
+    done
+}; f'
