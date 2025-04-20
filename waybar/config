@@ -12,7 +12,8 @@
     "clock": {
         "timezone": "America/Sao_Paulo",
         "tooltip-format": "<big>{:%Y %B}</big>\n<tt><small>{calendar}</small></tt>",
-        "format-alt": "{:%Y-%m-%d}"
+        "format": "{:%H:%M %d/%m/%Y}",
+        "format-alt": "{:%H:%M %d/%m/%Y}"
     },
     "pulseaudio": {
         "format": "{icon} {volume}% {format_source}",
