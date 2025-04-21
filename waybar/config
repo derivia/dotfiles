@@ -1,11 +1,11 @@
 {
     "layer": "top",
     "position": "top",
-    "height": 12,
+    "height": 32,
     "spacing": 4,
     "modules-left": ["hyprland/workspaces"],
     "modules-center": [],
-    "modules-right": ["pulseaudio", "tray", "clock"],
+    "modules-right": ["pulseaudio", "tray", "custom/dnd", "clock"],
     "tray": {
         "spacing": 10,
     },
@@ -33,4 +33,10 @@
         },
         "on-click": "pavucontrol"
     },
+    "custom/dnd": {
+        "format": "{}",
+        "exec": "~/.config/waybar/scripts/dnd.sh",
+        "on-click": "~/.config/waybar/scripts/dnd.sh left",
+        "interval": 1
+    }
 }
