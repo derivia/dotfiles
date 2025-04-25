@@ -357,7 +357,7 @@ alias rd='f() {
 # multiple cat with file spacing
 alias zat='f() {
     if [ "$#" -lt 1 ]; then
-        echo "Usage: zat <file1> [file2] [file3] ..."
+        echo "Usage: zat <file1> [file2] ..."
         return 1
     fi
     for file in "$@"; do
@@ -372,4 +372,12 @@ alias zat='f() {
         cat "$file"
         echo "$separator"
     done
+}; f'
+
+alias pzip='f() {
+    if [ "$#" -lt 1 ]; then
+        echo "Usage: pzip <file1> [file2] ..."
+        return 1
+    fi
+    7z a -tzip -mem=AES256 -p archive.zip "$@"
 }; f'
