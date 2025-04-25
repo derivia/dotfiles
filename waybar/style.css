@@ -36,7 +36,7 @@
 }
 
 #workspaces button {
-  margin: 4px 0;
+  margin: 4px 1px;
   padding: 0 4px;
   color: @text-dark;
 }
@@ -47,8 +47,8 @@
 }
 
 #workspaces button.urgent {
-  color: @rose;
-  background-color: @pink;
+  color: @red;
+  background-color: @rose;
   font-weight: bold;
 }
 
