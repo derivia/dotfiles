@@ -4,6 +4,7 @@
 declare -A FILES=(
   ["./vimrc"]="$HOME/.vimrc"
   ["./zshrc"]="$HOME/.zshrc"
+  ["./zsh_aliases"]="$HOME/.zsh_aliases"
   ["./tmux.conf"]="$HOME/.tmux.conf"
   ["./gitconfig"]="$HOME/.gitconfig"
   ["./gitignore"]="$HOME/.gitignore"
