@@ -311,10 +311,39 @@ alias zat='f() {
     done
 }; f'
 
+# zip files password protected
 alias pzip='f() {
     if [ "$#" -lt 1 ]; then
         echo "Usage: pzip <file1> [file2] ..."
         return 1
     fi
     7z a -tzip -mem=AES256 -p archive.zip "$@"
+}; f'
+
+# download video and remux into mp4/mp3 from youtube
+alias ytdw='f() {
+    if [ "$#" -lt 1 ] || [ "$#" -gt 2 ]; then
+        echo "Usage: ytdw <url> [format]"
+        echo "Format options: mp4 (default), mp3"
+        return 1
+    fi
+
+    local url="$1"
+    local format="${2:-mp4}"
+
+    case "$format" in
+        mp4)
+            yt-dlp -f "bestvideo[height<=720]+bestaudio[ext=m4a]" --merge-output-format mp4 \
+            --postprocessor-args "ffmpeg:-vcodec libx264 -acodec aac" \
+            "$url"
+            ;;
+        mp3)
+            yt-dlp -f "bestaudio" -x --audio-format mp3 "$url"
+            ;;
+        *)
+            echo "Unsupported format: $format"
+            echo "Supported formats: mp4, mp3"
+            return 1
+            ;;
+    esac
 }; f'
