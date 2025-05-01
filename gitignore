@@ -3,3 +3,4 @@
 # python virtual environments
 **/.venv*
 **/httpie-reqs*
+**/pnotes.md*
