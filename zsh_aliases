@@ -313,11 +313,13 @@ alias zat='f() {
 
 # zip files password protected
 alias pzip='f() {
-    if [ "$#" -lt 1 ]; then
-        echo "Usage: pzip <file1> [file2] ..."
+    if [ "$#" -lt 2 ]; then
+        echo "Usage: pzip <archive-name> <file1> [file2] ..."
         return 1
     fi
-    7z a -tzip -mem=AES256 -p archive.zip "$@"
+    archive="$1"
+    shift
+    7z a -tzip -mem=AES256 -p "$archive.zip" "$@"
 }; f'
 
 # download video and remux into mp4/mp3 from youtube
@@ -338,7 +340,7 @@ alias ytdw='f() {
             "$url"
             ;;
         mp3)
-            yt-dlp -f "bestaudio" -x --audio-format mp3 "$url"
+            yt-dlp -f "bestaudio[ext=m4a]" -x --audio-format mp3 "$url"
             ;;
         *)
             echo "Unsupported format: $format"
