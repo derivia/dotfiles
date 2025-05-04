@@ -9,7 +9,11 @@ end
 
 -- Necessary setup call for nvim-java/nvim-java
 -- https://github.com/nvim-java/nvim-java?tab=readme-ov-file#custom-configuration-instructions
-java.setup();
+java.setup({
+	java_debug_adapter = {
+		enable = true,
+	},
+})
 
 local methods = vim.lsp.protocol.Methods
 
