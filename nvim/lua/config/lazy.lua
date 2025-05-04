@@ -33,6 +33,9 @@ require("lazy").setup({
 		},
 	},
 
+	-- Show hex colors
+	{ "norcalli/nvim-colorizer.lua", config = true },
+
 	-- Format textwidth on files
 	{
 		"paulshuker/textangle.nvim",
