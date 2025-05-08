@@ -349,3 +349,17 @@ alias ytdw='f() {
             ;;
     esac
 }; f'
+
+alias yspmb='f() {
+    yay -Qe | cut -d" " -f1 | while read -r pkg; do
+        size=$(pacman -Qi "$pkg" | awk '\''/Installed Size/ {print $4, $5}'\'')
+        if [[ $size == *KiB ]]; then
+            num=$(echo "$size" | awk '\''{printf "%.2f", $1/1024}'\'')
+        elif [[ $size == *MiB ]]; then
+            num=$(echo "$size" | awk '\''{print $1}'\'')
+        elif [[ $size == *GiB ]]; then
+            num=$(echo "$size" | awk '\''{printf "%.2f", $1*1024}'\'')
+        fi
+        echo "$pkg - $num"
+    done | sort -k3 -n
+}; f'
