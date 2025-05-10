@@ -213,8 +213,8 @@ require("lazy").setup({
 	{ "neovim/nvim-lspconfig", event = { "BufReadPre", "BufNewFile" } },
 
 	-- Easier management of external tools, like LSP, DAP, formatters, etc.
-	{ "williamboman/mason.nvim" },
-	{ "WhoIsSethDaniel/mason-tool-installer.nvim" },
+	{ "williamboman/mason.nvim", version = "1.11.0" },
+	{ "WhoIsSethDaniel/mason-tool-installer.nvim", version = "1.32.0" },
 
 	-- Snippet management
 	{
