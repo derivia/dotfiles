@@ -92,7 +92,7 @@ done'
 alias ls='ls --tabsize=0 --color=auto --human-readable --group-directories-first'
 
 # recursively find todos
-alias todos="rg --glob '!{.git,node_modules}' -i '\@\bTODO\b'"
+alias todos="rg --glob '!{.git,node_modules,cloned,dist,build}' -i '\@\bTODO\b'"
 
 # default irb to simple prompt
 alias irb="irb --simple-prompt"
@@ -271,16 +271,6 @@ alias headrock='f() {
     fi
 }; f'
 
-# save code screenshot as png to downloads
-alias grim='f() {
-    if [ "$#" -lt 1 ]; then
-        echo "Usage: grim <file-name>"
-        return 1
-    fi
-    filename="${1%.*}"
-    freeze "$1" -o "$HOME/downloads/$filename.png" -c user
-}; f'
-
 # run and delete simple C file
 alias rd='f() {
     if [ "$#" -lt 1 ]; then
@@ -350,6 +340,7 @@ alias ytdw='f() {
     esac
 }; f'
 
+# show packages from yay and their installed size ordered
 alias yspmb='f() {
     yay -Qe | cut -d" " -f1 | while read -r pkg; do
         size=$(pacman -Qi "$pkg" | awk '\''/Installed Size/ {print $4, $5}'\'')
@@ -363,3 +354,69 @@ alias yspmb='f() {
         echo "$pkg - $num"
     done | sort -k3 -n
 }; f'
+
+
+# tree-cat files by extension excluding (or not) hidden directories
+alias rcat='f() {
+    if [ "$#" -lt 1 ]; then
+        echo "Usage: rcat [--hidden] <extension1> [extension2] ..."
+        echo "Example: rcat py js"
+        echo "Example: rcat --hidden py js"
+        return 1
+    fi
+
+    include_hidden=false
+    if [ "$1" = "--hidden" ]; then
+        include_hidden=true
+        shift
+    fi
+
+    find_command="find . -type f"
+
+    if [ "$include_hidden" = false ]; then
+        find_command="$find_command -not -path \"*/\\.*/*\""
+    fi
+
+    extensions=""
+    for ext in "$@"; do
+        if [ -z "$extensions" ]; then
+            extensions="-name \"*.$ext\""
+        else
+            extensions="$extensions -o -name \"*.$ext\""
+        fi
+    done
+
+    eval "$find_command $( [ ! -z "$extensions" ] && echo "-and \\( $extensions \\)" )" | sort | while read -r file; do
+        echo "------- $file:"
+        cat "$file"
+        echo
+    done
+}; f'
+
+# clear pip packages
+alias pclear='pip freeze | xargs pip uninstall -y'
+
+# save code screenshot from file or stdout
+codegrim() {
+    local ext="" filename=""
+
+    if [[ "$1" == --ext=* ]]; then
+        ext="${1#*=}"
+        shift
+    fi
+
+    if [[ $# -gt 0 ]]; then
+        filename="$1"
+        outname="${filename##*/}"
+        outname="${outname%.*}"
+        freeze "$filename" -o "$HOME/downloads/$outname.png" -c user
+    else
+        if [[ -z "$ext" ]]; then
+            echo "Error: When using stdin, you must specify --ext=extension" >&2
+            return 1
+        fi
+
+        outname="$(date +%Y%m%d_%H%M%S)"
+        freeze - --language="$ext" -o "$HOME/downloads/$outname.png" -c user
+    fi
+}
