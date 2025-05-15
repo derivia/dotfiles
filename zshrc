@@ -11,6 +11,11 @@ export VISUAL="$EDITOR"
 export SUDO_EDITOR="$EDITOR"
 # END EDITOR
 
+# BEGIN TERMINAL
+export TERMINAL=alacritty
+alias terminal='alacritty'
+# END TERMINAL
+
 # BEGIN HISTORY
 export HISTSIZE=5000000
 export SAVEHIST=$HISTSIZE
@@ -58,8 +63,10 @@ eval "$(rbenv init -)"
 
 # python environment manager
 export PYENV_ROOT="$HOME/.pyenv"
-[[ -d $PYENV_ROOT/bin ]] && export PATH="$PYENV_ROOT/bin:$PATH"
-eval "$(pyenv init - zsh)"
+
+### source pyenv from external file instead! ###
+# [[ -d $PYENV_ROOT/bin ]] && export PATH="$PYENV_ROOT/bin:$PATH"
+# eval "$(pyenv init - zsh)"
 
 # source aliases from external file
 if [ -f "$HOME/.zsh_aliases" ]; then
