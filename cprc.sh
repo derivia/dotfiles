@@ -11,6 +11,7 @@ declare -A FILES=(
   ["./i3/config"]="$HOME/.config/i3/config"
   ["./i3/i3blocks/config"]="$HOME/.config/i3blocks/config"
   ["./i3/i3status/config"]="$HOME/.config/i3status/config"
+  ["./gromit.cfg"]="$HOME/.config/gromit-mpx.cfg"
   ["./polybar/config"]="$HOME/.config/polybar/config.ini"
   ["./polybar/launch"]="$HOME/.config/polybar/launch.sh"
   ["./picom/picom.conf"]="$HOME/.config/picom/picom.conf"
