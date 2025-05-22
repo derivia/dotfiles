@@ -1,20 +1,23 @@
 # list all dirs on cwd
-alias cwdirs='for dir in $(find . -maxdepth 1 -type d  | sed "1d"); do echo "$dir"; done;'
+cwdirs() {
+  for dir in $(find . -maxdepth 1 -type d | sed "1d"); do
+    echo "$dir"
+  done
+}
 
 # convert all files in current working directory from one extension to another using ImageMagick
-alias cvt='f() {
-    if [ "$#" -ne 2 ]; then
-        echo "Usage: cvt <source_extension> <target_extension>"
-        return 1
-    fi
+cvt() {
+  if [ "$#" -ne 2 ]; then
+    echo "Usage: cvt <source_extension> <target_extension>"
+    return 1
+  fi
 
-    for file in *."$1"; do
-        magick "$file" "${file%."$1"}.$2"
-    done
-}; f'
+  for file in *."$1"; do
+    magick "$file" "${file%."$1"}.$2"
+  done
+}
 
 # compare remote branches with local ones and echo differences
-# maybe i've forgot to update something on the remotes, idk
 alias grbs='f() {
   original_dir=$(pwd)
   trap "cd \"$original_dir\"; return" SIGINT
@@ -37,386 +40,391 @@ alias grbs='f() {
   cd "$original_dir"
 }; f'
 
-# compare remote branches with local ones after fetching and echo differences
-alias grfbs='f() {
-  original_dir=$(pwd)
-  trap "cd \"$original_dir\"; return" SIGINT
-
-  for dir in $(cwdirs); do
-    if [[ -d "$dir/.git" ]]; then
-      cd "$dir" || continue
-      echo "$dir:"
-      git fetch --all
-      for branch in $(git branch --list | sed "s/*//"); do
-        for remote in $(git remote); do
-          diff_count=$(git diff --stat "$branch" "$remote/$branch" | wc -l)
-          if [[ $diff_count -gt 0 ]]; then
-            echo "  $branch -> $remote/$branch [$diff_count]"
-          fi
-        done
-      done
-      cd "$original_dir" || break
-    fi
-  done
-  cd "$original_dir"
-}; f'
-
 # show git status for all repositories in current directory
-alias rgs='find . -maxdepth 1 -type d -exec sh -c '\''
+rgs() {
+  find . -maxdepth 1 -type d -exec sh -c '
     if [ -d "{}/.git" ]; then
-        echo "{}:";
-        git -C {} status --short
+      echo "{}:";
+      git -C {} status --short
     fi
-'\'' \;'
+  ' \;
+}
 
 # replace spaces with underscores in filenames
-alias rsff='for file in *; do
+rsff() {
+  for file in *; do
     if [ -f "$file" ]; then
-        newname=$(echo "$file" | tr " " "_")
-        mv "$file" "$newname"
+      newname=$(echo "$file" | tr " " "_")
+      mv "$file" "$newname"
     fi
-done'
+  done
+}
 
 # convert folder names to lowercase
-alias lcf='for dir in */; do
+lcf() {
+  for dir in */; do
     dir="${dir%/}"
     lower_dir=$(echo "$dir" | tr "[:upper:]" "[:lower:]")
 
     if [ "$dir" != "$lower_dir" ]; then
-        mv "$dir" "_temp_$dir"
-        mv "_temp_$dir" "$lower_dir"
+      mv "$dir" "_temp_$dir"
+      mv "_temp_$dir" "$lower_dir"
     fi
-done'
+  done
+}
 
 # ls with better default options
-alias ls='ls --tabsize=0 --color=auto --human-readable --group-directories-first'
+alias ls='command ls --tabsize=0 --color=auto --human-readable --group-directories-first "$@"'
 
 # recursively find todos
-alias todos="rg --glob '!{.git,node_modules,cloned,dist,build}' -i '\@\bTODO\b'"
+todos() {
+  rg --glob '!{.git,node_modules,cloned,dist,build}' -i '\@\bTODO\b' "$@"
+}
 
 # default irb to simple prompt
-alias irb="irb --simple-prompt"
+irb() {
+  command irb --simple-prompt "$@"
+}
 
 # interactive move
-alias mv='mv -i'
+mv() {
+  command mv -i "$@"
+}
 
 # list files by extension
-alias lfe='f() {
-    if [ "$#" -ne 1 ]; then
-        echo "Usage: lfe <extension>"
-        return 1
-    fi
+lfe() {
+  if [ "$#" -ne 1 ]; then
+    echo "Usage: lfe <extension>"
+    return 1
+  fi
 
-    ls -l | awk "{print \$9}" | grep "^.*\.$1" | cat
-}; f'
+  ls -l | awk "{print \$9}" | grep "^.*\.$1" | cat
+}
 
 # multicat files by extension in current directory
-alias mcat='f() {
+mcat() {
+  if [ "$#" -ne 1 ]; then
+    echo "Usage: mcat <extension>"
+    return 1
+  fi
+
+  for file in $(find . -maxdepth 1 -name "*.$1"); do
+    echo "--------------- ${file}"
+    cat "${file}"
+  done
+}
+
+# multicat files by extension recursively
+mcatr() {
+  if [ "$#" -lt 1 ] || [ "$#" -gt 2 ]; then
+    echo "Usage: mcatr <extension> [ignore-dir]"
+    return 1
+  fi
+
+  local find_args="-type f -name \"*.$1\""
+  if [ "$#" -eq 2 ]; then
+    find_args="$find_args -not -path \"*/$2/*\""
+  fi
+
+  eval "find . $find_args" | while read -r file; do
+    echo "--------------- ${file}"
+    cat "${file}"
+  done
+}
+
+# bat alternatives if bat is available
+if command -v bat &>/dev/null; then
+  mbat() {
     if [ "$#" -ne 1 ]; then
-        echo "Usage: mcat <extension>"
-        return 1
+      echo "Usage: mbat <extension>"
+      return 1
     fi
 
     for file in $(find . -maxdepth 1 -name "*.$1"); do
-        echo "--------------- ${file}"
-        cat "${file}"
+      echo "--------------- ${file}"
+      bat "${file}"
     done
-}; f'
+  }
 
-# multicat files by extension recursively
-alias mcatr='f() {
-    if [ "$#" -lt 1 ] || [ "$#" -gt 2 ]; then
-        echo "Usage: mcatr <extension> [ignore-dir]"
-        return 1
+  mbatr() {
+    if [ "$#" -ne 1 ]; then
+      echo "Usage: mbatr <extension>"
+      return 1
     fi
 
-    local find_args="-type f -name \"*.$1\""
-    if [ "$#" -eq 2 ]; then
-        find_args="$find_args -not -path \"*/$2/*\""
-    fi
-
-    eval "find . $find_args" | while read -r file; do
-        echo "--------------- ${file}"
-        cat "${file}"
+    for file in $(find . -type f -name "*.$1"); do
+      echo "--------------- ${file}"
+      bat "${file}"
     done
-}; f'
-# bat alternatives if bat is available
-if command -v bat &>/dev/null; then
-    alias mbat='f() {
-        if [ "$#" -ne 1 ]; then
-            echo "Usage: mbat <extension>"
-            return 1
-        fi
-
-        for file in $(find . -maxdepth 1 -name "*.$1"); do
-            echo "--------------- ${file}"
-            bat "${file}"
-        done
-    }; f'
-
-    alias mbatr='f() {
-        if [ "$#" -ne 1 ]; then
-            echo "Usage: mbatr <extension>"
-            return 1
-        fi
-
-        for file in $(find . -type f -name "*.$1"); do
-            echo "--------------- ${file}"
-            bat "${file}"
-        done
-    }; f'
+  }
 fi
 
 # count pages and words in PDF files
-alias cpwpdf='f() {
-    if [[ $# -ne 0 ]]; then
-        echo "Usage: cpwpdf"
-        return 1
+cpwpdf() {
+  if [[ $# -ne 0 ]]; then
+    echo "Usage: cpwpdf"
+    return 1
+  fi
+
+  for pdf in *.pdf; do
+    if [[ -f "$pdf" ]]; then
+      name=$(basename "$pdf" .pdf)
+      pages=$(pdftk "$pdf" dump_data | grep "NumberOfPages" | cut -d ":" -f 2 | tr -d " ")
+      words=$(pdftotext "$pdf" - | wc -w)
+      printf "%s - %d pages - %d words\n" "$name" "$pages" "$words"
     fi
+  done
+}
 
-    for pdf in *.pdf; do
-        if [[ -f "$pdf" ]]; then
-            name=$(basename "$pdf" .pdf)
-            pages=$(pdftk "$pdf" dump_data | grep "NumberOfPages" | cut -d ":" -f 2 | tr -d " ")
-            words=$(pdftotext "$pdf" - | wc -w)
-            printf "%s - %d pages - %d words\n" "$name" "$pages" "$words"
-        fi
-    done
-}; f'
+# python virtual environment functions
+penv() {
+  py_version=$(python --version | awk "{print \$2}" | cut -d. -f1-3)
+  python -m venv ".venv_$(basename "$(pwd)" | cut -c1-16)_$py_version"
+}
 
-# python virtual environment aliases
-alias penv='f() {
-    py_version=$(python --version | awk "{print \$2}" | cut -d. -f1-3)
-    python -m venv ".venv_$(basename "$(pwd)" | cut -c1-16)_$py_version"
-}; f'
-alias pact='f() {
-    version=$(python --version | awk "{print \$2}" | cut -d. -f1-3)
-    venv_path=$(find . -maxdepth 1 -type d -name ".venv_$(basename "$(pwd)" | cut -c1-16)_$version" | head -n 1)
+pact() {
+  version=$(python --version | awk "{print \$2}" | cut -d. -f1-3)
+  venv_path=$(find . -maxdepth 1 -type d -name ".venv_$(basename "$(pwd)" | cut -c1-16)_$version" | head -n 1)
 
-    if [ -z "$venv_path" ]; then
-        echo "No virtual environment found for version: $version"
-        return 1
-    fi
+  if [ -z "$venv_path" ]; then
+    echo "No virtual environment found for version: $version"
+    return 1
+  fi
 
-    source "$venv_path/bin/activate"
-}; f'
+  source "$venv_path/bin/activate"
+}
 
 # docker process list with prettier formatting
-alias dpsc="docker ps --format 'table {{.ID}}\t{{.Status}}\t{{.Ports}}\t{{.Names}}'"
+dpsc() {
+  docker ps --format 'table {{.ID}}\t{{.Status}}\t{{.Ports}}\t{{.Names}}'
+}
 
 # docker container and images deleting
-alias ddcp='docker rm -vf $(docker ps -aq)'
-alias ddip='docker rmi -f $(docker images -aq)'
+ddcp() {
+  docker rm -vf $(docker ps -aq)
+}
+
+ddip() {
+  docker rmi -f $(docker images -aq)
+}
 
 # just a simpler command
-alias oc='open_command'
+oc() {
+  open_command "$@"
+}
 
 # copy stdout to xclip, use as last stdout receiver to copy
-alias cpstd='xclip -sel clip'
+cpstd() {
+  xclip -sel clip
+}
 
 # git history file purge
-alias git-purge='f() {
-    if [ "$#" -ne 1 ]; then
-        echo "Usage: git-purge <file>"
-        return 1
-    fi
+git-purge() {
+  if [ "$#" -ne 1 ]; then
+    echo "Usage: git-purge <file>"
+    return 1
+  fi
 
-    git filter-branch --force --index-filter "git rm --cached --ignore-unmatch $1" --prune-empty --tag-name-filter cat -- --all
-}; f'
+  git filter-branch --force --index-filter "git rm --cached --ignore-unmatch $1" --prune-empty --tag-name-filter cat -- --all
+}
 
 # update licenses to current year based on command `date`
 # only updates LICENSE files inside directories that have a .git folder
-alias licc='f() {
-    current_year=$(date +"%Y")
+licc() {
+  current_year=$(date +"%Y")
 
-    find . -type d -name ".git" -prune -exec dirname {} \; | while read -r git_dir; do
-        license_file="$git_dir/LICENSE"
-        if [[ -f "$license_file" ]]; then
-            if ! grep -qE "(^|[^0-9])$current_year([^0-9]|$)" "$license_file"; then
-              sed -i "s/\([0-9]\+\)/\1-$current_year/g" "$license_file"
-                echo "$git_dir/LICENSE updated"
-            fi
-        fi
-    done
-}; f'
+  find . -type d -name ".git" -prune -exec dirname {} \; | while read -r git_dir; do
+    license_file="$git_dir/LICENSE"
+    if [[ -f "$license_file" ]]; then
+      if ! grep -qE "(^|[^0-9])$current_year([^0-9]|$) (\$|\[)" "$license_file"; then
+        sed -i "s/\([0-9]\{4\}\)/\1-$current_year/g" "$license_file"
+        echo "$git_dir/LICENSE updated"
+      fi
+    fi
+  done
+}
+
 
 # make extension-sized icons from png image
-alias mkicon='f() {
-    if [ "$#" -ne 1 ]; then
-        echo "Usage: mkicon <image_file>"
-        return 1
-    fi
-    for size in 16 48 128; do magick $1 -resize "${size}x${size}!" "$size.png"; done;
-}; f'
+mkicon() {
+  if [ "$#" -ne 1 ]; then
+    echo "Usage: mkicon <image_file>"
+    return 1
+  fi
+  for size in 16 48 128; do
+    magick "$1" -resize "${size}x${size}!" "$size.png"
+  done
+}
 
 # read `limit` lines from rockyou & `length` max-sized-lines
-alias headrock='f() {
-    if [ "$#" -lt 1 ]; then
-        echo "Usage: headrock <limit> [length]"
-        return 1
-    fi
+headrock() {
+  if [ "$#" -lt 1 ]; then
+    echo "Usage: headrock <limit> [length]"
+    return 1
+  fi
 
-    if [ ! -f /usr/share/wordlists/rockyou.txt ]; then
-        echo "Error: rockyou.txt not found at /usr/share/wordlists/rockyou.txt"
-        return 1
-    fi
+  if [ ! -f /usr/share/wordlists/rockyou.txt ]; then
+    echo "Error: rockyou.txt not found at /usr/share/wordlists/rockyou.txt"
+    return 1
+  fi
 
-    limit="$1"
-    length="$2"
+  limit="$1"
+  length="$2"
 
-    if [ -z "$length" ]; then
-        head -n "$limit" /usr/share/wordlists/rockyou.txt
-    else
-        awk -v len="$length" '\''length($0) == len'\'' /usr/share/wordlists/rockyou.txt | head -n "$limit"
-    fi
-}; f'
+  if [ -z "$length" ]; then
+    head -n "$limit" /usr/share/wordlists/rockyou.txt
+  else
+    awk -v len="$length" 'length($0) == len' /usr/share/wordlists/rockyou.txt | head -n "$limit"
+  fi
+}
 
 # run and delete simple C file
-alias rd='f() {
-    if [ "$#" -lt 1 ]; then
-        echo "Usage: rd <file-name>.c"
-        return 1
-    fi
-    filename="${1%.*}"
-    gcc "$1" -o "$filename" -lm -Wall -O2 && ./"$filename" && rm "$filename"
-}; f'
+rcd() {
+  if [ "$#" -lt 1 ]; then
+    echo "Usage: rd <file-name>.c"
+    return 1
+  fi
+  filename="${1%.*}"
+  gcc "$1" -o "$filename" -lm -Wall -O2 && ./"$filename" && rm "$filename"
+}
 
 # multiple cat with file spacing
-alias zat='f() {
-    if [ "$#" -lt 1 ]; then
-        echo "Usage: zat <file1> [file2] ..."
-        return 1
+zat() {
+  if [ "$#" -lt 1 ]; then
+    echo "Usage: zat <file1> [file2] ..."
+    return 1
+  fi
+  for file in "$@"; do
+    if [ ! -f "$file" ]; then
+      echo "Error: $file is not a valid file"
+      continue
     fi
-    for file in "$@"; do
-        if [ ! -f "$file" ]; then
-            echo "Error: $file is not a valid file"
-            continue
-        fi
-        separator="------------------"
-        echo "$separator"
-        echo "- $file"
-        echo "$separator"
-        cat "$file"
-        echo "$separator"
-    done
-}; f'
+    separator="------------------"
+    echo "$separator"
+    echo "- $file"
+    echo "$separator"
+    cat "$file"
+    echo "$separator"
+  done
+}
 
 # zip files password protected
-alias pzip='f() {
-    if [ "$#" -lt 2 ]; then
-        echo "Usage: pzip <archive-name> <file1> [file2] ..."
-        return 1
-    fi
-    archive="$1"
-    shift
-    7z a -tzip -mem=AES256 -p "$archive.zip" "$@"
-}; f'
+pzip() {
+  if [ "$#" -lt 2 ]; then
+    echo "Usage: pzip <archive-name> <file1> [file2] ..."
+    return 1
+  fi
+  archive="$1"
+  shift
+  7z a -tzip -mem=AES256 -p "$archive.zip" "$@"
+}
 
 # download video and remux into mp4/mp3 from youtube
-alias ytdw='f() {
-    if [ "$#" -lt 1 ] || [ "$#" -gt 2 ]; then
-        echo "Usage: ytdw <url> [format]"
-        echo "Format options: mp4 (default), mp3"
-        return 1
-    fi
+ytdw() {
+  if [ "$#" -lt 1 ] || [ "$#" -gt 2 ]; then
+    echo "Usage: ytdw <url> [format]"
+    echo "Format options: mp4 (default), mp3"
+    return 1
+  fi
 
-    local url="$1"
-    local format="${2:-mp4}"
+  local url="$1"
+  local format="${2:-mp4}"
 
-    case "$format" in
-        mp4)
-            yt-dlp -f "bestvideo[height<=720]+bestaudio[ext=m4a]" --merge-output-format mp4 \
-            --postprocessor-args "ffmpeg:-vcodec libx264 -acodec aac" \
-            "$url"
-            ;;
-        mp3)
-            yt-dlp -f "bestaudio[ext=m4a]" -x --audio-format mp3 "$url"
-            ;;
-        *)
-            echo "Unsupported format: $format"
-            echo "Supported formats: mp4, mp3"
-            return 1
-            ;;
-    esac
-}; f'
+  case "$format" in
+    mp4)
+      yt-dlp -f "bestvideo[height<=720]+bestaudio[ext=m4a]" --merge-output-format mp4 \
+      --postprocessor-args "ffmpeg:-vcodec libx264 -acodec aac" \
+      "$url"
+      ;;
+    mp3)
+      yt-dlp -f "bestaudio[ext=m4a]" -x --audio-format mp3 "$url"
+      ;;
+    *)
+      echo "Unsupported format: $format"
+      echo "Supported formats: mp4, mp3"
+      return 1
+      ;;
+  esac
+}
 
 # show packages from yay and their installed size ordered
-alias yspmb='f() {
-    yay -Qe | cut -d" " -f1 | while read -r pkg; do
-        size=$(pacman -Qi "$pkg" | awk '\''/Installed Size/ {print $4, $5}'\'')
-        if [[ $size == *KiB ]]; then
-            num=$(echo "$size" | awk '\''{printf "%.2f", $1/1024}'\'')
-        elif [[ $size == *MiB ]]; then
-            num=$(echo "$size" | awk '\''{print $1}'\'')
-        elif [[ $size == *GiB ]]; then
-            num=$(echo "$size" | awk '\''{printf "%.2f", $1*1024}'\'')
-        fi
-        echo "$pkg - $num"
-    done | sort -k3 -n
-}; f'
-
+yspmb() {
+  yay -Qe | cut -d" " -f1 | while read -r pkg; do
+    size=$(pacman -Qi "$pkg" | awk '/Installed Size/ {print $4, $5}')
+    if [[ $size == *KiB ]]; then
+      num=$(echo "$size" | awk '{printf "%.2f", $1/1024}')
+    elif [[ $size == *MiB ]]; then
+      num=$(echo "$size" | awk '{print $1}')
+    elif [[ $size == *GiB ]]; then
+      num=$(echo "$size" | awk '{printf "%.2f", $1*1024}')
+    fi
+    echo "$pkg - $num"
+  done | sort -k3 -n
+}
 
 # tree-cat files by extension excluding (or not) hidden directories
-alias rcat='f() {
-    if [ "$#" -lt 1 ]; then
-        echo "Usage: rcat [--hidden] <extension1> [extension2] ..."
-        echo "Example: rcat py js"
-        echo "Example: rcat --hidden py js"
-        return 1
+rcat() {
+  if [ "$#" -lt 1 ]; then
+    echo "Usage: rcat [--hidden] <extension1> [extension2] ..."
+    echo "Example: rcat py js"
+    echo "Example: rcat --hidden py js"
+    return 1
+  fi
+
+  include_hidden=false
+  if [ "$1" = "--hidden" ]; then
+    include_hidden=true
+    shift
+  fi
+
+  find_command="find . -type f"
+
+  if [ "$include_hidden" = false ]; then
+    find_command="$find_command -not -path \"*/\\.*/*\""
+  fi
+
+  extensions=""
+  for ext in "$@"; do
+    if [ -z "$extensions" ]; then
+      extensions="-name \"*.$ext\""
+    else
+      extensions="$extensions -o -name \"*.$ext\""
     fi
+  done
 
-    include_hidden=false
-    if [ "$1" = "--hidden" ]; then
-        include_hidden=true
-        shift
-    fi
-
-    find_command="find . -type f"
-
-    if [ "$include_hidden" = false ]; then
-        find_command="$find_command -not -path \"*/\\.*/*\""
-    fi
-
-    extensions=""
-    for ext in "$@"; do
-        if [ -z "$extensions" ]; then
-            extensions="-name \"*.$ext\""
-        else
-            extensions="$extensions -o -name \"*.$ext\""
-        fi
-    done
-
-    eval "$find_command $( [ ! -z "$extensions" ] && echo "-and \\( $extensions \\)" )" | sort | while read -r file; do
-        echo "------- $file:"
-        cat "$file"
-        echo
-    done
-}; f'
+  eval "$find_command $( [ ! -z "$extensions" ] && echo "-and \\( $extensions \\)" )" | sort | while read -r file; do
+    echo "------- $file:"
+    cat "$file"
+    echo
+  done
+}
 
 # clear pip packages
-alias pclear='pip freeze | xargs pip uninstall -y'
+pclear() {
+  pip freeze | xargs pip uninstall -y
+}
 
 # save code screenshot from file or stdout
 codegrim() {
-    local ext="" filename=""
+  local ext="" filename=""
 
-    if [[ "$1" == --ext=* ]]; then
-        ext="${1#*=}"
-        shift
+  if [[ "$1" == --ext=* ]]; then
+    ext="${1#*=}"
+    shift
+  fi
+
+  if [[ $# -gt 0 ]]; then
+    filename="$1"
+    outname="${filename##*/}"
+    outname="${outname%.*}"
+    freeze "$filename" -o "$HOME/downloads/$outname.png" -c user
+  else
+    if [[ -z "$ext" ]]; then
+      echo "Error: When using stdin, you must specify --ext=extension" >&2
+      return 1
     fi
 
-    if [[ $# -gt 0 ]]; then
-        filename="$1"
-        outname="${filename##*/}"
-        outname="${outname%.*}"
-        freeze "$filename" -o "$HOME/downloads/$outname.png" -c user
-    else
-        if [[ -z "$ext" ]]; then
-            echo "Error: When using stdin, you must specify --ext=extension" >&2
-            return 1
-        fi
-
-        outname="$(date +%Y%m%d_%H%M%S)"
-        freeze - --language="$ext" -o "$HOME/downloads/$outname.png" -c user
-    fi
+    outname="$(date +%Y%m%d_%H%M%S)"
+    freeze - --language="$ext" -o "$HOME/downloads/$outname.png" -c user
+  fi
 }
