@@ -428,3 +428,42 @@ codegrim() {
     freeze - --language="$ext" -o "$HOME/downloads/$outname.png" -c user
   fi
 }
+
+# count lines of code recursively by extension
+count_lines() {
+  if [[ -z "$1" ]]; then
+    echo "Usage: count_lines <extension> [-I <regex-directories>]"
+    return 1
+  fi
+
+  local extension="$1"
+  shift
+  local ignore_regex=""
+
+  while [[ "$#" -gt 0 ]]; do
+    case "$1" in
+      -I)
+        if [[ -n "$2" ]]; then
+          ignore_regex="$2"
+          shift
+        else
+          echo "Error: -I requires a regular expression."
+          return 1
+        fi
+        ;;
+      *)
+        echo "Error: Invalid option '$1'"
+        return 1
+        ;;
+    esac
+    shift
+  done
+
+  local fd_command="fd -e $extension"
+
+  if [[ -n "$ignore_regex" ]]; then
+    fd_command+=" -E \"$ignore_regex\""
+  fi
+
+  eval "$fd_command" | xargs cat 2>/dev/null | wc -l
+}
