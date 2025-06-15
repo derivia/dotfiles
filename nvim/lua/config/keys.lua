@@ -1,7 +1,6 @@
 -- shorter default options
 local opts = { noremap = true, silent = true }
--- shorter function name
-local keymap = vim.api.nvim_set_keymap
+local keymap = vim.keymap.set
 
 -- space as leader key
 keymap("", "<Space>", "<Nop>", opts)
@@ -55,11 +54,12 @@ keymap("v", "$", "$h", opts)
 keymap("x", "$", "$h", opts)
 
 -- go to manpage of current symbol under cursor
--- keymap("n", "<leader>fm", [[:Man <cword><CR>]], opts)
-keymap("n", "<leader>fm", [[:lua vim.cmd('Man ' .. vim.fn.expand('<cword>'))<CR>]], opts)
+keymap("n", "<leader>fm", function()
+	vim.cmd("Man " .. vim.fn.expand("<cword>"))
+end, { desc = "Man page for word under cursor" })
 
 if vim.fn.getenv("WSLENV") ~= vim.NIL then
-	vim.keymap.set("n", "gx", ":silent :execute '!wslview ' . shellescape(expand('<cfile>'), 1)<CR>", opts)
+	keymap("n", "gx", ":silent :execute '!wslview ' . shellescape(expand('<cfile>'), 1)<CR>", opts)
 end
 
 -- close tab and go to another buffer, if there's one.
@@ -67,22 +67,21 @@ local status_ok_br, br = pcall(require, "mini.bufremove")
 if not status_ok_br then
 	return
 end
--- stylua: ignore start
+
 -- code from LazyVim.editor.lua
-vim.keymap.set("n", "<C-x>", function()
+keymap("n", "<C-x>", function()
 	if vim.bo.modified then
 		local choice = vim.fn.confirm(("Save changes to %q?"):format(vim.fn.bufname()), "&Yes\n&No\n&Cancel")
-		if choice == 1 then -- Yes
+		if choice == 1 then
 			vim.cmd.write()
 			br.delete(0)
-		elseif choice == 2 then -- No
+		elseif choice == 2 then
 			br.delete(0, true)
 		end
 	else
 		br.delete(0)
 	end
-end, opts)
--- stylua: ignore end
+end, { desc = "Close buffer with confirmation" })
 
 local function generate_table_of_contents()
 	local cursor_line = vim.fn.line(".")
@@ -98,7 +97,7 @@ local function generate_table_of_contents()
 	end
 
 	local headers = {}
-	local lines = vim.api.nvim_buf_get_lines(0, cursor_line - 1, -1, false)
+	local lines = vim.api.nvim_buf_get_lines(0, 0, cursor_line - 1, false)
 
 	for _, line in ipairs(lines) do
 		if line:match("^#+%s") then
@@ -115,13 +114,14 @@ local function generate_table_of_contents()
 
 	local toc_lines = { "## Table of Contents:", "" }
 	for _, header in ipairs(headers) do
-		table.insert(toc_lines, string.format("- [%s](#%s)", header.title, header.link))
+		local indent = string.rep("  ", header.level - 1)
+		table.insert(toc_lines, string.format("%s- [%s](#%s)", indent, header.title, header.link))
 	end
 
 	vim.api.nvim_buf_set_lines(0, cursor_line, cursor_line, false, toc_lines)
 end
 
-vim.keymap.set("n", "<leader>toc", generate_table_of_contents, {
+keymap("n", "<leader>toc", generate_table_of_contents, {
 	noremap = true,
 	silent = true,
 	desc = "Generate Markdown Table of Contents",
