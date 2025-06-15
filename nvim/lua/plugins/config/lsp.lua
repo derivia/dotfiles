@@ -141,6 +141,13 @@ lspconfig.solargraph.setup({
 	},
 })
 
+lspconfig.emmet_ls.setup({
+	on_attach = on_attach,
+	handlers = handlers,
+	capabilities = capabilities(),
+	filetypes = { "html", "typescriptreact", "javascriptreact", "css", "sass", "scss", "less" },
+})
+
 local servers = {
 	"pyright",
 	"rust_analyzer",
