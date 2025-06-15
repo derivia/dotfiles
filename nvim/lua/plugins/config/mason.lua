@@ -34,7 +34,7 @@ masontools.setup({
 		"htmlbeautifier",
 		"stylua",
 		"prettierd",
-		"standardrb",
+		"rubocop",
 		"yamlfmt",
 	},
 	run_on_start = true,
