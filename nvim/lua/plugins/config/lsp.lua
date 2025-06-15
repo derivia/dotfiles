@@ -122,6 +122,25 @@ lspconfig.clangd.setup({
 	capabilities = capabilities(),
 })
 
+lspconfig.solargraph.setup({
+	on_attach = on_attach,
+	handlers = handlers,
+	capabilities = capabilities(),
+	single_file_support = true,
+	init_options = {
+		formatting = false,
+	},
+	settings = {
+		solargraph = {
+			diagnostics = {
+				rubocop = {
+					configFile = vim.fn.expand("~") .. "/.rubocop.yml",
+				},
+			},
+		},
+	},
+})
+
 local servers = {
 	"pyright",
 	"rust_analyzer",

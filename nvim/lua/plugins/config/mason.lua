@@ -22,13 +22,16 @@ masontools.setup({
 		"clangd",
 		"lua-language-server",
 		"pyright",
+		"solargraph",
 		"typescript-language-server",
 		"rust-analyzer",
 
 		-- formatter
+		"beautysh",
 		"black",
 		"biome",
 		"clang-format",
+		"htmlbeautifier",
 		"stylua",
 		"prettierd",
 		"standardrb",
