@@ -206,6 +206,9 @@ require("lazy").setup({
 		},
 	},
 
+	-- Auto end after "do", "def", "end", etc
+	{ "RRethy/nvim-treesitter-endwise", event = "InsertEnter" },
+
 	-- Mini buffer removing plugin
 	{ "echasnovski/mini.bufremove", config = true, version = "*" },
 
@@ -378,6 +381,14 @@ require("lazy").setup({
 				javascript = { "template_string" },
 			},
 		},
+	},
+
+	{
+		"windwp/nvim-ts-autotag",
+		ft = { "javascript", "javascriptreact", "typescript", "typescriptreact", "svelte", "vue", "html" },
+		config = function()
+			require("nvim-ts-autotag").setup()
+		end,
 	},
 
 	-- Markdown autocmds
