@@ -561,3 +561,47 @@ ffmstable() {
     echo "Converting '$input_file' to constant ${target_fps} FPS."
     ffmpeg -i "$input_file" -filter:v fps="$target_fps" -c:a copy "$output_file"
 }
+
+pack() {
+  local PACK_IGNORE_FILE="$HOME/.pack_ignore"
+
+  if ! command -v rsync &> /dev/null; then
+    echo "Error: rsync is not installed." >&2
+    return 1
+  fi
+
+  if [[ $# -ne 1 ]]; then
+    echo "Usage: pack <folder_to_pack>" >&2
+    return 1
+  fi
+
+  local source_dir
+  source_dir=$(realpath "$1")
+  if [[ ! -d "$source_dir" ]]; then
+    echo "Error: '$1' is not a valid directory." >&2
+    return 1
+  fi
+
+  local dir_name
+  dir_name=$(basename "$source_dir")
+  local dest_dir="./packed_${dir_name}"
+
+  if [[ -e "$dest_dir" ]]; then
+    echo "Error: Destination '$dest_dir' already exists." >&2
+    return 1
+  fi
+
+  echo "Packing '$dir_name' into '$dest_dir'..."
+
+  rsync -avh --progress --exclude-from="$PACK_IGNORE_FILE" "$source_dir/" "$dest_dir/"
+
+  if [[ $? -eq 0 ]]; then
+    echo "\nSuccessfully packed directory."
+    echo "  Source:      $source_dir"
+    echo "  Destination: $(realpath "$dest_dir")"
+  else
+    echo "\nAn error occurred during packing." >&2
+    rm -rf "$dest_dir"
+    return 1
+  fi
+}
