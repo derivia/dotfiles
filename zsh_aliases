@@ -605,3 +605,5 @@ pack() {
     return 1
   fi
 }
+
+alias hd='hexdump'
