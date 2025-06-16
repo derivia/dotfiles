@@ -126,3 +126,7 @@ keymap("n", "<leader>toc", generate_table_of_contents, {
 	silent = true,
 	desc = "Generate Markdown Table of Contents",
 })
+
+-- move tags up and down
+keymap("n", "<leader>lj", "f>a<CR><ESC>f<i<CR><ESC>k==", { desc = "Split tag onto new lines" })
+keymap("n", "<leader>lk", "gJ", { desc = "Join line below" })
