@@ -3,7 +3,7 @@
 1. Configure keyring
 2. Update all packages and database
 ```sh
-sudo pacman -Syyuu (after keyring configuration)
+sudo pacman -Syyuu
 ```
 3. Get faster servers (For Brazil)
 ```sh
