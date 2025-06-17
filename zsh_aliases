@@ -607,3 +607,35 @@ pack() {
 }
 
 alias hd='hexdump'
+
+# remove audio from mp4 file
+mp4_mute() {
+  if [[ -z "$1" ]]; then
+    echo "Usage: mp4_mute <path_to_mp4_file>"
+    return 1
+  fi
+
+  local input_file="$1"
+  local temp_file="${input_file%.*}_no_audio_temp.mp4"
+
+  if [[ ! -f "$input_file" ]]; then
+    echo "Error: File not found: $input_file"
+    return 1
+  fi
+
+  echo "Removing audio from: $input_file"
+
+  if ffmpeg -i "$input_file" -c copy -an "$temp_file" >/dev/null 2>&1; then
+    if mv "$temp_file" "$input_file"; then
+      echo "Successfully removed audio from $input_file."
+    else
+      echo "Error: Failed to overwrite $input_file with the temporary file."
+      rm -f "$temp_file"
+      return 1
+    fi
+  else
+    echo "Error: ffmpeg failed to process the file: $input_file"
+    rm -f "$temp_file"
+    return 1
+  fi
+}
