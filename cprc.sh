@@ -23,6 +23,8 @@ declare -A FILES=(
     ["./hyprland/hyprpaper.conf"]="$HOME/.config/hypr/hyprpaper.conf"
     ["./hyprland/hyprlock.conf"]="$HOME/.config/hypr/hyprlock.conf"
     ["./hyprland/wallpaper.png"]="$HOME/.config/hypr/wallpaper.png"
+    ["./rofi/config.rasi"]="$HOME/.config/rofi/config.rasi"
+    ["./rofi/powermenu.sh"]="$HOME/.config/rofi/powermenu.sh"
     ["./waybar/config"]="$HOME/.config/waybar/config"
     ["./waybar/style.css"]="$HOME/.config/waybar/style.css"
 )
