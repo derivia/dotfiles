@@ -13,7 +13,7 @@ brightnessctl  wl-clipboard wl-clipboard-x11 slurp grim \
 lxappearance materia-gtk-theme papirus-icon-theme \
 xdg-desktop-portal-hyprland xwaylandvideobridge \
 ttf-firacode-nerd ttf-font-awesome ttf-iosevka-nerd \
-firefox zen-browser-bin thunderbird discord \
+firefox zen-browser-bin thunderbird discord socat \
 neovim git dbeaver docker docker-compose dive \
 btop htop bat dust exa fd fzf ripgrep tree jq nmap cowsay \
 vlc gimp gimp-plugin-resynthesizer-scm-git kdenlive audacity obs-studio ffmpegthumbnailer imagemagick \
