@@ -1,66 +1,29 @@
 [global]
 monitor = 0
-notification_limit = 20
-stack_duplicates = false
-sort = true
-show_age_threshold = 60
-
-# -- Placement / Size --
-geometry = "250x50-50+55"
-origin = top-right
-offset = (10, 50)
-padding = 16
-horizontal_padding = 16
-
-# -- Progress bar --
-progress_bar = true
-progress_bar_height = 7
-progress_bar_frame_width = 1
-progress_bar_min_width = 150
-progress_bar_max_width = 300
-progress_bar_corner_radius = 20
-progress_bar_corners = all
-
-# -- Indicators --
+follow = mouse
+geometry = "300x5-30+50"
 indicate_hidden = yes
-show_indicators = yes
+shrink = no
+separator_height = 2
+padding = 8
+horizontal_padding = 8
+font = Iosevka Nerd Font 10
+frame_width = 2
+frame_color = "#B98862"
+separator_color = frame
 
-# -- Appearance --
-transparency = 0
-frame_width = 0
-frame_color = "#212121"
-font = Inter 9
-markup = full
-line_height = 0
-format = "%s\n%b"
-ignore_newline = no
-alignment = left
-vertical_alignment = center
-icon_position = left
-show_icons = left
-max_icon_size = 32
-icon_path = /usr/share/icons/Papirus-Light/16x16/status/:/usr/share/icons/Papirus-Light/16x16/devices/
-corner_radius = 4
-corners = all
-ellipsize = middle
-word_wrap = yes
-
-# -- Separation --
-separator_height = 0
-gap_size = 0
-gap_color = "#252525"
-
-# -- Colors --
 [urgency_low]
-background = "#E8E6DF"
-foreground = "#171717"
-timeout = 6
+background = "#2C333C"
+foreground = "#D3CFC8"
+timeout = 10
+
 [urgency_normal]
-background = "#E8E6DF"
-foreground = "#171717"
-timeout = 6
+background = "#2C333C"
+foreground = "#D3CFC8"
+timeout = 10
+
 [urgency_critical]
-background = "#E8E6DF"
-foreground = "#171717"
-frame_color = "#F03138"
+background = "#2C333C"
+foreground = "#B98862"
+frame_color = "#B98862"
 timeout = 0
