@@ -64,6 +64,9 @@ eval "$(rbenv init -)"
 # python environment manager
 export PYENV_ROOT="$HOME/.pyenv"
 
+# use newer magick command on pywal
+export PYWAL_IMAGEMAGICK_COMMAND="magick"
+
 ### source pyenv from external file instead! ###
 # [[ -d $PYENV_ROOT/bin ]] && export PATH="$PYENV_ROOT/bin:$PATH"
 # eval "$(pyenv init - zsh)"
