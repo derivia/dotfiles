@@ -13,30 +13,7 @@ sudo pacman -S reflector && reflector --country Brazil --age 24 --protocol https
 ```sh
 sudo pacman -S --needed git base-devel && git clone https://aur.archlinux.org/yay.git && cd yay && makepkg -si
 ```
-5. Install useful packages
-```sh
-yay -S alacritty alsa-utils asciinema audacity bat bear \
-calibre cmake curl dbus-glib djvulibre docker \
-docker-compose dosfstools dust electronfd ethtool \
-exiftool ffmpegthumbnailer flameshot fontconfig \
-freetype2 fzf ghc glibc gnumeric grim gzip httpie \
-i3blocks i3lock imagemagick inter-font jq jre8-openjdk \
-less libffi libgnome-keyring libnotify libreoffice-fresh \
-libxcb libxcrypt libxft libxkbcommon libyaml lua51 \
-luarocks ly make man-db man-pages ncurses neofetch \
-neovim net-tools ninja noise-suppression-for-voice oniguruma \
-openssh openssl pamixer pdftk pipewire-alsa pipewire-libcamera \
-pipewire-pulse pkg-config poppler postgresql python python-xlib \
-ripgrep rnote rustup scrcpy sqlite tar thunar-archive-plugin \
-thunderbird tmux traceroute tree tree-sitter tree-sitter-cli \
-ttf-firacode-nerd ttf-font-awesome ttf-iosevka-nerd \
-ttf-iosevkaterm-nerd ttf-iosevkatermslab-nerd \
-ttf-nerd-fonts-symbols ttf-roboto-mono-nerd \
-tumbler ufw unixodbcunzip vim vlc vpnc wget wireplumber \
-wofi xclip xdotool xorg-xinput xsel yad zen-browser-bin \
-zig zip zlib zsh waybar hyprland hyprlock hyprpaper \
-dbeaver wl-clipboard-x11
-```
+5. Install useful packages from [PACKAGES.md](./PACKAGES.md)
 6. Set rust toolchain default to stable
 ```sh
 rustup default stable
