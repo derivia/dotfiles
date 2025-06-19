@@ -24,6 +24,7 @@ window#waybar {
     color: @foreground;
     background-color: transparent;
     min-width: 28px; 
+    min-height: 28px;
 }
 
 #workspaces button:hover {
