@@ -1,86 +1,55 @@
-@define-color white          #fefefe;
-@define-color surface        #e0e0e0;
-@define-color accent-cool    #d6e2e9;
-@define-color accent-warm    #a1887f;
-@define-color clay           #d7ccc8;
-@define-color light          #f5f5f5;
-@define-color pink           #f48fb1;
-@define-color rose           #fd6f81;
-@define-color red            #dd3f41;
-@define-color peach          #ffcc80;
-@define-color yellow         #fff59d;
-@define-color green          #aed581;
-@define-color cyan           #80deea;
-@define-color blue           #90caf9;
-@define-color lavender       #ce93d8;
-@define-color earth          #bcaaa4;
-@define-color magenta        #ba8baf;
-@define-color brown          #a16946;
-@define-color text-dark      #4a4a4a;
+@define-color background  #2C333C;
+@define-color foreground  #D3CFC8;
+@define-color accent      #B98862;
+@define-color accent-dark #8A6B4F;
+@define-color green       #7A876B;
+@define-color grey        #595959;
 
 * {
-  transition: none;
-  box-shadow: none;
+    border: none;
+    border-radius: 0;
+    font-family: 'Iosevka Nerd Font', 'Font Awesome 6 Free', sans-serif;
+    font-size: 14px;
+    min-height: 0;
 }
 
-#waybar {
-  font-family: 'Source Code Pro', sans-serif;
-  font-size: 1.1em;
-  font-weight: 400;
-  color: @text-dark;
-  background: @surface;
-}
-
-#workspaces {
-  margin: 0 4px;
+window#waybar {
+    background: alpha(@background, 0.4);
+    color: @foreground;
 }
 
 #workspaces button {
-  margin: 4px 1px;
-  padding: 0 4px;
-  color: @text-dark;
+    padding: 0;
+    margin: 4px;
+    color: @foreground;
+    background-color: transparent;
+    min-width: 28px; 
+}
+
+#workspaces button:hover {
+    background: none;
+    box-shadow: none;
+    text-shadow: none;
+    border-radius: 50%;
+    background-color: alpha(@foreground, 0.2);
 }
 
 #workspaces button.active {
-  border-radius: 4px;
-  background-color: @earth;
+    background-color: @accent;
+    color: @background;
+    border-radius: 50%;
+    padding: 0;
+    margin: 4px;
+    min-width: 28px;
 }
 
-#workspaces button.urgent {
-  color: @red;
-  background-color: @rose;
-  font-weight: bold;
-}
-
-#tray {
-  margin: 4px 4px 4px 4px;
-  padding: 0 6px 0 0;
-  border-radius: 4px;
-  background-color: @earth;
-}
-
-#tray * {
-  padding: 0 0 0 6px;
-}
-
-#mode, #battery, #cpu, #memory, 
-#network, #pulseaudio, #idle_inhibitor, 
-#backlight, #custom-storage, #custom-updates, 
-#custom-weather, #custom-mail, #clock, #temperature, #language, #custom-dnd {
-  margin: 4px 2px;
-  padding: 0 6px;
-  background-color: @earth;
-  border-radius: 4px;
-  min-width: 20px;
-  color: @text-dark;
-}
-
-#pulseaudio.muted {
-  color: @brown;
-}
-
+#pulseaudio,
+#tray,
+#custom-dnd,
 #clock {
-  margin-left: 0px;
-  margin-right: 4px;
-  background-color: @earth;
+    padding: 2px 10px;
+    margin: 4px 5px;
+    color: @foreground;
+    background-color: alpha(@background, 0.4);
+    border-radius: 10px;
 }
