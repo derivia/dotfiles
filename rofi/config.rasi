@@ -1,0 +1,82 @@
+@theme "/dev/null"
+
+* {
+    background:     #2C333C;
+    foreground:     #D3CFC8;
+    accent:         #B98862;
+    grey:           #595959;
+    background-color: transparent;
+    text-color:       @foreground;
+}
+
+configuration {
+  display-drun: "Apps";
+}
+
+window {
+    font:             "Iosevka Nerd Font 12";
+    transparency:     "real";
+    background-color: @background;
+    text-color:       @foreground;
+    border:           2px;
+    border-color:     @accent;
+    border-radius:    10px;
+    width:            40%;
+    padding:          16;
+    location:         center;
+    anchor:           center;
+}
+
+mainbox {
+    border:  0;
+    padding: 0;
+}
+
+inputbar {
+    children:   [ prompt, textbox-prompt-colon, entry, case-indicator ];
+    spacing:    10;
+    text-color: @foreground;
+    padding:    8px;
+    border: 0px 0px 2px 0px;
+    border-color: @grey;
+}
+
+textbox-prompt-colon {
+    expand:     false;
+    str:        " ";
+    margin:     0px 0.3em 0em 0em;
+    text-color: @accent;
+}
+
+entry {
+    text-color: @foreground;
+}
+
+listview {
+    fixed-height: 0;
+    border:       0px;
+    spacing:      5px;
+    scrollbar:    false;
+    padding:      10px 0px 0px;
+}
+
+element {
+    border:  0;
+    padding: 8px;
+}
+
+element-text {
+    background-color: inherit;
+    text-color:       inherit;
+}
+
+element.normal.normal {
+    background-color: @background;
+    text-color:       @foreground;
+}
+
+element.selected.normal {
+    background-color: @grey;
+    text-color:       @foreground;
+    border-radius: 5px;
+}
