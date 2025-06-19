@@ -1,22 +1,6 @@
-# General
-[general]
-import = ["~/.config/alacritty/one_dark.toml",]
-
-# Environment
 [env]
 TERM = "xterm-256color"
 
-# Keyboard
-[[keyboard.bindings]]
-action = "Paste"
-key = "V"
-mods = "Control|Shift"
-[[keyboard.bindings]]
-action = "Copy"
-key = "C"
-mods = "Control|Shift"
-
-# Font
 [font]
 size = 11
 [font.normal]
@@ -26,18 +10,32 @@ style = "Regular"
 style = "Bold"
 [font.italic]
 style = "Italic"
-[font.offset]
-x = 1
-y = 0
 
-# Window
-[scrolling]
-history = 10000
 [window]
-title = "Alacritty"
-[window.class]
-general = "Alacritty"
-instance = "Alacritty"
-[window.padding]
-x = 2
-y = 2
+padding.x = 2
+padding.y = 2
+opacity = 0.9
+
+[colors]
+primary.background = '#2C333C'
+primary.foreground = '#D3CFC8'
+cursor.text = '#2C333C'
+cursor.cursor = '#D3CFC8'
+
+normal.black =   '#36404A'
+normal.red =     '#B98862'
+normal.green =   '#7A876B'
+normal.yellow =  '#B98862'
+normal.blue =    '#8A6B4F'
+normal.magenta = '#7A876B'
+normal.cyan =    '#8A6B4F'
+normal.white =   '#D3CFC8'
+
+bright.black =   '#595959'
+bright.red =     '#B98862'
+bright.green =   '#7A876B'
+bright.yellow =  '#B98862'
+bright.blue =    '#8A6B4F'
+bright.magenta = '#7A876B'
+bright.cyan =    '#8A6B4F'
+bright.white =   '#D3CFC8'
