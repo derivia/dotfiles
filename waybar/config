@@ -4,8 +4,12 @@
     "height": 32,
     "spacing": 4,
     "modules-left": ["hyprland/workspaces"],
-    "modules-center": [],
+    "modules-center": ["hyprland/window"],
     "modules-right": ["pulseaudio", "tray", "custom/dnd", "clock"],
+    "hyprland/window": {
+        "format": "{}",
+        "max-length": 35
+    },
     "tray": {
         "spacing": 10,
     },
