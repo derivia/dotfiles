@@ -11,6 +11,8 @@ font = Iosevka Nerd Font 10
 frame_width = 2
 frame_color = "#B98862"
 separator_color = frame
+corner_radius = 4
+corners = all
 
 [urgency_low]
 background = "#2C333C"
