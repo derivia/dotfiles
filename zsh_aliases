@@ -177,6 +177,15 @@ if command -v bat &>/dev/null; then
     }
 fi
 
+# pdf pages to png
+pdf2png() {
+    if [ "$#" -ne 1 ]; then
+        echo "Usage: pd2png <file>"
+        return 1
+    fi
+    pdftoppm "$1" "$1.output" -png
+}
+
 # count pages and words in PDF files
 cpwpdf() {
     if [[ $# -ne 0 ]]; then
