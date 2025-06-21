@@ -144,11 +144,8 @@ require("lazy").setup({
 					function(cmp)
 						if cmp.snippet_active() then
 							return cmp.accept()
-						else
-							return cmp.select_and_accept()
 						end
 					end,
-					"snippet_forward",
 					"fallback",
 				},
 				["<Tab>"] = { "select_next", "snippet_forward", "fallback" },
