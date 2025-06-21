@@ -85,31 +85,40 @@ end, { desc = "Close buffer with confirmation" })
 
 local function generate_table_of_contents()
 	local cursor_line = vim.fn.line(".")
+	local buf_lines = vim.api.nvim_buf_get_lines(0, 0, -1, false)
 
-	local function header_to_link(header)
-		local title = header:gsub("^#+%s*", ""):gsub("%s*$", "")
+	local function header_to_link(header_text)
+		local title = header_text:gsub("^%s*(%S.*)%s*$", "%1")
 
 		title = title:lower()
 		title = title:gsub("%s+", "-")
 		title = title:gsub("[^a-z0-9-]", "")
+		title = title:gsub("-+", "-")
+		title = title:gsub("^-", ""):gsub("-$", "")
 
 		return title
 	end
 
 	local headers = {}
-	local lines = vim.api.nvim_buf_get_lines(0, 0, cursor_line - 1, false)
+	for i, line in ipairs(buf_lines) do
+		local level_match = line:match("^(#+)%s")
+		if level_match then
+			local level = level_match:len()
+			if level >= 1 and level <= 5 then
+				local title = line:gsub("^#+%s*(.*)", "%1")
 
-	for _, line in ipairs(lines) do
-		if line:match("^#+%s") then
-			local level = line:match("^(#+)"):len()
-			local title = line:gsub("^#+%s*", "")
-
-			table.insert(headers, {
-				level = level,
-				title = title,
-				link = header_to_link(line),
-			})
+				table.insert(headers, {
+					level = level,
+					title = title,
+					link = header_to_link(title),
+					line_num = i,
+				})
+			end
 		end
+	end
+
+	if #headers == 0 then
+		return
 	end
 
 	local toc_lines = { "## Table of Contents:", "" }
@@ -117,14 +126,13 @@ local function generate_table_of_contents()
 		local indent = string.rep("  ", header.level - 1)
 		table.insert(toc_lines, string.format("%s- [%s](#%s)", indent, header.title, header.link))
 	end
-
-	vim.api.nvim_buf_set_lines(0, cursor_line, cursor_line, false, toc_lines)
+	vim.api.nvim_buf_set_lines(0, cursor_line - 1, cursor_line - 1, false, toc_lines)
 end
 
 keymap("n", "<leader>toc", generate_table_of_contents, {
 	noremap = true,
 	silent = true,
-	desc = "Generate Markdown Table of Contents",
+	desc = "Generate markdown table of contents",
 })
 
 -- move tags up and down
