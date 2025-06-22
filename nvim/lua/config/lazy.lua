@@ -140,12 +140,8 @@ require("lazy").setup({
 			},
 			keymap = {
 				preset = "default",
-				["<Enter>"] = {
-					function(cmp)
-						if cmp.snippet_active() then
-							return cmp.accept()
-						end
-					end,
+				["<CR>"] = {
+					"accept",
 					"fallback",
 				},
 				["<Tab>"] = { "select_next", "snippet_forward", "fallback" },
@@ -353,6 +349,7 @@ require("lazy").setup({
 					typescript = { "biome" },
 					typescriptreact = { "biome" },
 					yaml = { "yamlfmt" },
+					zsh = { "beautysh" },
 					["_"] = { "trim_whitespace" }, -- on all filetypes that aren't configured
 				},
 				format_after_save = nil,
