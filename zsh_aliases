@@ -572,79 +572,85 @@ ffmstable() {
 }
 
 pack() {
-  local PACK_IGNORE_FILE="$HOME/.pack_ignore"
+    local PACK_IGNORE_FILE="$HOME/.pack_ignore"
 
-  if ! command -v rsync &> /dev/null; then
-    echo "Error: rsync is not installed." >&2
-    return 1
-  fi
+    if ! command -v rsync &> /dev/null; then
+        echo "Error: rsync is not installed." >&2
+        return 1
+    fi
 
-  if [[ $# -ne 1 ]]; then
-    echo "Usage: pack <folder_to_pack>" >&2
-    return 1
-  fi
+    if [[ $# -ne 1 ]]; then
+        echo "Usage: pack <folder_to_pack>" >&2
+        return 1
+    fi
 
-  local source_dir
-  source_dir=$(realpath "$1")
-  if [[ ! -d "$source_dir" ]]; then
-    echo "Error: '$1' is not a valid directory." >&2
-    return 1
-  fi
+    local source_dir
+    source_dir=$(realpath "$1")
+    if [[ ! -d "$source_dir" ]]; then
+        echo "Error: '$1' is not a valid directory." >&2
+        return 1
+    fi
 
-  local dir_name
-  dir_name=$(basename "$source_dir")
-  local dest_dir="./packed_${dir_name}"
+    local dir_name
+    dir_name=$(basename "$source_dir")
+    local dest_dir="./packed_${dir_name}"
 
-  if [[ -e "$dest_dir" ]]; then
-    echo "Error: Destination '$dest_dir' already exists." >&2
-    return 1
-  fi
+    if [[ -e "$dest_dir" ]]; then
+        echo "Error: Destination '$dest_dir' already exists." >&2
+        return 1
+    fi
 
-  echo "Packing '$dir_name' into '$dest_dir'..."
+    echo "Packing '$dir_name' into '$dest_dir'..."
 
-  rsync -avh --progress --exclude-from="$PACK_IGNORE_FILE" "$source_dir/" "$dest_dir/"
+    rsync -avh --progress --exclude-from="$PACK_IGNORE_FILE" "$source_dir/" "$dest_dir/"
 
-  if [[ $? -eq 0 ]]; then
-    echo "\nSuccessfully packed directory."
-    echo "  Source:      $source_dir"
-    echo "  Destination: $(realpath "$dest_dir")"
-  else
-    echo "\nAn error occurred during packing." >&2
-    rm -rf "$dest_dir"
-    return 1
-  fi
+    if [[ $? -eq 0 ]]; then
+        echo "\nSuccessfully packed directory."
+        echo "  Source:      $source_dir"
+        echo "  Destination: $(realpath "$dest_dir")"
+    else
+        echo "\nAn error occurred during packing." >&2
+        rm -rf "$dest_dir"
+        return 1
+    fi
 }
 
 alias hd='hexdump'
 
 # remove audio from mp4 file
 mp4_mute() {
-  if [[ -z "$1" ]]; then
-    echo "Usage: mp4_mute <path_to_mp4_file>"
-    return 1
-  fi
-
-  local input_file="$1"
-  local temp_file="${input_file%.*}_no_audio_temp.mp4"
-
-  if [[ ! -f "$input_file" ]]; then
-    echo "Error: File not found: $input_file"
-    return 1
-  fi
-
-  echo "Removing audio from: $input_file"
-
-  if ffmpeg -i "$input_file" -c copy -an "$temp_file" >/dev/null 2>&1; then
-    if mv "$temp_file" "$input_file"; then
-      echo "Successfully removed audio from $input_file."
-    else
-      echo "Error: Failed to overwrite $input_file with the temporary file."
-      rm -f "$temp_file"
-      return 1
+    if [[ -z "$1" ]]; then
+        echo "Usage: mp4_mute <path_to_mp4_file>"
+        return 1
     fi
-  else
-    echo "Error: ffmpeg failed to process the file: $input_file"
-    rm -f "$temp_file"
-    return 1
-  fi
+
+    local input_file="$1"
+    local temp_file="${input_file%.*}_no_audio_temp.mp4"
+
+    if [[ ! -f "$input_file" ]]; then
+        echo "Error: File not found: $input_file"
+        return 1
+    fi
+
+    if ffmpeg -i "$input_file" -c copy -an "$temp_file" >/dev/null 2>&1; then
+        if mv "$temp_file" "$input_file"; then
+            echo "Successfully removed audio from $input_file."
+        else
+            echo "Error: Failed to overwrite $input_file with the temporary file."
+            rm -f "$temp_file"
+            return 1
+        fi
+    else
+        echo "Error: ffmpeg failed to process the file: $input_file"
+        rm -f "$temp_file"
+        return 1
+    fi
+}
+
+html2png() {
+    if [ "$#" -ne 1 ]; then
+        echo "Usage: html2png <file.html>"
+        return 1
+    fi
+    wkhtmltoimage --format png "$1" "${1%.html}.png"
 }
