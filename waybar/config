@@ -5,7 +5,7 @@
     "spacing": 4,
     "modules-left": ["hyprland/workspaces"],
     "modules-center": ["hyprland/window"],
-    "modules-right": ["pulseaudio", "tray", "custom/dnd", "clock"],
+    "modules-right": ["pulseaudio", "tray", "custom/dnd", "custom/vpn", "clock"],
     "hyprland/window": {
         "format": "{}",
         "max-length": 35
@@ -41,6 +41,11 @@
         "format": "{}",
         "exec": "~/.config/waybar/scripts/dnd.sh",
         "on-click": "~/.config/waybar/scripts/dnd.sh left",
-        "interval": 1
+        "interval": 2
+    },
+    "custom/vpn": {
+      "interval": 3,
+      "format": "{}",
+      "exec": "~/.config/waybar/scripts/vpn.sh"
     }
 }
