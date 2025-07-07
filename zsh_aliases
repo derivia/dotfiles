@@ -654,3 +654,14 @@ html2png() {
     fi
     wkhtmltoimage --format png "$1" "${1%.html}.png"
 }
+
+parquet2csv() {
+    if [ "$#" -ne 1 ]; then
+        echo "Usage: parquet2csv <file.parquet>"
+        return 1
+    fi
+    local parquet_file="$1"
+    local csv_file="${parquet_file##*/}"
+    csv_file="${csv_file%.parquet}.csv"
+    duckdb -c "COPY (SELECT * FROM '${parquet_file}') TO '${csv_file}' (HEADER, FORMAT 'csv');"
+}
