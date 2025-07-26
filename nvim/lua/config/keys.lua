@@ -26,8 +26,8 @@ keymap("n", "<C-l>", "<C-w>l", opts)
 -- resize the current window
 keymap("n", "<S-Up>", ":resize +2<CR>", opts)
 keymap("n", "<S-Down>", ":resize -2<CR>", opts)
-keymap("n", "<S-Left>", ":vertical resize +2<CR>", opts)
-keymap("n", "<S-Right>", ":vertical resize -2<CR>", opts)
+keymap("n", "<S-Left>", ":vertical resize -2<CR>", opts)
+keymap("n", "<S-Right>", ":vertical resize +2<CR>", opts)
 
 -- clear highlights
 keymap("n", "<leader>h", ":noh<CR>", opts)

@@ -9,6 +9,9 @@ local filetype = {
 	icons_enabled = true,
 	padding = 1,
 }
+local filename = { "filename", path = 1 }
+local diagnostics = { "diagnostics", always_visible = true }
+local lsp_status = { "lsp_status", icon = "", ignore_lsp = { "copilot" } }
 
 plugin.setup({
 	options = {
@@ -24,9 +27,9 @@ plugin.setup({
 	},
 	sections = {
 		lualine_a = { "mode" },
-		lualine_b = { "" },
-		lualine_c = { { "filename", path = 1 } },
-		lualine_x = { "" },
+		lualine_b = { diagnostics },
+		lualine_c = { filename },
+		lualine_x = { lsp_status },
 		lualine_y = { "encoding" },
 		lualine_z = { filetype },
 	},
