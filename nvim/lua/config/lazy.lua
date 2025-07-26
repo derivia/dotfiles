@@ -1,8 +1,95 @@
 require("lazy").setup({
 	-- Necessary for some plugins
-	{ "nvim-lua/plenary.nvim" },
+	{ "nvim-lua/plenary.nvim", branch = "master" },
 
-	-- Colorscheme(s)
+	-- Enhanced UI for messages, cmdline and the popupmenu
+	{
+		"folke/noice.nvim",
+		event = "VeryLazy",
+		opts = {
+			lsp = {
+				override = {
+					["vim.lsp.util.convert_input_to_markdown_lines"] = true,
+					["vim.lsp.util.stylize_markdown"] = true,
+				},
+			},
+			presets = {
+				bottom_search = true,
+				command_palette = false,
+				long_message_to_split = true,
+				inc_rename = false,
+				lsp_doc_border = false,
+			},
+		},
+		dependencies = {
+			"MunifTanjim/nui.nvim",
+			"rcarriga/nvim-notify",
+		},
+	},
+
+	-- Cursor-like AI
+	{
+		"yetone/avante.nvim",
+		build = "make BUILD_FROM_SOURCE=true",
+		event = "VeryLazy",
+		version = false,
+		opts = {
+			provider = "copilot",
+			auto_suggestions_provider = "copilot",
+			providers = {
+				copilot = {
+					disable_tools = true,
+					extra_request_body = {
+						temperature = 0,
+						max_tokens = 4096,
+					},
+				},
+			},
+		},
+		dependencies = {
+			"nvim-lua/plenary.nvim",
+			-- Mini diff visualization
+			{
+				"echasnovski/mini.diff",
+				version = "*",
+			},
+			"nvim-telescope/telescope.nvim",
+			{
+				"zbirenbaum/copilot.lua",
+				cmd = "Copilot",
+				event = "InsertEnter",
+				config = function()
+					local status_ok, copilot = pcall(require, "copilot")
+					if not status_ok then
+						return
+					end
+					copilot.setup({
+						suggestion = { enabled = false },
+						panel = { enabled = false },
+					})
+				end,
+			},
+			{
+				"MeanderingProgrammer/render-markdown.nvim",
+				opts = {
+					file_types = { "Avante" },
+				},
+				ft = { "Avante" },
+			},
+		},
+	},
+
+	-- Some simple utilitary plugins
+	{
+		"folke/snacks.nvim",
+		priority = 1000,
+		lazy = false,
+		opts = {
+			picker = { enabled = true },
+		},
+	},
+
+	-- `Atom's One Dark` colorscheme
 	{
 		"navarasu/onedark.nvim",
 		lazy = false,
@@ -24,7 +111,11 @@ require("lazy").setup({
 				transparent = false,
 			},
 			colors = {},
-			highlights = {},
+			highlights = {
+				["Normal"] = { bg = "#272B34" },
+				["NormalNC"] = { bg = "#272B34" },
+				["EndOfBuffer"] = { bg = "#272B34" },
+			},
 			diagnostics = {
 				darker = true,
 				undercurl = true,
@@ -34,9 +125,19 @@ require("lazy").setup({
 	},
 
 	-- Show hex colors
-	{ "norcalli/nvim-colorizer.lua", config = true },
+	{
+		"norcalli/nvim-colorizer.lua",
+		config = function()
+			local status_ok, colorizer = pcall(require, "colorizer")
+			if not status_ok then
+				vim.notify("Something went wrong with nvim-colorizer startup.")
+				return
+			end
+			colorizer.setup({})
+		end,
+	},
 
-	-- Format textwidth on files
+	-- Smarter line breaking
 	{
 		"paulshuker/textangle.nvim",
 		version = "*",
@@ -74,7 +175,7 @@ require("lazy").setup({
 		},
 	},
 
-	-- Diagnostics!
+	-- Diagnostics
 	{
 		"folke/trouble.nvim",
 		opts = {
@@ -127,65 +228,133 @@ require("lazy").setup({
 		},
 	},
 
+	-- Completion engine
 	{
 		"saghen/blink.cmp",
-		dependencies = "rafamadriz/friendly-snippets",
+		dependencies = {
+			"rafamadriz/friendly-snippets",
+			"Kaiser-Yang/blink-cmp-avante",
+			"giuxtaposition/blink-cmp-copilot",
+		},
 		version = "*",
-		opts = {
-			fuzzy = {
-				implementation = "prefer_rust_with_warning",
-			},
-			cmdline = {
-				enabled = true,
-			},
-			keymap = {
-				preset = "default",
-				["<CR>"] = {
-					"accept",
-					"fallback",
+		config = function()
+			local status_ok, blink = pcall(require, "blink.cmp")
+			if not status_ok then
+				return
+			end
+			blink.setup({
+				filetypes = {
+					markdown = true,
 				},
-				["<Tab>"] = { "select_next", "snippet_forward", "fallback" },
-				["<S-Tab>"] = { "select_prev", "fallback" },
-				["<C-k>"] = { "scroll_documentation_up", "fallback" },
-				["<C-j>"] = { "scroll_documentation_down", "fallback" },
-				["<C-space>"] = {
-					function(cmp)
-						cmp.show({ providers = { "lsp", "path", "snippets" } })
-					end,
+				fuzzy = {
+					implementation = "prefer_rust_with_warning",
 				},
-			},
-			completion = {
-				menu = {
-					border = "none",
+				cmdline = {
+					enabled = true,
 				},
-				documentation = { window = { border = "none" }, auto_show = true, auto_show_delay_ms = 0 },
-				ghost_text = { enabled = false },
-				list = {
-					selection = {
-						preselect = false,
+				appearance = {
+					kind_icons = {
+						Copilot = "",
+						Text = "󰉿",
+						Method = "󰊕",
+						Function = "󰊕",
+						Constructor = "󰒓",
+
+						Field = "󰜢",
+						Variable = "󰆦",
+						Property = "󰖷",
+
+						Class = "󱡠",
+						Interface = "󱡠",
+						Struct = "󱡠",
+						Module = "󰅩",
+
+						Unit = "󰪚",
+						Value = "󰦨",
+						Enum = "󰦨",
+						EnumMember = "󰦨",
+
+						Keyword = "󰻾",
+						Constant = "󰏿",
+
+						Snippet = "󱄽",
+						Color = "󰏘",
+						File = "󰈔",
+						Reference = "󰬲",
+						Folder = "󰉋",
+						Event = "󱐋",
+						Operator = "󰪚",
+						TypeParameter = "󰬛",
 					},
 				},
-				trigger = {
-					show_in_snippet = false,
+				keymap = {
+					preset = "default",
+					["<CR>"] = {
+						"accept",
+						"fallback",
+					},
+					["<Tab>"] = { "select_next", "snippet_forward", "fallback" },
+					["<S-Tab>"] = { "select_prev", "fallback" },
+					["<C-k>"] = { "scroll_documentation_up", "fallback" },
+					["<C-j>"] = { "scroll_documentation_down", "fallback" },
+					["<C-space>"] = {
+						function(cmp)
+							cmp.show({ providers = { "lsp", "path", "snippets" } })
+						end,
+					},
 				},
-			},
-			signature = { enabled = true, window = { border = "none" } },
-			sources = {
-				---@diagnostic disable-next-line: unused-local
-				default = function(ctx)
-					local success, node = pcall(vim.treesitter.get_node)
-					if
-						success
-						and node
-						and vim.tbl_contains({ "comment", "line_comment", "block_comment" }, node:type())
-					then
-						return {}
-					else
-						return { "lsp", "path", "snippets" }
-					end
-				end,
-			},
-		},
+				completion = {
+					menu = {
+						border = "none",
+						draw = {
+							columns = {
+								{ "label", "label_description", gap = 2 },
+								{ "kind_icon" },
+							},
+						},
+					},
+					documentation = { window = { border = "none" }, auto_show = true, auto_show_delay_ms = 0 },
+					ghost_text = { enabled = false },
+					list = {
+						selection = {
+							preselect = false,
+						},
+					},
+					trigger = {
+						show_in_snippet = false,
+					},
+				},
+				signature = { enabled = true, window = { border = "none" } },
+				sources = {
+					providers = {
+						copilot = {
+							name = "copilot",
+							module = "blink-cmp-copilot",
+							score_offset = 100,
+							async = true,
+						},
+						avante = {
+							module = "blink-cmp-avante",
+							name = "Avante",
+							opts = {},
+						},
+					},
+					---@diagnostic disable-next-line: unused-local
+					default = function(ctx)
+						local success, node = pcall(vim.treesitter.get_node)
+						if
+							success
+							and node
+							and vim.tbl_contains({ "comment", "line_comment", "block_comment" }, node:type())
+						then
+							return {}
+						else
+							return { "copilot", "lsp", "path", "snippets", "avante" }
+						end
+					end,
+				},
+			})
+		end,
 	},
 
 	-- Snippet engine
@@ -202,14 +371,85 @@ require("lazy").setup({
 	-- Auto end after "do", "def", "end", etc
 	{ "RRethy/nvim-treesitter-endwise", event = "InsertEnter" },
 
+	-- Autopairs
+	{
+		"windwp/nvim-autopairs",
+		event = "InsertEnter",
+		opts = {
+			disable_filetype = { "markdown" },
+			check_ts = true,
+			ts_config = {
+				javascript = { "template_string" },
+			},
+		},
+	},
+	{
+		"windwp/nvim-ts-autotag",
+		ft = { "javascript", "javascriptreact", "typescript", "typescriptreact", "svelte", "vue", "html" },
+		config = function()
+			require("nvim-ts-autotag").setup()
+		end,
+	},
+
 	-- Mini buffer removing plugin
-	{ "echasnovski/mini.bufremove", config = true, version = "*" },
+	{
+		"echasnovski/mini.bufremove",
+		config = function()
+			-- close tab and go to another buffer, if there's one.
+			local status_ok_br, br = pcall(require, "mini.bufremove")
+			if not status_ok_br then
+				return
+			end
+			-- code from LazyVim.editor.lua
+			vim.keymap.set("n", "<C-x>", function()
+				if vim.bo.modified then
+					local choice =
+						vim.fn.confirm(("Save changes to %q?"):format(vim.fn.bufname()), "&Yes\n&No\n&Cancel")
+					if choice == 1 then
+						vim.cmd.write()
+						br.delete(0)
+					elseif choice == 2 then
+						br.delete(0, true)
+					end
+				else
+					br.delete(0)
+				end
+			end, { desc = "Close buffer with confirmation" })
+		end,
+		version = "*",
+	},
+
+	-- Mini highlighter, mainly for comments
+	{
+		"echasnovski/mini.hipatterns",
+		config = function()
+			local status_ok, hipatterns = pcall(require, "mini.hipatterns")
+			if not status_ok then
+				vim.notify("Something went wrong with Mini.Hipatterns startup.")
+				return
+			end
+			hipatterns.setup({
+
+				highlighters = {
+					fixme = { pattern = "%f[%w]()FIXME()%f[%W]", group = "MiniHipatternsFixme" },
+					hack = { pattern = "%f[%w]()HACK()%f[%W]", group = "MiniHipatternsHack" },
+					todo = { pattern = "%f[%w]()TODO()%f[%W]", group = "MiniHipatternsTodo" },
+					note = { pattern = "%f[%w]()NOTE()%f[%W]", group = "MiniHipatternsNote" },
+
+					hex_color = hipatterns.gen_highlighter.hex_color(),
+				},
+			})
+		end,
+		version = "*",
+	},
 
 	-- Easier LSP config
 	{ "neovim/nvim-lspconfig", event = { "BufReadPre", "BufNewFile" } },
 
 	-- Easier management of external tools, like LSP, DAP, formatters, etc.
-	{ "williamboman/mason.nvim", version = "1.11.0" },
+	{
+		"mason-org/mason.nvim",
+	},
 	{ "WhoIsSethDaniel/mason-tool-installer.nvim", version = "1.32.0" },
 
 	-- Snippet management
@@ -312,6 +552,7 @@ require("lazy").setup({
 		config = function()
 			local status_ok, conform = pcall(require, "conform")
 			if not status_ok then
+				vim.notify("Something went wrong with conform startup.")
 				return
 			end
 
@@ -330,6 +571,7 @@ require("lazy").setup({
 					},
 				},
 				formatters_by_ft = {
+					angular = { "prettierd" },
 					c = { "clang_format" },
 					cpp = { "clang_format" },
 					css = { "biome" },
@@ -341,6 +583,7 @@ require("lazy").setup({
 					json = { "biome" },
 					liquid = { "biome" },
 					lua = { "stylua" },
+					nginx = { "nginxfmt" },
 					python = { "black" },
 					ruby = { "rubocop" },
 					rust = { "rustfmt" },
@@ -364,27 +607,6 @@ require("lazy").setup({
 		end,
 	},
 
-	-- Autopairs
-	{
-		"windwp/nvim-autopairs",
-		event = "InsertEnter",
-		opts = {
-			disable_filetype = { "markdown" },
-			check_ts = true,
-			ts_config = {
-				javascript = { "template_string" },
-			},
-		},
-	},
-
-	{
-		"windwp/nvim-ts-autotag",
-		ft = { "javascript", "javascriptreact", "typescript", "typescriptreact", "svelte", "vue", "html" },
-		config = function()
-			require("nvim-ts-autotag").setup()
-		end,
-	},
-
 	-- Markdown autocmds
 	{ "jakewvincent/mkdnflow.nvim", ft = "markdown" },
 
@@ -403,6 +625,7 @@ require("lazy").setup({
 			local actions = require("fzf-lua.actions")
 			local status_ok, fzf_lua = pcall(require, "fzf-lua")
 			if not status_ok then
+				vim.notify("Something went wrong with fzf-lua startup.")
 				return
 			end
 
@@ -437,6 +660,7 @@ require("lazy").setup({
 		end,
 	},
 
+	-- Surround things
 	{
 		"kylechui/nvim-surround",
 		version = "*",
@@ -448,9 +672,6 @@ require("lazy").setup({
 
 	-- Status line below
 	{ "nvim-lualine/lualine.nvim" },
-
-	-- Java/Spring development
-	{ "nvim-java/nvim-java" },
 }, {
 	ui = { border = "rounded" },
 	change_detection = { notify = false },

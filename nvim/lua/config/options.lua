@@ -1,80 +1,90 @@
 local o = vim.opt
 local g = vim.g
 
+-- map leader to space
 g.mapleader = " "
 g.mapolocalleader = " "
 
--- disables backup
+-- dark theme
+o.background = "dark"
+-- disable backup
 o.backup = false
--- don't save when switching buffers
-o.hidden = true
--- makes so `` appears on markdown files
-o.conceallevel = 0
--- treats the tab completiom menu
-o.completeopt = { "menuone", "noselect" }
--- sets the default encoding to utf-8
-o.fileencoding = "utf-8"
--- highlights matches on search pattern
-o.hlsearch = true
--- moving while searching
-o.incsearch = true
--- enables the mouse
-o.mouse = "a"
--- disables the mode showing at the status bar
-o.showmode = false
--- smarter case insensitivity/sensitivity
-o.smartcase = true
--- case-insensitive search/replace
-o.ignorecase = true
--- always draw signcolumn
-o.signcolumn = "yes"
--- maximum number of items to show on popups
-o.pumheight = 15
--- changes the size of the cmdheight below the lualine
+-- height of command line
 o.cmdheight = 1
--- makes indenting smarter (i guess)
-o.smartindent = true
--- makes splitted windows to be kept on the current window
-o.splitbelow = true
-o.splitright = true
--- disables swap file creation
-o.swapfile = false
--- makes so the update time is faster, for a faster <TAB> completion
-o.timeoutlen = 500
-o.updatetime = 200
--- converts tabs to spaces
+-- completion menu options
+o.completeopt = { "menuone", "noselect" }
+-- disable hidden text
+o.conceallevel = 0
+-- remove cursor column and line background
+o.cursorcolumn = false
+o.cursorline = false
+-- use tab as spaces
 o.expandtab = true
--- some colors
-o.termguicolors = true
--- sets the default tab (as spaces) size
-o.shiftwidth = 2
-o.tabstop = 2
--- highlight the current line
-o.cursorline = true
--- line numbers
+-- default to uft-8
+o.fileencoding = "utf-8"
+-- hide buffers instead of abandoning them
+o.hidden = true
+-- disable search result highlighting 
+o.hlsearch = false
+-- case-insensitive search
+o.ignorecase = true
+-- show results of incremental substitution and other things
+o.inccommand = "split"
+o.incsearch = true
+-- show status bar only on focused window
+o.laststatus = 0
+-- enable mouse everywhere
+o.mouse = "a"
+-- show number lines
 o.number = true
 o.numberwidth = 2
+-- popup menu maximum number of items
+o.pumheight = 5
+-- relative numbering lines
 o.relativenumber = true
--- disables wrapping
-o.wrap = false
--- smooth scrooling
-o.smoothscroll = true
--- stop h and l from going up/down the line when line beginning/end was reached
-o.whichwrap:remove({ "w", "b", "h", "l" })
--- makes the cursor go one more at the end of the line
-o.virtualedit = "onemore"
--- removes horizontally splitted windows status line
-o.laststatus = 0
+-- keep cursor kind of centered vertically
+o.scrolloff = 8
+-- configure the shared data file
+o.shada = "'1000,<50,s25,h"
+-- default to two spaces
+o.shiftwidth = 2
 -- disable intro message
 o.shortmess:append({ I = true })
--- keep the cursor kinda centralized
-o.scrolloff = 8
+-- don't show mode
+o.showmode = false
+-- keep cursor kind of centered horizontally
 o.sidescrolloff = 2
--- bigger history
-o.shada = "'1000,<50,s25,h"
+-- space for symbols left to the numbers
+o.signcolumn = "yes"
+-- case sensitive if search has uppercases
+o.smartcase = true
+-- smart indentation
+o.smartindent = true
+-- enable splits (i guess)
+o.splitbelow = true
+o.splitright = true
+-- disable swap file
+o.swapfile = false
+-- default tab to 2
+o.tabstop = 2
+-- enable 24-bit RGB color
+o.termguicolors = true
+-- 400ms timeout for key combinations
+o.timeoutlen = 400
+-- remember undo when buffer is abandoned
+o.undofile = true
+-- faster updatetime
+o.updatetime = 500
+-- add one virtual character more to the right
+o.virtualedit = "onemore"
+-- disable visual wrapping
+o.whichwrap:remove({ "w", "b", "h", "l" })
+o.wrap = false
+-- disable backup writing
+o.writebackup = false
 
--- disable health checks for these providers
+-- ignore providers
+vim.g.loaded_node_provider = 0
+vim.g.loaded_perl_provider = 0
 vim.g.loaded_python3_provider = 0
 vim.g.loaded_ruby_provider = 0
-vim.g.loaded_perl_provider = 0
-vim.g.loaded_node_provider = 0

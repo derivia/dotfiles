@@ -19,6 +19,7 @@ mason.setup({
 masontools.setup({
 	ensure_installed = {
 		-- lsp
+		"angular-language-server",
 		"clangd",
 		"lua-language-server",
 		"pyright",
@@ -33,6 +34,7 @@ masontools.setup({
 		"black",
 		"clang-format",
 		"htmlbeautifier",
+		"nginx-config-formatter",
 		"prettierd",
 		"rubocop",
 		"stylua",
