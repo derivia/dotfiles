@@ -58,12 +58,7 @@ set wildignore+=*.gem
 set wildignore+=log/**
 set wildignore+=tmp/**
 set wildignore+=*.png,*.jpg,*.gif
-" set colorscheme based on opera colorscheme existance
-if !empty(globpath(&rtp, 'colors/opera.vim'))
-  colorscheme opera
-else
-  colorscheme habamax
-endif
+colorscheme unokai
 
 " from this: https://vi.stackexchange.com/questions/454/whats-the-simplest-way-to-strip-trailing-whitespace-from-all-lines-in-a-file
 function! TrimWhitespace()
