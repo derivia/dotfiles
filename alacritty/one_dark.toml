@@ -1,7 +1,5 @@
-# Colors (One Dark)
-
 [colors.primary]
-background = '#282c34'
+background = '#272B34'
 foreground = '#abb2bf'
 
 [colors.normal]
