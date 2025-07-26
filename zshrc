@@ -75,3 +75,7 @@ export PYWAL_IMAGEMAGICK_COMMAND="magick"
 if [ -f "$HOME/.zsh_aliases" ]; then
     source "$HOME/.zsh_aliases"
 fi
+
+# load Angular CLI autocompletion.
+source <(ng completion script)
+source $HOME/.gemini-api-key
