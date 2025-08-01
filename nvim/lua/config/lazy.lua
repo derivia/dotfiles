@@ -243,9 +243,6 @@ require("lazy").setup({
 				return
 			end
 			blink.setup({
-				filetypes = {
-					markdown = true,
-				},
 				fuzzy = {
 					implementation = "prefer_rust_with_warning",
 				},
