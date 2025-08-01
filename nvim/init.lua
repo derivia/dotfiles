@@ -1,4 +1,7 @@
-require("config.options")
+-- load options and keymaps before plugins
+vim.g.start_time = vim.fn.reltime()
+vim.loader.enable() -- experimental setting for faster behaviour
+require("config.opts")
 require("config.keys")
 
 local lazypath = vim.fn.stdpath("data") .. "/lazy/lazy.nvim"
@@ -14,10 +17,5 @@ if not vim.uv.fs_stat(lazypath) then
 	})
 end
 vim.opt.rtp:prepend(lazypath)
+-- require modular plugin configuration after starting lazy.nvim
 require("config.lazy")
-require("plugins.requires")
-require("config.autocmd")
-
-require("notify").setup({
-	background_colour = "#272B34",
-})
