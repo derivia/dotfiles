@@ -62,27 +62,6 @@ if vim.fn.getenv("WSLENV") ~= vim.NIL then
 	keymap("n", "gx", ":silent :execute '!wslview ' . shellescape(expand('<cfile>'), 1)<CR>", opts)
 end
 
--- close tab and go to another buffer, if there's one.
-local status_ok_br, br = pcall(require, "mini.bufremove")
-if not status_ok_br then
-	return
-end
-
--- code from LazyVim.editor.lua
-keymap("n", "<C-x>", function()
-	if vim.bo.modified then
-		local choice = vim.fn.confirm(("Save changes to %q?"):format(vim.fn.bufname()), "&Yes\n&No\n&Cancel")
-		if choice == 1 then
-			vim.cmd.write()
-			br.delete(0)
-		elseif choice == 2 then
-			br.delete(0, true)
-		end
-	else
-		br.delete(0)
-	end
-end, { desc = "Close buffer with confirmation" })
-
 local function generate_table_of_contents()
 	local cursor_line = vim.fn.line(".")
 	local buf_lines = vim.api.nvim_buf_get_lines(0, 0, -1, false)

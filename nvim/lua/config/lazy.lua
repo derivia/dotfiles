@@ -1,4 +1,10 @@
-require("lazy").setup({
+local status_ok_lazy, _ = pcall(require, "lazy")
+if not status_ok_lazy then
+  vim.notify("LazyVim failed to load")
+  return
+end
+
+_.setup({
 	-- Necessary for some plugins
 	{ "nvim-lua/plenary.nvim", branch = "master" },
 
@@ -155,18 +161,6 @@ require("lazy").setup({
 		},
 	},
 
-	-- Annotate classes and functions based on scope
-	{
-		"danymat/neogen",
-		version = "*",
-		opts = {
-			type = "func",
-		},
-		keys = {
-			{ "<leader>nf", mode = "n", "<cmd>Neogen<CR>", desc = "Annotate based on scope" },
-		},
-	},
-
 	-- Project-wide renaming
 	{
 		"nvim-pack/nvim-spectre",
@@ -214,9 +208,6 @@ require("lazy").setup({
 		},
 	},
 
-	-- Auto cd to root
-	{ "ahmedkhalf/project.nvim" },
-
 	-- More icons for neovim
 	{ "nvim-tree/nvim-web-devicons", config = true },
 
@@ -256,24 +247,19 @@ require("lazy").setup({
 						Method = "󰊕",
 						Function = "󰊕",
 						Constructor = "󰒓",
-
 						Field = "󰜢",
 						Variable = "󰆦",
 						Property = "󰖷",
-
 						Class = "󱡠",
 						Interface = "󱡠",
 						Struct = "󱡠",
 						Module = "󰅩",
-
 						Unit = "󰪚",
 						Value = "󰦨",
 						Enum = "󰦨",
 						EnumMember = "󰦨",
-
 						Keyword = "󰻾",
 						Constant = "󰏿",
-
 						Snippet = "󱄽",
 						Color = "󰏘",
 						File = "󰈔",
@@ -440,14 +426,13 @@ require("lazy").setup({
 		version = "*",
 	},
 
-	-- Easier LSP config
-	{ "neovim/nvim-lspconfig", event = { "BufReadPre", "BufNewFile" } },
-
 	-- Easier management of external tools, like LSP, DAP, formatters, etc.
 	{
 		"mason-org/mason.nvim",
+    dependencies = {
+	    { "WhoIsSethDaniel/mason-tool-installer.nvim", version = "1.32.0" },
+    }
 	},
-	{ "WhoIsSethDaniel/mason-tool-installer.nvim", version = "1.32.0" },
 
 	-- Snippet management
 	{
@@ -673,3 +658,5 @@ require("lazy").setup({
 	ui = { border = "rounded" },
 	change_detection = { notify = false },
 })
+
+require("config.plugconf")
