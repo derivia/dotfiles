@@ -246,7 +246,14 @@ oc() {
 
 # copy stdout to xclip, use as last stdout receiver to copy
 cpstd() {
-    xclip -sel clip
+    if command -v xclip &>/dev/null; then
+        xclip -selection clipboard
+    elif command -v xsel &>/dev/null; then
+        xsel --clipboard --input
+    else
+        echo "Error: Neither xclip nor xsel is installed."
+        return 1
+    fi
 }
 
 # git history file purge
