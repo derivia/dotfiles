@@ -1,4 +1,4 @@
-export PATH=$HOME/.cargo/bin:$HOME/.local/share/pnpm:$HOME/.local/bin:$HOME/.ghcup/bin:$PATH
+export PATH=$HOME/.cargo/bin:$HOME/.local/share/pnpm:$HOME/.local/bin:$HOME/.local/bin/dwm-scripts:$HOME/.ghcup/bin:$PATH
 export ZSH="$HOME/.oh-my-zsh"
 export PNPM_HOME="$HOME/.local/share/pnpm"
 
@@ -10,11 +10,6 @@ export FCEDIT="$EDITOR"
 export VISUAL="$EDITOR"
 export SUDO_EDITOR="$EDITOR"
 # END EDITOR
-
-# BEGIN TERMINAL
-export TERMINAL=alacritty
-alias terminal='alacritty'
-# END TERMINAL
 
 # BEGIN HISTORY
 export HISTSIZE=5000000
@@ -79,3 +74,6 @@ fi
 # load Angular CLI autocompletion.
 source <(ng completion script)
 source $HOME/.gemini-api-key
+
+# launch xorg if not running
+# [ "$(tty)" = "/dev/tty1" ] && ! pgrep -x Xorg >/dev/null && exec startx -- vt1 &> /dev/null

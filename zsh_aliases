@@ -99,6 +99,10 @@ todos() {
     rg --glob '!{.git,node_modules,cloned,dist,build}' -i '\@\bTODO\b' "$@"
 }
 
+fixmes() {
+    rg --glob '!{.git,node_modules,cloned,dist,build}' -i '\@\bFIXME\b' "$@"
+}
+
 # default irb to simple prompt
 irb() {
     command irb --simple-prompt "$@"
