@@ -1,7 +1,7 @@
 local status_ok_lazy, _ = pcall(require, "lazy")
 if not status_ok_lazy then
-  vim.notify("LazyVim failed to load")
-  return
+	vim.notify("LazyVim failed to load")
+	return
 end
 
 _.setup({
@@ -29,9 +29,11 @@ _.setup({
 		},
 		dependencies = {
 			"MunifTanjim/nui.nvim",
-			"rcarriga/nvim-notify",
 		},
 	},
+
+	-- Easier LSP config
+	{ "neovim/nvim-lspconfig", event = { "BufReadPre", "BufNewFile" } },
 
 	-- Cursor-like AI
 	{
@@ -94,6 +96,9 @@ _.setup({
 			picker = { enabled = true },
 		},
 	},
+
+	-- Gruvbox colorscheme
+	{ "ellisonleao/gruvbox.nvim", priority = 1000, config = true },
 
 	-- `Atom's One Dark` colorscheme
 	{
@@ -340,17 +345,6 @@ _.setup({
 		end,
 	},
 
-	-- Snippet engine
-	{
-		"L3MON4D3/LuaSnip",
-		version = "v2.*",
-		build = "make install_jsregexp",
-		dependencies = {
-			-- Big collection of snippets
-			"rafamadriz/friendly-snippets",
-		},
-	},
-
 	-- Auto end after "do", "def", "end", etc
 	{ "RRethy/nvim-treesitter-endwise", event = "InsertEnter" },
 
@@ -429,25 +423,8 @@ _.setup({
 	-- Easier management of external tools, like LSP, DAP, formatters, etc.
 	{
 		"mason-org/mason.nvim",
-    dependencies = {
-	    { "WhoIsSethDaniel/mason-tool-installer.nvim", version = "1.32.0" },
-    }
-	},
-
-	-- Snippet management
-	{
-		"chrisgrieser/nvim-scissors",
-		keys = {
-			{ "<leader>se", "<cmd>ScissorsEditSnippet<cr>", desc = "Edit snippets for this filetype" },
-			{
-				"<leader>sa",
-				mode = "x",
-				"<cmd>ScissorsAddNewSnippet<cr>",
-				desc = "Add selected code as snippet for this filetype",
-			},
-		},
-		opts = {
-			snippetDir = vim.fn.stdpath("config") .. "/snippets",
+		dependencies = {
+			{ "WhoIsSethDaniel/mason-tool-installer.nvim", version = "1.32.0" },
 		},
 	},
 

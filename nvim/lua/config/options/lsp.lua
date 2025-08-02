@@ -103,15 +103,15 @@ lspconfig.lua_ls.setup({
 	},
 })
 
-lspconfig.clangd.setup({
-	cmd = {
-		"clangd",
-		"--clang-tidy",
-	},
-	on_attach = on_attach,
-	handlers = handlers,
-	capabilities = capabilities(),
-})
+-- lspconfig.clangd.setup({
+-- 	cmd = {
+-- 		"clangd",
+-- 		"--clang-tidy",
+-- 	},
+-- 	on_attach = on_attach,
+-- 	handlers = handlers,
+-- 	capabilities = capabilities(),
+-- })
 
 lspconfig.solargraph.setup({
 	on_attach = on_attach,
