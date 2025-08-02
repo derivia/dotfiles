@@ -1,23 +1,19 @@
 {
     "layer": "top",
     "position": "top",
-    "height": 32,
+    "height": 8,
     "spacing": 4,
     "modules-left": ["hyprland/workspaces"],
     "modules-center": [],
     "modules-right": ["pulseaudio", "tray", "custom/dnd", "custom/vpn", "custom/clock"],
-    "hyprland/window": {
-        "format": "{}",
-        "max-length": 35
-    },
     "tray": {
         "spacing": 10,
     },
     "pulseaudio": {
-        "format": "{icon} {volume}% {format_source}",
+        "format": "{icon}  {volume}% {format_source}",
         "format-bluetooth": "{volume}% {icon} {format_source}",
-        "format-bluetooth-muted": " {icon} {format_source}",
-        "format-muted": " {format_source}",
+        "format-bluetooth-muted": "  {icon} {format_source}",
+        "format-muted": "  {format_source}",
         "format-source": " {volume}%",
         "format-source-muted": "",
         "format-icons": {
@@ -28,23 +24,22 @@
             "portable": "",
             "car": "",
             "default": ["", "", ""]
-        },
-        "on-click": "pavucontrol"
+        }
     },
     "custom/dnd": {
         "format": "{}",
         "exec": "~/.config/waybar/scripts/dnd.sh",
         "on-click": "~/.config/waybar/scripts/dnd.sh left",
-        "interval": 2
+        "interval": 3
     },
     "custom/clock": {
         "format": "{}",
         "exec": "~/.config/waybar/scripts/clock.sh",
-        "interval": 5
+        "interval": 3
     },
     "custom/vpn": {
-      "interval": 3,
       "format": "{}",
-      "exec": "~/.config/waybar/scripts/vpn.sh"
+      "exec": "~/.config/waybar/scripts/vpn.sh",
+      "interval": 3
     }
 }
