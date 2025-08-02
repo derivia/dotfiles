@@ -27,6 +27,8 @@ declare -A FILES=(
     ["./rofi/powermenu.sh"]="$HOME/.config/rofi/powermenu.sh"
     ["./waybar/config"]="$HOME/.config/waybar/config"
     ["./waybar/style.css"]="$HOME/.config/waybar/style.css"
+    ["./xprofile"]="$HOME/.xprofile"
+    ["./xinitrc"]="$HOME/.xinitrc"
 )
 
 for dest in "${!FILES[@]}"; do

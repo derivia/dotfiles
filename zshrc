@@ -1,4 +1,3 @@
-export PATH=$HOME/.cargo/bin:$HOME/.local/share/pnpm:$HOME/.local/bin:$HOME/.local/bin/dwm-scripts:$HOME/.ghcup/bin:$PATH
 export ZSH="$HOME/.oh-my-zsh"
 export PNPM_HOME="$HOME/.local/share/pnpm"
 
