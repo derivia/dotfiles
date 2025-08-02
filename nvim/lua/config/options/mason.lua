@@ -28,6 +28,9 @@ masontools.setup({
 		"typescript-language-server",
 		"emmet-ls",
 
+    -- lint
+    -- "cpplint",
+
 		-- formatter
 		"beautysh",
 		"biome",

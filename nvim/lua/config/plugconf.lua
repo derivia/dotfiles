@@ -8,12 +8,11 @@ end
 
 local plug_list = {
 	"colorizer",
+  "lsp",
 	"lualine",
-	"luasnip",
 	"mason",
 	"mkdnflow",
 	"nvimtree",
-	"project",
 	"treesitter",
 }
 
