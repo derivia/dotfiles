@@ -80,9 +80,17 @@ _.setup({
 			{
 				"MeanderingProgrammer/render-markdown.nvim",
 				opts = {
-					file_types = { "Avante" },
+					heading = {
+						sign = false,
+						width = "block",
+						atx = false,
+					},
+					bullet = {
+						enabled = false,
+					},
+					file_types = { "markdown", "Avante" },
 				},
-				ft = { "Avante" },
+				ft = { "markdown", "Avante" },
 			},
 		},
 	},
@@ -99,41 +107,6 @@ _.setup({
 
 	-- Gruvbox colorscheme
 	{ "ellisonleao/gruvbox.nvim", priority = 1000, config = true },
-
-	-- `Atom's One Dark` colorscheme
-	{
-		"navarasu/onedark.nvim",
-		lazy = false,
-		priority = 1000,
-		opts = {
-			style = "dark",
-			transparent = false,
-			term_colors = true,
-			ending_tildes = false,
-			cmp_itemkind_reverse = false,
-			code_style = {
-				comments = "none",
-				keywords = "none",
-				functions = "none",
-				strings = "none",
-				variables = "none",
-			},
-			lualine = {
-				transparent = false,
-			},
-			colors = {},
-			highlights = {
-				["Normal"] = { bg = "#272B34" },
-				["NormalNC"] = { bg = "#272B34" },
-				["EndOfBuffer"] = { bg = "#272B34" },
-			},
-			diagnostics = {
-				darker = true,
-				undercurl = true,
-				background = true,
-			},
-		},
-	},
 
 	-- Show hex colors
 	{
