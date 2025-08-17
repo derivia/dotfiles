@@ -62,18 +62,10 @@ export PYENV_ROOT="$HOME/.pyenv"
 # use newer magick command on pywal
 export PYWAL_IMAGEMAGICK_COMMAND="magick"
 
-### source pyenv from external file instead! ###
-# [[ -d $PYENV_ROOT/bin ]] && export PATH="$PYENV_ROOT/bin:$PATH"
-# eval "$(pyenv init - zsh)"
-
 # source aliases from external file
 if [ -f "$HOME/.zsh_aliases" ]; then
     source "$HOME/.zsh_aliases"
 fi
 
 # load Angular CLI autocompletion.
-source <(ng completion script)
-source $HOME/.gemini-api-key
-
-# launch xorg if not running
-# [ "$(tty)" = "/dev/tty1" ] && ! pgrep -x Xorg >/dev/null && exec startx -- vt1 &> /dev/null
+# source <(ng completion script)
