@@ -94,6 +94,9 @@ lcf() {
 # ls with better default options
 alias ls='command ls --tabsize=0 --color=auto --human-readable --group-directories-first "$@"'
 
+# human-readable tree by default
+alias tree='tree -v'
+
 # recursively find todos
 todos() {
     rg --glob '!{.git,node_modules,cloned,dist,build}' -i '\@\bTODO\b' "$@"
@@ -506,6 +509,7 @@ count_lines() {
     eval "$fd_command" | xargs cat 2>/dev/null | wc -l
 }
 
+# cut video file using ffmpeg with start and end times in mm:ss format
 ffmcut() {
     local input_file start_time end_time output_file
     local -i start_seconds end_seconds duration_seconds
@@ -556,6 +560,7 @@ ffmcut() {
     ffmpeg -ss "$start_time" -i "$input_file" -t "$duration_seconds" -c copy "$output_file"
 }
 
+# convert video to constant FPS based on original FPS
 ffmstable() {
     if [[ -z "$1" || -z "$2" ]]; then
         echo "Usage: ffmstable <input.mp4> <output.mp4>"
@@ -582,6 +587,7 @@ ffmstable() {
     ffmpeg -i "$input_file" -filter:v fps="$target_fps" -c:a copy "$output_file"
 }
 
+# pack a folder ignoring content based on multiple .gitignore files
 pack() {
     local PACK_IGNORE_FILE="$HOME/.pack_ignore"
 
@@ -658,6 +664,7 @@ mp4_mute() {
     fi
 }
 
+# save html file as png
 html2png() {
     if [ "$#" -ne 1 ]; then
         echo "Usage: html2png <file.html>"
@@ -666,6 +673,7 @@ html2png() {
     wkhtmltoimage --format png "$1" "${1%.html}.png"
 }
 
+# transform parquet into csv
 parquet2csv() {
     if [ "$#" -ne 1 ]; then
         echo "Usage: parquet2csv <file.parquet>"
@@ -675,4 +683,14 @@ parquet2csv() {
     local csv_file="${parquet_file##*/}"
     csv_file="${csv_file%.parquet}.csv"
     duckdb -c "COPY (SELECT * FROM '${parquet_file}') TO '${csv_file}' (HEADER, FORMAT 'csv');"
+}
+
+# adapted from https://github.com/dylanaraps/pure-bash-bible?tab=readme-ov-file#trim-leading-and-trailing-white-space-from-string
+trim_string () {
+    local input_string
+    IFS= read -r -d '' input_string <&0
+    local trimmed_string
+    trimmed_string="${input_string#"${input_string%%[![:space:]]*}"}"
+    trimmed_string="${trimmed_string%"${trimmed_string##*[![:space:]]}"}"
+    printf '%s\n' "$trimmed_string"
 }
