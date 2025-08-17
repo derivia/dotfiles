@@ -80,6 +80,9 @@ _.setup({
 			{
 				"MeanderingProgrammer/render-markdown.nvim",
 				opts = {
+					code = {
+						enabled = false,
+					},
 					heading = {
 						sign = false,
 						width = "block",
