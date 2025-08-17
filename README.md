@@ -45,3 +45,7 @@ rbenv global <version>
 # add where necessary after
 ssh-keygen -o -a 100 -t ed25519 -f ~/.ssh/id_ed25519 -C <email>
 ```
+12. Add git aliases:
+```sh
+git config --global alias.ls "log --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit"
+```
