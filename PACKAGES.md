@@ -1,26 +1,32 @@
 # Packages
 
-Install all necessary packages using `yay`.
-
+- For CLI/General:
 ```sh
 yay -S --needed \
-ly hyprland hyprpaper hyprlock waybar dunst \
-rofi-wayland wofi wofi-emoji alacritty zsh \
-thunar thunar-archive-plugin thunar-volman tumbler engrampa \
-pipewire pipewire-pulse pipewire-alsa wireplumber pavucontrol pamixer \
-networkmanager network-manager-applet forticlient-vpn \
-brightnessctl  wl-clipboard wl-clipboard-x11 slurp grim \
-lxappearance materia-gtk-theme papirus-icon-theme \
-xdg-desktop-portal-hyprland xwaylandvideobridge \
-ttf-firacode-nerd ttf-font-awesome ttf-iosevka-nerd \
-firefox zen-browser-bin thunderbird discord socat \
-neovim git dbeaver docker docker-compose dive \
-btop htop bat dust exa fd fzf ripgrep tree jq nmap cowsay \
-vlc gimp gimp-plugin-resynthesizer-scm-git kdenlive audacity obs-studio ffmpegthumbnailer imagemagick \
-libreoffice-fresh rnote calibre pdftk masterpdfeditor-free mousepad obsidian \
-gparted flameshot anydesk-bin parsec-bin qbittorrent prismlauncher flashplayer-standalone \
-base-devel cmake ninja git go rustup python python-pip \
-jdk17-openjdk jdk21-openjdk jre8-openjdk steam retroarch libretro-core-info \
-libretro-snes9x libretro-genesis-plus-gx libretro-mgba libretro-mupen64plus-next \
-ncurses5-compat-libs neofetch asciinema bear tree-sitter-cli
+asciinema base-devel bat bear btop \
+cmake dive docker docker-compose dust exa fd ninja \
+fzf git gnu-netcat go htop imagemagick jdk17-openjdk jdk21-openjdk \
+jq jre8-openjdk ncurses5-compat-libs neofetch neovim pdftk \
+python python-pip rbenv ripgrep rnote rustup socat \
+tree tree-sitter-cli unzip  zip zsh
+```
+
+- For desktops:
+```sh
+yay -S --needed \
+alacritty anydesk-bin audacity brightnessctl calibre dunst engrampa \
+forticlient-vpn gparted libretro-core-info libretro-genesis-plus-gx \
+libretro-mgba libretro-mupen64plus-next libretro-snes9x libyaml \
+libreoffice-fresh ly masterpdfeditor-free materia-gtk-theme mousepad obs-studio \
+obsidian pamixer papirus-icon-theme parsec-bin pipewire \
+pipewire-alsa pipewire-pulse pavucontrol prismlauncher qbittorrent steam thunar \
+thunar-archive-plugin thunar-volman ttf-firacode-nerd ttf-font-awesome \
+ttf-iosevka-nerd tumbler vlc zen-browser-bin
+```
+
+- If using wayland:
+```sh
+yay -S --needed \
+grim hyprland hyprlock hyprpaper rofi-wayland slurp waybar wl-clipboard \
+wl-clipboard-x11 wofi wofi-emoji xdg-desktop-portal-hyprland xwaylandvideobridge
 ```
