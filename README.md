@@ -1,37 +1,47 @@
 ### Basic setup
 
 1. Configure keyring
-2. Update all packages and database
 ```sh
-sudo pacman -Syyuu
+sudo pacman-key --init && sudo pacman-key --popuplate && sudo pacman -Sy archlinux-keyring && sudo pacman -Syyuu
 ```
-3. Get faster servers (For Brazil)
+2. Get faster servers (For Brazil)
 ```sh
-sudo pacman -S reflector && reflector --country Brazil --age 24 --protocol https --sort rate --save /etc/pacman.d/mirrorlist
+sudo pacman -S reflector && reflector --country Brazil --age 48 --protocol https --sort rate --save /etc/pacman.d/mirrorlist
 ```
-4. Install yay (AUR helper)
+3. Install yay (AUR helper)
 ```sh
-sudo pacman -S --needed git base-devel && git clone https://aur.archlinux.org/yay.git && cd yay && makepkg -si
+sudo pacman -S --needed git base-devel && git clone https://aur.archlinux.org/yay.git && cd yay && makepkg -si && 
 ```
-5. Install useful packages from [PACKAGES.md](./PACKAGES.md)
-6. Set rust toolchain default to stable
+4. Install packages from [PACKAGES.md](./PACKAGES.md)
+5. Set rust toolchain default to stable
 ```sh
 rustup default stable
 ```
-7. Generate ssh key pair
+6. Tmux plugin manager:
 ```sh
-ssh-keygen -o -a 100 -t ed25519 -f ~/.ssh/id_ed25519 -C <email>
+git clone https://github.com/tmux-plugins/tpm $HOME/.tmux/plugins/tpm
+# press "prefix + I" inside tmux to install plugins
 ```
-8. Install other useful tools
-    - tpm (tmux plugin manager)
-    - ohmyzsh (zsh configuration framework)
-    - rbenv (ruby version manager)
-    - pnpm (better node package manager)
-9. Install zsh plugins:
+7. Ohmyzsh:
 ```sh
-git clone https://github.com/zsh-users/zsh-autosuggestions.git $ZSH_CUSTOM/plugins/zsh-autosuggestions
-git clone https://github.com/zsh-users/zsh-syntax-highlighting.git $ZSH_CUSTOM/plugins/zsh-syntax-highlighting
+# install from ohmyzsh docs
+git clone https://github.com/zsh-users/zsh-autosuggestions.git $ZSH_CUSTOM/plugins/zsh-autosuggestions && git clone https://github.com/zsh-users/zsh-syntax-highlighting.git $ZSH_CUSTOM/plugins/zsh-syntax-highlighting
+```
+8. Pnpm:
+```sh
+# install from pnpm docs
+pnpm env use --global lts # Fix for NodeJS & npm
+```
+9. Rbenv:
+```sh
+# install from rbenv docs & install ruby-build plugin for "install" subcommand
+# git clone https://github.com/rbenv/ruby-build.git "$(rbenv root)"/plugins/ruby-build
+rbenv install <version> # 3.4.1 (on 08/16/2025)
+rbenv global <version>
 ```
 10. Copy configuration files
-11. Make sure to add noise supression for voice configuration file on pipewire
-12. Setup other userful tools/software [docker, postgresql, rabbitmq, etc]
+11. Generate ssh key pair
+```sh
+# add where necessary after
+ssh-keygen -o -a 100 -t ed25519 -f ~/.ssh/id_ed25519 -C <email>
+```
