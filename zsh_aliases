@@ -18,7 +18,8 @@ cvt() {
 }
 
 # compare remote branches with local ones and echo differences
-alias grbs='f() {
+unalias grbs 2>/dev/null # remove it from ohmyzsh
+grbs() {
     original_dir=$(pwd)
     trap "cd \"$original_dir\"; return" SIGINT
 
@@ -38,7 +39,7 @@ alias grbs='f() {
         fi
     done
     cd "$original_dir"
-}; f'
+}
 
 # show git status for all repositories in current directory
 rgs() {
