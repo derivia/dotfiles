@@ -54,7 +54,9 @@ source $ZSH/oh-my-zsh.sh
 export MANPAGER='nvim +Man!'
 
 # ruby environment manager
-eval "$(rbenv init -)"
+if command -v rbenv &> /dev/null; then
+    eval "$(rbenv init -)"
+fi
 
 # python environment manager
 export PYENV_ROOT="$HOME/.pyenv"
@@ -68,4 +70,6 @@ if [ -f "$HOME/.zsh_aliases" ]; then
 fi
 
 # load Angular CLI autocompletion.
-# source <(ng completion script)
+if command -v ng &> /dev/null; then
+    source <(ng completion script)
+fi
