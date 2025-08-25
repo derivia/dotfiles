@@ -98,6 +98,23 @@ _.setup({
 		},
 	},
 
+	-- Custom snippets management
+	{
+		"chrisgrieser/nvim-scissors",
+		keys = {
+			{ "<leader>se", "<cmd>ScissorsEditSnippet<cr>", desc = "Edit snippets for this filetype" },
+			{
+				"<leader>sa",
+				mode = "x",
+				"<cmd>ScissorsAddNewSnippet<cr>",
+				desc = "Add selected code as snippet for this filetype",
+			},
+		},
+		opts = {
+			snippetDir = vim.fn.stdpath("config") .. "/snippets",
+		},
+	},
+
 	-- Some simple utilitary plugins
 	{
 		"folke/snacks.nvim",

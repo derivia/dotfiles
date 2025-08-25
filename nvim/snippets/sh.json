@@ -1,0 +1,1 @@
+{"testbin":{"body":["if command -v <binary> >\/dev\/null 2>&1; then","    ","else","    ","fi"],"prefix":"testbin"},"bangutf":{"prefix":"bangutf","body":["#!\/usr\/bin\/env bash","# -*- coding: utf-8 -*-"]}}
