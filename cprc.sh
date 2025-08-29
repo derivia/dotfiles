@@ -13,6 +13,7 @@ declare -A FILES=(
     ["./rubocop.yml"]="$HOME/.rubocop.yml"
     ["./xprofile"]="$HOME/.xprofile"
     ["./xinitrc"]="$HOME/.xinitrc"
+    ["./pack_ignore"]="$HOME/.pack_ignore"
 )
 
 for dest in "${!FILES[@]}"; do
