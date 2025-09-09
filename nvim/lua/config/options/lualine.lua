@@ -73,6 +73,19 @@ local attached_clients = {
 	},
 }
 
+local function visual_selection_count()
+	local mode = vim.fn.mode()
+	if not (mode == "v" or mode == "V" or mode == "\22") then -- not in visual mode
+		return ""
+	end
+
+	local start_line = vim.fn.line("v")
+	local end_line = vim.fn.line(".")
+	local count = math.abs(end_line - start_line) + 1
+
+	return tostring(count) .. "L"
+end
+
 plugin.setup({
 	options = {
 		theme = "auto",
@@ -86,7 +99,7 @@ plugin.setup({
 		disabled_filetypes = { "alpha", "NvimTree" },
 	},
 	sections = {
-		lualine_a = { "mode" },
+		lualine_a = { "mode", visual_selection_count },
 		lualine_b = { diagnostics },
 		lualine_c = { filename },
 		lualine_x = { attached_clients },
