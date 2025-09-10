@@ -448,6 +448,14 @@ _.setup({
 		},
 	},
 
+
+  {
+    "mfussenegger/nvim-dap",
+    dependencies = {
+      "mfussenegger/nvim-dap-python",
+    }
+  },
+
 	-- Useful UI plugin to use with others
 	{
 		"stevearc/dressing.nvim",
