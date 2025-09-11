@@ -32,6 +32,16 @@ _.setup({
 		},
 	},
 
+	-- Annotation generator
+	{
+		"danymat/neogen",
+		config = true,
+		version = "*",
+		keys = {
+			{ "<leader>nd", "<cmd>Neogen<cr>", desc = "Generate annotation for current object" },
+		},
+	},
+
 	-- Easier LSP config
 	{ "neovim/nvim-lspconfig", event = { "BufReadPre", "BufNewFile" } },
 
@@ -100,6 +110,8 @@ _.setup({
 							["dart"] = true,
 							["scala"] = true,
 							["elixir"] = true,
+							["VimspectorPrompt"] = false,
+							["dap-repl"] = false,
 						},
 					})
 				end,
@@ -448,13 +460,238 @@ _.setup({
 		},
 	},
 
-
-  {
-    "mfussenegger/nvim-dap",
-    dependencies = {
-      "mfussenegger/nvim-dap-python",
-    }
-  },
+	-- Debug Adapter Protocol client
+	{
+		"mfussenegger/nvim-dap",
+		version = "*",
+    -- stylua: ignore
+    keys = {
+        { "<F5>", function() require("dap").continue() end, desc = "DAP: Continue execution" },
+        { "<F6>", function() require("dap").pause() end, desc = "DAP: Pause execution" },
+        { "<F7>", function() require("dap").step_out() end, desc = "DAP: Step out" },
+        { "<F8>", function() require("dap").step_into() end, desc = "DAP: Step into" },
+        { "<F9>", function() require("dap").step_over() end, desc = "DAP: Step over" },
+        { "<F12>", function() require("dap").close() end, desc = "DAP: Close execution" },
+        { "<leader>dc", function() require("dap").repl.open() end, desc = "DAP: Open debug console" },
+        { "<leader>dr", function() require("dap").run_last() end, desc = "DAP: Rerun last debug adapter/config" },
+        { "<leader>db", function() require("dap").toggle_breakpoint() end, desc = "DAP: Add/remove breakpoint into the current line" },
+      },
+		config = function()
+			local dap = require("dap")
+			local dapui = require("dapui")
+			dap.listeners.before.attach.dapui_config = function()
+				dapui.open()
+			end
+		end,
+		dependencies = {
+			{
+				"nvim-neotest/neotest",
+				dependencies = {
+					"nvim-neotest/nvim-nio",
+					"antoinemadec/FixCursorHold.nvim",
+					"nvim-treesitter",
+					"nvim-neotest/neotest-python",
+				},
+				keys = {
+					{
+						"<leader>rtf",
+						function()
+							require("neotest").run.run(vim.fn.expand("%"))
+						end,
+						desc = "neotest: Run all test in the current file",
+					},
+					{
+						"<leader>rtd",
+						function()
+							require("neotest").run.run({ strategy = "dap", suite = false })
+						end,
+						desc = "neotest: Debug nearest test",
+					},
+					{
+						"<leader>rtl",
+						function()
+							require("neotest").run.run_last()
+						end,
+						desc = "neotest: Re-run last test",
+					},
+					{
+						"<leader>rtL",
+						function()
+							require("neotest").run.run_last({ strategy = "dap", suite = false })
+						end,
+						desc = "neotest: Debug last test",
+					},
+					{
+						"<leader>rtt",
+						function()
+							require("neotest").run.run()
+						end,
+						desc = "neotest: Run nearest test",
+					},
+					{
+						"<leader>rtS",
+						function()
+							require("neotest").run.stop()
+						end,
+						desc = "neotest: Stop the nearest test",
+					},
+					{
+						"<leader>rto",
+						function()
+							require("neotest").output_panel.toggle()
+						end,
+						desc = "neotest: Toggle output panel",
+					},
+					{
+						"<leader>rtO",
+						function()
+							require("neotest").output.open({ enter = true, auto_close = true })
+						end,
+						desc = "neotest: Show test output",
+					},
+					{
+						"<leader>rtp",
+						function()
+							require("neotest").summary.toggle()
+						end,
+						desc = "neotest: Toggle summary panel",
+					},
+					{
+						"<leader>rtc",
+						function()
+							require("neotest").output_panel.clear()
+						end,
+						desc = "neotest: Clean the output panel",
+					},
+				},
+				opts = {
+					log_level = vim.log.levels.OFF, -- default: WARN
+					output = { open_on_run = true },
+					summary = { open = "topleft vsplit | vertical resize 45" },
+					status = { virtual_text = true },
+					python = {
+						dap = { justMyCode = true },
+						runner = "pytest",
+					},
+				},
+				config = function(_, opts)
+					opts.adapters = {
+						require("neotest-python")(opts.python),
+					}
+					require("neotest").setup(opts)
+				end,
+			},
+			{
+				"rcarriga/nvim-dap-ui",
+				dependencies = { "nvim-dap", "nvim-neotest/nvim-nio" },
+				keys = {
+					{
+						"<leader>dk",
+						function()
+							require("dapui").eval()
+						end,
+						desc = "DAP: Show debug info of the element under the cursor",
+					},
+					{
+						"<leader>dg",
+						function()
+							require("dapui").toggle()
+						end,
+						desc = "DAP: Toggle DAP GUI",
+					},
+					{
+						"<leader>dG",
+						function()
+							require("dapui").open({ reset = true })
+						end,
+						desc = "DAP: Reset DAP GUI layout size",
+					},
+				},
+				config = function(_, opts)
+					require("dapui").setup(opts)
+					local normal_hl = "Normal"
+					local breakpoint_hl = "DiagnosticInfo"
+        -- stylua: ignore
+				vim.fn.sign_define("DapBreakpoint", { text = "", texthl = breakpoint_hl, numhl = breakpoint_hl })
+        -- stylua: ignore
+				vim.fn.sign_define("DapBreakpointCondition", { text = "󰗦", texthl = breakpoint_hl, numhl = breakpoint_hl })
+        -- stylua: ignore
+				vim.fn.sign_define("DapStopped", { text = "→", texthl = normal_hl, numhl = normal_hl })
+				end,
+				opts = {
+					controls = {
+						element = "repl",
+						enabled = true,
+						icons = {
+							disconnect = "",
+							pause = "",
+							play = "",
+							run_last = "",
+							step_back = "",
+							step_into = "",
+							step_out = "",
+							step_over = "",
+							terminate = "",
+						},
+					},
+					element_mappings = {},
+					expand_lines = true,
+					floating = {
+						border = "single",
+						mappings = { close = { "q", "<Esc>" } },
+					},
+					force_buffers = true,
+					icons = { collapsed = "", current_frame = "", expanded = "" },
+					layouts = {
+						{
+							elements = {
+								{ id = "scopes", size = 0.61 },
+								{ id = "breakpoints", size = 0.13 },
+								{ id = "stacks", size = 0.13 },
+								{ id = "repl", size = 0.13 },
+							},
+							position = "right",
+							size = 40,
+						},
+						{
+							elements = {
+								{ id = "watches", size = 0.25 },
+								{ id = "console", size = 0.75 },
+							},
+							position = "bottom",
+							size = 10,
+						},
+					},
+					mappings = {
+						edit = "e",
+						expand = { "<CR>", "<2-LeftMouse>" },
+						open = "o",
+						remove = "d",
+						repl = "r",
+						toggle = "t",
+					},
+					render = {
+						indent = 1,
+						max_value_lines = 100,
+					},
+					open = { reset = true },
+				},
+			},
+			{
+				"mfussenegger/nvim-dap-python",
+				ft = "python",
+				dependencies = "mason.nvim",
+				config = function()
+					require("dap-python").setup("debugpy-adapter")
+					require("dap-python").test_runner = "pytest"
+				end,
+          -- stylua: ignore
+          keys = {
+            { "<leader>dt", function() require("dap-python").test_method() end, ft = "python", desc = "DAP: Run test method" },
+          },
+			},
+		},
+	},
 
 	-- Useful UI plugin to use with others
 	{
