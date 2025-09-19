@@ -1,10 +1,13 @@
 local status_ok_lspconfig, lspconfig = pcall(require, "lspconfig")
 local status_ok_blinkcmp, blink_cmp = pcall(require, "blink.cmp")
+local status_ok_javalsp, javalsp = pcall(require, "java")
 
-if not status_ok_lspconfig or not status_ok_blinkcmp then
+if not status_ok_lspconfig or not status_ok_blinkcmp or not status_ok_javalsp then
 	vim.notify("Something went wrong with LSP startup.")
 	return
 end
+
+javalsp.setup()
 
 local methods = vim.lsp.protocol.Methods
 
@@ -139,9 +142,17 @@ lspconfig.emmet_ls.setup({
 	filetypes = { "html", "typescriptreact", "javascriptreact", "css", "sass", "scss", "less" },
 })
 
+lspconfig.cssls.setup({
+	on_attach = on_attach,
+	handlers = handlers,
+	capabilities = capabilities(),
+	filetypes = { "java" },
+})
+
 local servers = {
 	"angularls",
 	"pyright",
+	-- "java_language_server",
 	"rust_analyzer",
 	"ts_ls", -- typescript language server [no vue support]
 }

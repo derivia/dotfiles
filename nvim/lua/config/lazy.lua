@@ -45,6 +45,9 @@ _.setup({
 	-- Easier LSP config
 	{ "neovim/nvim-lspconfig", event = { "BufReadPre", "BufNewFile" } },
 
+	-- Java language server helper
+	{ "nvim-java/nvim-java" },
+
 	-- Cursor-like AI
 	{
 		"yetone/avante.nvim",

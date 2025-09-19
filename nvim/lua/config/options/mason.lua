@@ -21,6 +21,7 @@ masontools.setup({
 		-- lsp
 		"angular-language-server",
 		"clangd",
+    -- "java-language-server",
 		"lua-language-server",
 		"pyright",
 		"rust-analyzer",
