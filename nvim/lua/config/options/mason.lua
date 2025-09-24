@@ -21,16 +21,13 @@ masontools.setup({
 		-- lsp
 		"angular-language-server",
 		"clangd",
-    -- "java-language-server",
+		-- "java-language-server",
 		"lua-language-server",
 		"pyright",
 		"rust-analyzer",
 		"solargraph",
 		"typescript-language-server",
 		"emmet-ls",
-
-    -- lint
-    -- "cpplint",
 
 		-- formatter
 		"beautysh",

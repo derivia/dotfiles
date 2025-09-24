@@ -46,7 +46,7 @@ _.setup({
 	{ "neovim/nvim-lspconfig", event = { "BufReadPre", "BufNewFile" } },
 
 	-- Java language server helper
-	{ "nvim-java/nvim-java" },
+	-- { "nvim-java/nvim-java" },
 
 	-- Cursor-like AI
 	{
@@ -683,7 +683,6 @@ _.setup({
 			{
 				"mfussenegger/nvim-dap-python",
 				ft = "python",
-				dependencies = "mason.nvim",
 				config = function()
 					require("dap-python").setup("debugpy-adapter")
 					require("dap-python").test_runner = "pytest"

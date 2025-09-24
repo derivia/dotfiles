@@ -1,13 +1,10 @@
 local status_ok_lspconfig, lspconfig = pcall(require, "lspconfig")
 local status_ok_blinkcmp, blink_cmp = pcall(require, "blink.cmp")
-local status_ok_javalsp, javalsp = pcall(require, "java")
 
-if not status_ok_lspconfig or not status_ok_blinkcmp or not status_ok_javalsp then
+if not status_ok_lspconfig or not status_ok_blinkcmp  then
 	vim.notify("Something went wrong with LSP startup.")
 	return
 end
-
-javalsp.setup()
 
 local methods = vim.lsp.protocol.Methods
 
@@ -107,13 +104,10 @@ lspconfig.lua_ls.setup({
 })
 
 lspconfig.clangd.setup({
-	cmd = {
-		"clangd",
-		"--clang-tidy",
-	},
 	on_attach = on_attach,
 	handlers = handlers,
 	capabilities = capabilities(),
+	filetypes = { "c", "cpp", "objc", "objcpp" },
 })
 
 lspconfig.solargraph.setup({
@@ -146,7 +140,7 @@ lspconfig.cssls.setup({
 	on_attach = on_attach,
 	handlers = handlers,
 	capabilities = capabilities(),
-	filetypes = { "java" },
+	filetypes = { "css" },
 })
 
 local servers = {
