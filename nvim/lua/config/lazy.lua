@@ -45,99 +45,72 @@ _.setup({
 	-- Easier LSP config
 	{ "neovim/nvim-lspconfig", event = { "BufReadPre", "BufNewFile" } },
 
-	-- Java language server helper
-	-- { "nvim-java/nvim-java" },
-
-	-- Cursor-like AI
+	-- Cursor-like AI alternative
 	{
-		"yetone/avante.nvim",
-		build = "make BUILD_FROM_SOURCE=true",
-		event = "VeryLazy",
-		version = false,
-		opts = {
-			provider = "copilot",
-			auto_suggestions_provider = "copilot",
-			providers = {
-				copilot = {
-					disable_tools = true,
-					extra_request_body = {
-						temperature = 0,
-						max_tokens = 4096,
-					},
-				},
-			},
-		},
+		"olimorris/codecompanion.nvim",
+		opts = {},
 		dependencies = {
 			"nvim-lua/plenary.nvim",
-			-- Mini diff visualization
+			{
+				"MeanderingProgrammer/render-markdown.nvim",
+				ft = { "markdown", "codecompanion" },
+			},
 			{
 				"echasnovski/mini.diff",
-				version = "*",
-			},
-			"nvim-telescope/telescope.nvim",
-			{
-				"zbirenbaum/copilot.lua",
-				cmd = "Copilot",
-				event = "InsertEnter",
 				config = function()
-					local status_ok, copilot = pcall(require, "copilot")
-					if not status_ok then
-						return
-					end
-					copilot.setup({
-						suggestion = { enabled = false },
-						panel = { enabled = false },
-						filetypes = {
-							["javascript"] = true,
-							["typescript"] = true,
-							["python"] = true,
-							["java"] = true,
-							["c"] = true,
-							["cpp"] = true,
-							["ruby"] = true,
-							["go"] = true,
-							["rust"] = true,
-							["php"] = true,
-							["html"] = true,
-							["css"] = true,
-							["json"] = true,
-							["yaml"] = true,
-							["markdown"] = true,
-							["lua"] = true,
-							["sh"] = true,
-							["bash"] = true,
-							["perl"] = true,
-							["swift"] = true,
-							["kotlin"] = true,
-							["r"] = true,
-							["dart"] = true,
-							["scala"] = true,
-							["elixir"] = true,
-							["VimspectorPrompt"] = false,
-							["dap-repl"] = false,
-						},
+					local diff = require("mini.diff")
+					diff.setup({
+						-- Disabled by default
+						source = diff.gen_source.none(),
 					})
 				end,
 			},
-			{
-				"MeanderingProgrammer/render-markdown.nvim",
-				opts = {
-					code = {
-						enabled = false,
-					},
-					heading = {
-						sign = false,
-						width = "block",
-						atx = false,
-					},
-					bullet = {
-						enabled = false,
-					},
-					file_types = { "markdown", "Avante" },
-				},
-				ft = { "markdown", "Avante" },
-			},
 		},
+	},
+
+	-- Copilot
+	{
+		"zbirenbaum/copilot.lua",
+		cmd = "Copilot",
+		event = "InsertEnter",
+		config = function()
+			local status_ok, copilot = pcall(require, "copilot")
+			if not status_ok then
+				return
+			end
+			copilot.setup({
+				suggestion = { enabled = false },
+				panel = { enabled = false },
+				filetypes = {
+					["*"] = false,
+					["javascript"] = true,
+					["typescript"] = true,
+					["python"] = true,
+					["java"] = true,
+					["c"] = true,
+					["cpp"] = true,
+					["ruby"] = true,
+					["go"] = true,
+					["rust"] = true,
+					["php"] = true,
+					["html"] = true,
+					["css"] = true,
+					["json"] = true,
+					["yaml"] = true,
+					["markdown"] = true,
+					["lua"] = true,
+					["sh"] = true,
+					["bash"] = true,
+					["perl"] = true,
+					["swift"] = true,
+					["kotlin"] = true,
+					["r"] = true,
+					["dart"] = true,
+					["scala"] = true,
+					["elixir"] = true,
+				},
+			})
+		end,
 	},
 
 	-- Custom snippets management
@@ -264,7 +237,6 @@ _.setup({
 		"saghen/blink.cmp",
 		dependencies = {
 			"rafamadriz/friendly-snippets",
-			"Kaiser-Yang/blink-cmp-avante",
 			"giuxtaposition/blink-cmp-copilot",
 		},
 		version = "*",
@@ -356,11 +328,9 @@ _.setup({
 							score_offset = 100,
 							async = true,
 						},
-						avante = {
-							module = "blink-cmp-avante",
-							name = "Avante",
-							opts = {},
-						},
+					},
+					per_filetype = {
+						codecompanion = { "codecompanion" },
 					},
 					---@diagnostic disable-next-line: unused-local
 					default = function(ctx)
@@ -372,7 +342,7 @@ _.setup({
 						then
 							return {}
 						else
-							return { "copilot", "lsp", "path", "snippets", "avante" }
+							return { "copilot", "lsp", "path", "snippets" }
 						end
 					end,
 				},
