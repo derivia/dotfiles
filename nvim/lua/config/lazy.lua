@@ -48,19 +48,27 @@ _.setup({
 	-- Cursor-like AI alternative
 	{
 		"olimorris/codecompanion.nvim",
-		opts = {},
+		config = function()
+			local codecompanion = require("codecompanion")
+			codecompanion.setup({})
+			vim.keymap.set(
+				"x",
+				"<leader>cc",
+				"<cmd>CodeCompanion<cr>",
+				{ desc = "Call CodeCompanion on selected lines" }
+			)
+		end,
 		dependencies = {
 			"nvim-lua/plenary.nvim",
 			{
 				"MeanderingProgrammer/render-markdown.nvim",
-				ft = { "markdown", "codecompanion" },
+				ft = { "codecompanion" },
 			},
 			{
 				"echasnovski/mini.diff",
 				config = function()
 					local diff = require("mini.diff")
 					diff.setup({
-						-- Disabled by default
 						source = diff.gen_source.none(),
 					})
 				end,
@@ -81,33 +89,34 @@ _.setup({
 			copilot.setup({
 				suggestion = { enabled = false },
 				panel = { enabled = false },
+				copilot_model = "claude-4.5-sonnet",
 				filetypes = {
 					["*"] = false,
-					["javascript"] = true,
-					["typescript"] = true,
-					["python"] = true,
-					["java"] = true,
+					["bash"] = true,
 					["c"] = true,
 					["cpp"] = true,
-					["ruby"] = true,
-					["go"] = true,
-					["rust"] = true,
-					["php"] = true,
-					["html"] = true,
 					["css"] = true,
-					["json"] = true,
-					["yaml"] = true,
-					["markdown"] = true,
-					["lua"] = true,
-					["sh"] = true,
-					["bash"] = true,
-					["perl"] = true,
-					["swift"] = true,
-					["kotlin"] = true,
-					["r"] = true,
 					["dart"] = true,
-					["scala"] = true,
 					["elixir"] = true,
+					["go"] = true,
+					["html"] = true,
+					["java"] = true,
+					["javascript"] = true,
+					["json"] = true,
+					["kotlin"] = true,
+					["lua"] = true,
+					["markdown"] = true,
+					["perl"] = true,
+					["php"] = true,
+					["python"] = true,
+					["r"] = true,
+					["ruby"] = true,
+					["rust"] = true,
+					["scala"] = true,
+					["sh"] = true,
+					["swift"] = true,
+					["typescript"] = true,
+					["yaml"] = true,
 				},
 			})
 		end,
@@ -413,10 +422,11 @@ _.setup({
 			hipatterns.setup({
 
 				highlighters = {
+					changeme = { pattern = "%f[%w]()CHANGEME()%f[%W]", group = "MiniHipatternsHack" },
 					fixme = { pattern = "%f[%w]()FIXME()%f[%W]", group = "MiniHipatternsFixme" },
 					hack = { pattern = "%f[%w]()HACK()%f[%W]", group = "MiniHipatternsHack" },
-					todo = { pattern = "%f[%w]()TODO()%f[%W]", group = "MiniHipatternsTodo" },
 					note = { pattern = "%f[%w]()NOTE()%f[%W]", group = "MiniHipatternsNote" },
+					todo = { pattern = "%f[%w]()TODO()%f[%W]", group = "MiniHipatternsTodo" },
 
 					hex_color = hipatterns.gen_highlighter.hex_color(),
 				},

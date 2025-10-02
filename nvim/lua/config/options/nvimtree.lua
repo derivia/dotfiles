@@ -27,10 +27,7 @@ plugin.setup({
 	on_attach = own_on_attach,
 	select_prompts = false,
 	git = {
-		enable = false,
-	},
-	view = {
-		signcolumn = "no",
+		enable = true,
 	},
 	renderer = {
 		indent_width = 2,
