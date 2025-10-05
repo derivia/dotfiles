@@ -4,3 +4,4 @@
 **/.venv*
 **/httpie-reqs*
 **/pnotes.md*
+**/.python-version

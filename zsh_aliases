@@ -214,12 +214,12 @@ cpwpdf() {
 # python virtual environment functions
 penv() {
     py_version=$(python --version | awk "{print \$2}" | cut -d. -f1-3)
-    python -m venv ".venv_$(basename "$(pwd)" | cut -c1-16)_$py_version"
+    python -m venv ".venv_$(basename "$(pwd)" | cut -c1-8)_$py_version"
 }
 
 pact() {
     version=$(python --version | awk "{print \$2}" | cut -d. -f1-3)
-    venv_path=$(find . -maxdepth 1 -type d -name ".venv_$(basename "$(pwd)" | cut -c1-16)_$version" | head -n 1)
+    venv_path=$(find . -maxdepth 1 -type d -name ".venv_$(basename "$(pwd)" | cut -c1-8)_$version" | head -n 1)
 
     if [ -z "$venv_path" ]; then
         echo "No virtual environment found for version: $version"
@@ -611,7 +611,7 @@ pack() {
 
     local dir_name
     dir_name=$(basename "$source_dir")
-    local dest_dir="./packed_${dir_name}"
+    local dest_dir="./packed-${dir_name}"
 
     if [[ -e "$dest_dir" ]]; then
         echo "Error: Destination '$dest_dir' already exists." >&2

@@ -80,3 +80,5 @@ __pycache__/
 *.pyd
 .Python
 *.parquet
+*.lock
+*.docx

@@ -1,11 +1,11 @@
 export PATH=$HOME/.cargo/bin:$HOME/.local/share/pnpm:$HOME/.local/bin:$HOME/.local/bin/dwm-scripts:$HOME/.ghcup/bin:$PATH
 export ZSH="$HOME/.oh-my-zsh"
 export PNPM_HOME="$HOME/.local/share/pnpm"
+export WINEPREFIX="$HOME/wine"
 
 # BEGIN EDITOR
 export EDITOR="$(which vim)"
 export PSQL_EDITOR="$EDITOR"
-export SYSTEMD_EDITOR="$EDITOR"
 export FCEDIT="$EDITOR"
 export VISUAL="$EDITOR"
 export SUDO_EDITOR="$EDITOR"
@@ -32,7 +32,7 @@ unsetopt HIST_BEEP              # don't beep
 
 # for wslutilities
 if [[ -n "$WSLENV" ]]; then
-  export BROWSER="wslview"
+    export BROWSER="wslview"
 fi
 
 ZSH_THEME="gentoo"
@@ -44,7 +44,7 @@ plugins=(git zsh-autosuggestions zsh-syntax-highlighting)
 
 autoload -Uz compinit
 for dump in ~/.zcompdump(N.mh+24); do
-  compinit
+    compinit
 done
 compinit -C
 
