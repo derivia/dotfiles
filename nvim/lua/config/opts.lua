@@ -24,7 +24,7 @@ o.expandtab = true
 o.fileencoding = "utf-8"
 -- hide buffers instead of abandoning them
 o.hidden = true
--- disable search result highlighting 
+-- disable search result highlighting
 o.hlsearch = false
 -- case-insensitive search
 o.ignorecase = true

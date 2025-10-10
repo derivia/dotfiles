@@ -5,14 +5,6 @@ local keymap = vim.keymap.set
 -- space as leader key
 keymap("", "<Space>", "<Nop>", opts)
 
--- unmapping some keys
-keymap("", "<C-q>", "<Nop>", opts)
-keymap("", "<C-c>", "<Nop>", opts)
-keymap("", "<C-y>", "<Nop>", opts)
-keymap("", "<C-d>", "<Nop>", opts)
-keymap("", "<C-f>", "<Nop>", opts)
-keymap("", "<C-v>", "<Nop>", opts)
-
 -- center search results
 keymap("n", "n", ":normal! nzz<CR>", opts)
 keymap("n", "N", ":normal! Nzz<CR>", opts)
@@ -114,6 +106,6 @@ keymap("n", "<leader>toc", generate_table_of_contents, {
 	desc = "Generate markdown table of contents",
 })
 
--- move tags up and down
+-- split tags up and join line from below up
 keymap("n", "<leader>lj", "f>a<CR><ESC>f<i<CR><ESC>k==", { desc = "Split tag onto new lines" })
 keymap("n", "<leader>lk", "gJ", { desc = "Join line below" })

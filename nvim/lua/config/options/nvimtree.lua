@@ -29,6 +29,9 @@ plugin.setup({
 	git = {
 		enable = true,
 	},
+	filters = {
+		git_ignored = false,
+	},
 	renderer = {
 		indent_width = 2,
 		indent_markers = {
@@ -41,7 +44,7 @@ plugin.setup({
 					color = true,
 				},
 				folder = {
-					color = false,
+					color = true,
 				},
 			},
 			show = {
