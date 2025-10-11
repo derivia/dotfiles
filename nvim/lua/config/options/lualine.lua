@@ -81,10 +81,49 @@ local function visual_selection_count()
 
 	local start_line = vim.fn.line("v")
 	local end_line = vim.fn.line(".")
-	local count = math.abs(end_line - start_line) + 1
+	local start_col = vim.fn.col("v")
+	local end_col = vim.fn.col(".")
 
-	return tostring(count) .. "L"
+	local count_lines = math.abs(end_line - start_line) + 1
+
+	local s_line, e_line = math.min(start_line, end_line), math.max(start_line, end_line)
+	local s_col, e_col = start_col, end_col
+	if start_line > end_line or (start_line == end_line and start_col > end_col) then
+		s_col, e_col = end_col, start_col
+	end
+
+	local total_chars = 0
+	for l = s_line, e_line do
+		local line_text = vim.fn.getline(l)
+		if l == s_line and l == e_line then
+			total_chars = total_chars + (e_col - s_col)
+		elseif l == s_line then
+			total_chars = total_chars + (#line_text - s_col + 1)
+		elseif l == e_line then
+			total_chars = total_chars + (e_col - 1)
+		else
+			total_chars = total_chars + #line_text
+		end
+	end
+
+	return tostring(count_lines) .. "L, " .. tostring(total_chars) .. "C"
 end
+
+local function recording_macro()
+	local reg = vim.fn.reg_recording()
+	if reg == "" then
+		return ""
+	end
+	return "@" .. reg
+end
+
+vim.api.nvim_create_autocmd({ "RecordingEnter", "RecordingLeave" }, {
+	callback = function()
+		vim.defer_fn(function()
+			require("lualine").refresh({ place = { "statusline" } })
+		end, 50)
+	end,
+})
 
 plugin.setup({
 	options = {
@@ -99,7 +138,7 @@ plugin.setup({
 		disabled_filetypes = { "alpha", "NvimTree" },
 	},
 	sections = {
-		lualine_a = { "mode", visual_selection_count },
+		lualine_a = { "mode", visual_selection_count, recording_macro },
 		lualine_b = { diagnostics },
 		lualine_c = { filename },
 		lualine_x = { attached_clients },
