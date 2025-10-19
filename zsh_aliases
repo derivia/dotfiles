@@ -214,9 +214,9 @@ cpwpdf() {
 # python virtual environment functions
 penv() {
     py_version=$(python --version | awk "{print \$2}" | cut -d. -f1-3)
-    python -m venv ".venv_$(basename "$(pwd)" | cut -c1-8)_$py_version"
+    venv_name=".venv_$(basename "$(pwd)" | cut -c1-8)_$py_version"
+    python -m venv "$venv_name"
 }
-
 pact() {
     version=$(python --version | awk "{print \$2}" | cut -d. -f1-3)
     venv_path=$(find . -maxdepth 1 -type d -name ".venv_$(basename "$(pwd)" | cut -c1-8)_$version" | head -n 1)
@@ -620,12 +620,21 @@ pack() {
 
     echo "Packing '$dir_name' into '$dest_dir'..."
 
-    rsync -avh --progress --exclude-from="$PACK_IGNORE_FILE" "$source_dir/" "$dest_dir/"
+    rsync -avh --progress --exclude-from="$PACK_IGNORE_FILE" "$source_dir/" "$dest_dir/" &>/dev/null
 
     if [[ $? -eq 0 ]]; then
         echo "\nSuccessfully packed directory."
         echo "  Source:      $source_dir"
         echo "  Destination: $(realpath "$dest_dir")"
+        local downloads_dir="$HOME/downloads"
+        mv "$dest_dir" "$downloads_dir/"
+        if [[ $? -eq 0 ]]; then
+            echo "Moved packed directory to $downloads_dir/$dir_name"
+        else
+            echo "Failed to move packed directory to $downloads_dir" >&2
+            rm -rf "$packed_dir"
+            return 1
+        fi
     else
         echo "\nAn error occurred during packing." >&2
         rm -rf "$dest_dir"

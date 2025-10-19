@@ -1,12 +1,10 @@
-local status_ok_lspconfig, lspconfig = pcall(require, "lspconfig")
+local methods = vim.lsp.protocol.Methods
 local status_ok_blinkcmp, blink_cmp = pcall(require, "blink.cmp")
 
-if not status_ok_lspconfig or not status_ok_blinkcmp  then
-	vim.notify("Something went wrong with LSP startup.")
+if not status_ok_blinkcmp then
+	vim.notify("Blinkcmp 'require' failed on lsp configuration.")
 	return
 end
-
-local methods = vim.lsp.protocol.Methods
 
 local handlers = {
 	["textDocument/hover"] = function(_, result, ctx, config)
@@ -77,7 +75,7 @@ end
 
 require("lspconfig.ui.windows").default_options.border = "rounded"
 
-lspconfig.lua_ls.setup({
+vim.lsp.config("lua_ls", {
 	on_attach = on_attach,
 	capabilities = capabilities(),
 	handlers = handlers,
@@ -103,14 +101,14 @@ lspconfig.lua_ls.setup({
 	},
 })
 
-lspconfig.clangd.setup({
+vim.lsp.config("clangd", {
 	on_attach = on_attach,
 	handlers = handlers,
 	capabilities = capabilities(),
 	filetypes = { "c", "cpp", "objc", "objcpp" },
 })
 
-lspconfig.solargraph.setup({
+vim.lsp.config("solargraph", {
 	on_attach = on_attach,
 	handlers = handlers,
 	capabilities = capabilities(),
@@ -129,14 +127,14 @@ lspconfig.solargraph.setup({
 	},
 })
 
-lspconfig.emmet_ls.setup({
+vim.lsp.config("emmet_ls", {
 	on_attach = on_attach,
 	handlers = handlers,
 	capabilities = capabilities(),
 	filetypes = { "html", "typescriptreact", "javascriptreact", "css", "sass", "scss", "less" },
 })
 
-lspconfig.cssls.setup({
+vim.lsp.config("cssls", {
 	on_attach = on_attach,
 	handlers = handlers,
 	capabilities = capabilities(),
@@ -146,15 +144,30 @@ lspconfig.cssls.setup({
 local servers = {
 	"angularls",
 	"pyright",
-	-- "java_language_server",
 	"rust_analyzer",
-	"ts_ls", -- typescript language server [no vue support]
+	"ts_ls",
 }
 
 for _, lsp in ipairs(servers) do
-	lspconfig[lsp].setup({
+	vim.lsp.config(lsp, {
 		on_attach = on_attach,
 		handlers = handlers,
 		capabilities = capabilities(),
 	})
+end
+
+local enabled_servers = {
+	"lua_ls",
+	"clangd",
+	"solargraph",
+	"emmet_ls",
+	"cssls",
+	"pyright",
+	"angularls",
+	"rust_analyzer",
+	"ts_ls",
+}
+
+for _, server in ipairs(enabled_servers) do
+	vim.lsp.enable({ server })
 end
