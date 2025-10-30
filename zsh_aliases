@@ -211,24 +211,6 @@ cpwpdf() {
     done
 }
 
-# python virtual environment functions
-penv() {
-    py_version=$(python --version | awk "{print \$2}" | cut -d. -f1-3)
-    venv_name=".venv_$(basename "$(pwd)" | cut -c1-8)_$py_version"
-    python -m venv "$venv_name"
-}
-pact() {
-    version=$(python --version | awk "{print \$2}" | cut -d. -f1-3)
-    venv_path=$(find . -maxdepth 1 -type d -name ".venv_$(basename "$(pwd)" | cut -c1-8)_$version" | head -n 1)
-
-    if [ -z "$venv_path" ]; then
-        echo "No virtual environment found for version: $version"
-        return 1
-    fi
-
-    source "$venv_path/bin/activate"
-}
-
 # docker process list with prettier formatting
 dpsc() {
     docker ps --format 'table {{.ID}}\t{{.Status}}\t{{.Ports}}\t{{.Names}}'
@@ -439,11 +421,6 @@ rcat() {
         cat "$file"
         echo
     done
-}
-
-# clear pip packages
-pclear() {
-    pip freeze | xargs pip uninstall -y
 }
 
 # save code screenshot from file or stdout

@@ -1,4 +1,5 @@
-export PATH=$HOME/.cargo/bin:$HOME/.local/share/pnpm:$HOME/.local/bin:$HOME/.local/bin/dwm-scripts:$HOME/.ghcup/bin:$PATH
+export PATH=$HOME/.cargo/bin:$HOME/.local/share/pnpm:$HOME/.local/bin:$HOME/.local/bin/dwm-scripts:$HOME/.ghcup/bin:$HOME/.bun/bin:$PATH
+export BUN_INSTALL="$HOME/.bun"
 export ZSH="$HOME/.oh-my-zsh"
 export PNPM_HOME="$HOME/.local/share/pnpm"
 export WINEPREFIX="$HOME/wine"
@@ -58,9 +59,6 @@ if command -v rbenv &> /dev/null; then
     eval "$(rbenv init -)"
 fi
 
-# python environment manager
-export PYENV_ROOT="$HOME/.pyenv"
-
 # use newer magick command on pywal
 export PYWAL_IMAGEMAGICK_COMMAND="magick"
 
@@ -73,3 +71,6 @@ fi
 if command -v ng &> /dev/null; then
     source <(ng completion script)
 fi
+
+# bun completions
+[ -s "/home/neo/.bun/_bun" ] && source "/home/neo/.bun/_bun"

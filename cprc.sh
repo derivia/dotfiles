@@ -14,7 +14,6 @@ declare -A FILES=(
     ["./xprofile"]="$HOME/.xprofile"
     ["./xinitrc"]="$HOME/.xinitrc"
     ["./pack_ignore"]="$HOME/.pack_ignore"
-    ["./pyenv_source"]="$HOME/.pyenv_source"
 )
 
 for dest in "${!FILES[@]}"; do
