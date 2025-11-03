@@ -24,8 +24,8 @@ o.expandtab = true
 o.fileencoding = "utf-8"
 -- hide buffers instead of abandoning them
 o.hidden = true
--- disable search result highlighting
-o.hlsearch = false
+-- enable search result highlighting
+o.hlsearch = true
 -- case-insensitive search
 o.ignorecase = true
 -- show results of incremental substitution and other things
@@ -82,3 +82,5 @@ o.whichwrap:remove({ "w", "b", "h", "l" })
 o.wrap = false
 -- disable backup writing
 o.writebackup = false
+-- header as c filetype
+g.c_syntax_for_h = 1

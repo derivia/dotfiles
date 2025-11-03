@@ -47,22 +47,17 @@ local on_attach = function(client, bufnr)
 	if client.supports_method(methods.textDocument_references) then
 		keymap("gr", "<cmd>lua vim.lsp.buf.references()<CR>", "See usage (references)", { "n", "x" })
 	end
-
-	-- Set diagnostics config per client
 	vim.diagnostic.config({
 		underline = true,
 		signs = {
-			severity = {
-				vim.diagnostic.severity.INFO,
-				vim.diagnostic.severity.ERROR,
+			text = {
+				[vim.diagnostic.severity.ERROR] = "X",
+				[vim.diagnostic.severity.WARN] = "",
+				[vim.diagnostic.severity.INFO] = "",
+				[vim.diagnostic.severity.HINT] = "",
 			},
-		},
-		virtual_text = {
-			spacing = 2,
-			severity = {
-				vim.diagnostic.severity.WARN,
-				vim.diagnostic.severity.ERROR,
-			},
+			update_in_insert = false,
+			severity_sort = true,
 		},
 	}, vim.lsp.diagnostic.get_namespace(client.id))
 end
@@ -105,7 +100,7 @@ vim.lsp.config("clangd", {
 	on_attach = on_attach,
 	handlers = handlers,
 	capabilities = capabilities(),
-	filetypes = { "c", "cpp", "objc", "objcpp" },
+	filetypes = { "c" },
 })
 
 vim.lsp.config("solargraph", {
@@ -131,30 +126,43 @@ vim.lsp.config("emmet_ls", {
 	on_attach = on_attach,
 	handlers = handlers,
 	capabilities = capabilities(),
-	filetypes = { "html", "typescriptreact", "javascriptreact", "css", "sass", "scss", "less" },
+	filetypes = { "html", "typescriptreact", "javascriptreact", "css", "sass", "scss", "less", "vue" },
+})
+
+vim.lsp.config("angularls", {
+	on_attach = on_attach,
+	handlers = handlers,
+	capabilities = capabilities(),
+	filetypes = { "typescript", "html", "typescriptreact", "typescript.tsx" },
+})
+
+vim.lsp.config("ts_ls", {
+	on_attach = on_attach,
+	handlers = handlers,
+	capabilities = capabilities(),
+	filetypes = { "javascript", "javascriptreact", "javascript.jsx", "typescript", "typescriptreact", "typescript.tsx" },
 })
 
 vim.lsp.config("cssls", {
 	on_attach = on_attach,
 	handlers = handlers,
 	capabilities = capabilities(),
-	filetypes = { "css" },
+	filetypes = { "css", "scss", "less" },
 })
 
-local servers = {
-	"angularls",
-	"pyright",
-	"rust_analyzer",
-	"ts_ls",
-}
+vim.lsp.config("pyright", {
+	on_attach = on_attach,
+	handlers = handlers,
+	capabilities = capabilities(),
+	filetypes = { "python" },
+})
 
-for _, lsp in ipairs(servers) do
-	vim.lsp.config(lsp, {
-		on_attach = on_attach,
-		handlers = handlers,
-		capabilities = capabilities(),
-	})
-end
+vim.lsp.config("rust_analyzer", {
+	on_attach = on_attach,
+	handlers = handlers,
+	capabilities = capabilities(),
+	filetypes = { "rust" },
+})
 
 local enabled_servers = {
 	"lua_ls",

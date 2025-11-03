@@ -13,10 +13,20 @@ _.setup({
 		"folke/noice.nvim",
 		event = "VeryLazy",
 		opts = {
+			cmdline = {
+				enabled = true,
+				view = "cmdline_popup",
+			},
 			lsp = {
 				override = {
 					["vim.lsp.util.convert_input_to_markdown_lines"] = true,
 					["vim.lsp.util.stylize_markdown"] = true,
+				},
+				progress = {
+					enabled = true,
+					format = "lsp_progress",
+					format_done = "lsp_progress_done",
+					view = "mini",
 				},
 			},
 			presets = {
@@ -25,6 +35,15 @@ _.setup({
 				long_message_to_split = true,
 				inc_rename = false,
 				lsp_doc_border = false,
+			},
+			routes = {
+				{
+					filter = {
+						event = "lsp",
+						kind = "progress",
+					},
+					opts = { skip = false },
+				},
 			},
 		},
 		dependencies = {
@@ -84,12 +103,13 @@ _.setup({
 		config = function()
 			local status_ok, copilot = pcall(require, "copilot")
 			if not status_ok then
+				vim.notify("Something went wrong with Copilot startup.")
 				return
 			end
 			copilot.setup({
 				suggestion = { enabled = false },
 				panel = { enabled = false },
-				copilot_model = "claude-4.5-sonnet",
+				copilot_model = "gpt-5-mini",
 				filetypes = {
 					["*"] = false,
 					["bash"] = true,
@@ -144,9 +164,43 @@ _.setup({
 		"folke/snacks.nvim",
 		priority = 1000,
 		lazy = false,
+		keys = {
+			{
+				"<leader>nc",
+				function()
+					require("snacks").notifier.hide()
+				end,
+				desc = "Dismiss all notifications",
+			},
+			{
+				"<leader>nh",
+				function()
+					require("snacks").notifier.show_history()
+				end,
+				desc = "Show notification history",
+			},
+		},
 		opts = {
 			picker = { enabled = true },
+			notifier = {
+				enabled = true,
+				timeout = 999999,
+				style = "compact",
+				top_down = true,
+				level = vim.log.levels.INFO,
+			},
 		},
+		init = function()
+			vim.api.nvim_create_autocmd("User", {
+				pattern = "VeryLazy",
+				callback = function()
+					---@diagnostic disable-next-line: duplicate-set-field
+					vim.notify = function(msg, level, opts)
+						return require("snacks").notifier.notify(msg, level, opts)
+					end
+				end,
+			})
+		end,
 	},
 
 	-- Gruvbox colorscheme
@@ -199,9 +253,9 @@ _.setup({
 				symbols = {
 					win = {
 						type = "split",
-						relative = "win", -- relative to current window
-						position = "right", -- right side
-						size = 0.4, -- 40% of the window
+						relative = "win",
+						position = "right",
+						size = 0.4,
 					},
 				},
 			},
@@ -219,6 +273,124 @@ _.setup({
 				desc = "Symbols (Trouble)",
 			},
 		},
+	},
+
+	{
+		"rachartier/tiny-inline-diagnostic.nvim",
+		event = "VeryLazy",
+		priority = 1000,
+		config = function()
+			require("tiny-inline-diagnostic").setup({
+				preset = "classic",
+				transparent_bg = false,
+				transparent_cursorline = true,
+				hi = {
+					error = "DiagnosticError",
+					warn = "DiagnosticWarn",
+					info = "DiagnosticInfo",
+					hint = "DiagnosticHint",
+					arrow = "NonText",
+					background = "CursorLine",
+					mixing_color = "Normal",
+				},
+				disabled_ft = {},
+
+				options = {
+					show_source = {
+						enabled = true, -- Enable showing source names
+						if_many = false, -- Only show source if multiple sources exist for the same diagnostic
+					},
+
+					-- Use icons from vim.diagnostic.config instead of preset icons
+					use_icons_from_diagnostic = true,
+
+					-- Color the arrow to match the severity of the first diagnostic
+					set_arrow_to_diag_color = false,
+
+					-- Throttle update frequency in milliseconds to improve performance
+					-- Higher values reduce CPU usage but may feel less responsive
+					-- Set to 0 for immediate updates (may cause lag on slow systems)
+					throttle = 20,
+
+					-- Minimum number of characters before wrapping long messages
+					softwrap = 30,
+
+					-- Control how diagnostic messages are displayed
+					-- NOTE: When using display_count = true, you need to enable multiline diagnostics with multilines.enabled = true
+					--       If you want them to always be displayed, you can also set multilines.always_show = true.
+					add_messages = {
+						messages = true, -- Show full diagnostic messages
+						display_count = false, -- Show diagnostic count instead of messages when cursor not on line
+						use_max_severity = false, -- When counting, only show the most severe diagnostic
+						show_multiple_glyphs = true, -- Show multiple icons for multiple diagnostics of same severity
+					},
+
+					-- Settings for multiline diagnostics
+					multilines = {
+						enabled = false, -- Enable support for multiline diagnostic messages
+						always_show = false, -- Always show messages on all lines of multiline diagnostics
+						trim_whitespaces = false, -- Remove leading/trailing whitespace from each line
+						tabstop = 4, -- Number of spaces per tab when expanding tabs
+						severity = nil, -- Filter multiline diagnostics by severity (e.g., { vim.diagnostic.severity.ERROR })
+					},
+
+					-- Show all diagnostics on the current cursor line, not just those under the cursor
+					show_all_diags_on_cursorline = false,
+
+					-- Display related diagnostics from LSP relatedInformation
+					show_related = {
+						enabled = true, -- Enable displaying related diagnostics
+						max_count = 3, -- Maximum number of related diagnostics to show per diagnostic
+					},
+
+					-- Enable diagnostics display in insert mode
+					-- May cause visual artifacts; consider setting throttle to 0 if enabled
+					enable_on_insert = false,
+
+					-- Enable diagnostics display in select mode (e.g., during auto-completion)
+					enable_on_select = false,
+
+					-- Handle messages that exceed the window width
+					overflow = {
+						mode = "wrap", -- "wrap": split into lines, "none": no truncation, "oneline": keep single line
+						padding = 0, -- Extra characters to trigger wrapping earlier
+					},
+
+					-- Break long messages into separate lines
+					break_line = {
+						enabled = false, -- Enable automatic line breaking
+						after = 30, -- Number of characters before inserting a line break
+					},
+
+					-- Custom function to format diagnostic messages
+					-- Receives diagnostic object, returns formatted string
+					-- Example: function(diag) return diag.message .. " [" .. diag.source .. "]" end
+					format = nil,
+
+					-- Virtual text display priority
+					-- Higher values appear above other plugins (e.g., GitBlame)
+					virt_texts = {
+						priority = 2048,
+					},
+
+					-- Filter diagnostics by severity levels
+					-- Remove severities you don't want to display
+					severity = {
+						vim.diagnostic.severity.ERROR,
+						vim.diagnostic.severity.WARN,
+						vim.diagnostic.severity.INFO,
+						vim.diagnostic.severity.HINT,
+					},
+
+					-- Events that trigger attaching diagnostics to buffers
+					-- Default is {"LspAttach"}; change only if plugin doesn't work with your LSP setup
+					overwrite_events = nil,
+
+					-- Automatically disable diagnostics when opening diagnostic float windows
+					override_open_float = false,
+				},
+			})
+		end,
 	},
 
 	-- Treesitter parsing abstraction layer
@@ -813,6 +985,20 @@ _.setup({
 		end,
 	},
 
+	-- Preview markdown live on browser
+	{
+		"iamcco/markdown-preview.nvim",
+		cmd = { "MarkdownPreviewToggle", "MarkdownPreview", "MarkdownPreviewStop" },
+		build = "cd app && npm install",
+		keys = {
+			{ "<leader>mk", "<cmd>MarkdownPreviewToggle<cr>", desc = "Toggle markdown preview" },
+		},
+		init = function()
+			vim.g.mkdp_filetypes = { "markdown" }
+		end,
+		ft = { "markdown" },
+	},
+
 	-- Markdown autocmds
 	{ "jakewvincent/mkdnflow.nvim", ft = "markdown" },
 
@@ -839,10 +1025,10 @@ _.setup({
 				winopts = {
 					height = 0.85,
 					width = 0.80,
-					row = 0.35,
+					row = 0.50,
 					col = 0.50,
 					border = "rounded",
-					backdrop = 60,
+					backdrop = 100,
 					fullscreen = false,
 					preview = {
 						border = "rounded",
@@ -850,6 +1036,11 @@ _.setup({
 						delay = 0,
 						layout = "flex",
 					},
+				},
+				fzf_colors = {
+					["bg"] = { "bg", "Normal" },
+					["bg+"] = { "bg", "Normal" },
+					["gutter"] = { "bg", "Normal" },
 				},
 				actions = {
 					files = {
