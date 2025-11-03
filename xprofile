@@ -1,9 +1,9 @@
-export PATH=$HOME/.cargo/bin:$HOME/.local/share/pnpm:$HOME/.local/bin:$HOME/.local/bin/dwm-scripts:$PATH
+export PATH=$HOME/.cargo/bin:$HOME/.local/bin:$HOME/.local/bin/dwm-scripts:$HOME/.ghcup/bin:$HOME/.bun/bin:$PATH
 export TERMINAL=st
 export EDITOR=nvim
-export BROWSER=zen-browser
+export BROWSER=firefox
 
-feh --bg-scale "$HOME/documents/wallpaper.png" &
+feh --bg-scale "$HOME/documents/wallpaper.jpg" &
 dwmblocks &
 xset r rate 210 60
 xset -dpms

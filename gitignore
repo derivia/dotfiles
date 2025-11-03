@@ -9,4 +9,8 @@
 **/.claude/
 **/AI-EXPLANATION.md*
 **/AI-DATA-CONVERSATION-*.md*
+**/AI-HOW*.md*
 **/httpie/
+**/*egg-info*/
+**/dev/
+**/IMPLEMENTATION-PLAN.md*

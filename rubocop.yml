@@ -2,3 +2,9 @@ AllCops:
   NewCops: enable
 Style/StringLiterals:
   EnforcedStyle: double_quotes
+Style/FrozenStringLiteralComment:
+  Enabled: false
+Metrics/BlockLength:
+  Enabled: false
+Style/MutableConstant:
+  Enabled: false
