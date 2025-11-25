@@ -133,7 +133,7 @@ vim.lsp.config("angularls", {
 	on_attach = on_attach,
 	handlers = handlers,
 	capabilities = capabilities(),
-	filetypes = { "typescript", "html", "typescriptreact", "typescript.tsx" },
+	filetypes = { "htmlangular" },
 })
 
 vim.lsp.config("ts_ls", {

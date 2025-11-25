@@ -99,47 +99,54 @@ _.setup({
 	{
 		"zbirenbaum/copilot.lua",
 		cmd = "Copilot",
-		event = "InsertEnter",
-		config = function()
-			local status_ok, copilot = pcall(require, "copilot")
-			if not status_ok then
-				vim.notify("Something went wrong with Copilot startup.")
-				return
-			end
-			copilot.setup({
-				suggestion = { enabled = false },
-				panel = { enabled = false },
-				copilot_model = "gpt-5-mini",
-				filetypes = {
-					["*"] = false,
-					["bash"] = true,
-					["c"] = true,
-					["cpp"] = true,
-					["css"] = true,
-					["dart"] = true,
-					["elixir"] = true,
-					["go"] = true,
-					["html"] = true,
-					["java"] = true,
-					["javascript"] = true,
-					["json"] = true,
-					["kotlin"] = true,
-					["lua"] = true,
-					["markdown"] = true,
-					["perl"] = true,
-					["php"] = true,
-					["python"] = true,
-					["r"] = true,
-					["ruby"] = true,
-					["rust"] = true,
-					["scala"] = true,
-					["sh"] = true,
-					["swift"] = true,
-					["typescript"] = true,
-					["yaml"] = true,
-				},
-			})
-		end,
+		-- event = "InsertEnter",
+		keys = {
+			{
+				"<leader>cp",
+				function()
+					local status_ok, copilot = pcall(require, "copilot")
+					if not status_ok then
+						vim.notify("Something went wrong with Copilot startup.")
+						return
+					end
+					copilot.setup({
+						suggestion = { enabled = false },
+						panel = { enabled = false },
+						copilot_model = "gpt-5-mini",
+						filetypes = {
+							["*"] = false,
+							["bash"] = true,
+							["c"] = true,
+							["cpp"] = true,
+							["css"] = true,
+							["dart"] = true,
+							["elixir"] = true,
+							["go"] = true,
+							["html"] = true,
+							["java"] = true,
+							["javascript"] = true,
+							["json"] = true,
+							["kotlin"] = true,
+							["lua"] = true,
+							["markdown"] = true,
+							["perl"] = true,
+							["php"] = true,
+							["python"] = true,
+							["r"] = true,
+							["ruby"] = true,
+							["rust"] = true,
+							["scala"] = true,
+							["sh"] = true,
+							["swift"] = true,
+							["typescript"] = true,
+							["yaml"] = true,
+						},
+					})
+					vim.notify("Copilot started")
+				end,
+				desc = "Start Copilot",
+			},
+		},
 	},
 
 	-- Custom snippets management
@@ -630,6 +637,7 @@ _.setup({
         { "<leader>dc", function() require("dap").repl.open() end, desc = "DAP: Open debug console" },
         { "<leader>dr", function() require("dap").run_last() end, desc = "DAP: Rerun last debug adapter/config" },
         { "<leader>db", function() require("dap").toggle_breakpoint() end, desc = "DAP: Add/remove breakpoint into the current line" },
+        { "<leader>dB", function() require("dap").set_breakpoint(vim.fn.input("Breakpoint condition: ")) end, desc = "DAP: Set conditional breakpoint into the current line" },
       },
 		config = function()
 			local dap = require("dap")
