@@ -17,8 +17,52 @@ cvt() {
     done
 }
 
+epub2pdf() {
+    local epub_file="$1"
+    local pdf_file="${epub_file%.epub}.pdf"
+
+    if [[ -z "$epub_file" ]]; then
+        echo "Usage: epub2pdf <epub_file>"
+        return 1
+    fi
+
+    if [[ ! -f "$epub_file" ]]; then
+        echo "Error: File not found: $epub_file"
+        return 1
+    fi
+
+    if command -v ebook-convert >/dev/null 2>&1; then
+        echo "Converting '$epub_file' to '$pdf_file' using ebook-convert..."
+        ebook-convert "$epub_file" "$pdf_file" --page-width 612 --page-height 792
+        if [[ $? -eq 0 ]]; then
+            echo "Conversion successful."
+            return 0
+        else
+            echo "Error: ebook-convert failed.  Check the output for details."
+            return 1
+        fi
+    else
+        echo "Error: ebook-convert (from Calibre) is not installed.  Please install Calibre (https://calibre-ebook.com/) or another conversion tool like pandoc (if installed)."
+
+        if command -v pandoc >/dev/null 2>&1; then
+            echo "Attempting to convert '$epub_file' to '$pdf_file' using pandoc (fallback)..."
+            pandoc "$epub_file" -o "$pdf_file" --pdf-engine=pdflatex
+            if [[ $? -eq 0 ]]; then
+                echo "Conversion (pandoc) successful."
+                return 0
+            else
+                echo "Error: pandoc conversion failed. Check pandoc's output for more details."
+                return 1
+            fi
+        else
+            echo "Error: Neither ebook-convert nor pandoc is installed.  Please install one of them."
+            return 1
+        fi
+    fi
+}
+
 # compare remote branches with local ones and echo differences
-unalias grbs 2>/dev/null # remove it from ohmyzsh
+unalias grbs 2>/dev/null
 grbs() {
     original_dir=$(pwd)
     trap "cd \"$original_dir\"; return" SIGINT

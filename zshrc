@@ -61,6 +61,11 @@ fi
 # use newer magick command on pywal
 export PYWAL_IMAGEMAGICK_COMMAND="magick"
 
+# kubernetes alias
+if command -v kubectl &> /dev/null; then
+  alias k=kubectl
+fi
+
 # source aliases from external file
 if [ -f "$HOME/.zsh_aliases" ]; then
     source "$HOME/.zsh_aliases"
