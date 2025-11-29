@@ -1,14 +1,14 @@
 # Packages
 
-- For CLI/General:
+- For CLI/WSL:
 ```sh
 yay -S --needed \
-asciinema base-devel bat bear btop \
-cmake dive docker docker-compose dust exa fd ninja \
-fzf git gnu-netcat go htop imagemagick jdk17-openjdk jdk21-openjdk \
-jq jre8-openjdk ncurses5-compat-libs neofetch neovim pdftk \
-python python-pip rbenv ripgrep rnote rustup socat \
-tree tree-sitter-cli unzip  zip zsh
+asciinema awk bat bear btop bzip2 cmake curl dive docker \
+docker-compose dust exa fd ffmpeg fzf git gnu-netcat go gzip \
+htop httpie imagemagick jdk17-openjdk jdk21-openjdk jre8-openjdk \
+jq  ncurses5-compat-libs neofetch neovim ninja nmap nano pdftk python \
+python-pip rbenv ripgrep rsync rustup sed socat tar tmux traceroute tree \
+tree-sitter-cli unzip vim wget yt-dlp zip zsh
 ```
 
 - For desktops:
