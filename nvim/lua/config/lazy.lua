@@ -67,6 +67,7 @@ _.setup({
 	-- Cursor-like AI alternative
 	{
 		"olimorris/codecompanion.nvim",
+		version = "17.33.0",
 		config = function()
 			local codecompanion = require("codecompanion")
 			codecompanion.setup({})
@@ -81,7 +82,7 @@ _.setup({
 			"nvim-lua/plenary.nvim",
 			{
 				"MeanderingProgrammer/render-markdown.nvim",
-				ft = { "codecompanion" },
+				ft = { "" },
 			},
 			{
 				"echasnovski/mini.diff",
@@ -1008,7 +1009,12 @@ _.setup({
 	},
 
 	-- Markdown autocmds
-	{ "jakewvincent/mkdnflow.nvim", ft = "markdown" },
+	{
+		"jakewvincent/mkdnflow.nvim",
+		config = function()
+			require("mkdnflow").setup()
+		end,
+	},
 
 	-- Fuzzy finder | Live grep | Etc
 	{

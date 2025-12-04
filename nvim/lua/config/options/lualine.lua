@@ -14,7 +14,6 @@ local function get_attached_clients()
 	local buf_ft = vim.bo.filetype
 	local buf_client_names = {}
 
-	-- add client
 	for _, client in pairs(buf_clients) do
 		if client.name ~= "copilot" and client.name ~= "null-ls" then
 			table.insert(buf_client_names, client.name)
@@ -38,7 +37,6 @@ local function get_attached_clients()
 		end
 	end
 
-	-- This needs to be a string only table so we can use concat below
 	local unique_client_names = {}
 	for _, client_name_target in ipairs(buf_client_names) do
 		local is_duplicate = false
@@ -75,38 +73,38 @@ local attached_clients = {
 
 local function visual_selection_count()
 	local mode = vim.fn.mode()
-	if not (mode == "v" or mode == "V" or mode == "\22") then -- not in visual mode
+	if not (mode == "v" or mode == "V" or mode == "\22") then
 		return ""
 	end
 
-	local start_line = vim.fn.line("v")
-	local end_line = vim.fn.line(".")
-	local start_col = vim.fn.col("v")
-	local end_col = vim.fn.col(".")
+	local l1, c1 = vim.fn.line("v"), vim.fn.col("v")
+	local l2, c2 = vim.fn.line("."), vim.fn.col(".")
 
-	local count_lines = math.abs(end_line - start_line) + 1
-
-	local s_line, e_line = math.min(start_line, end_line), math.max(start_line, end_line)
-	local s_col, e_col = start_col, end_col
-	if start_line > end_line or (start_line == end_line and start_col > end_col) then
-		s_col, e_col = end_col, start_col
+	local s_line, e_line = math.min(l1, l2), math.max(l1, l2)
+	local s_col, e_col = c1, c2
+	if (l2 < l1) or (l1 == l2 and c2 < c1) then
+		s_col, e_col = c2, c1
 	end
 
+	local lines = e_line - s_line + 1
+
 	local total_chars = 0
+
 	for l = s_line, e_line do
-		local line_text = vim.fn.getline(l)
+		local text = vim.fn.getline(l)
+
 		if l == s_line and l == e_line then
-			total_chars = total_chars + (e_col - s_col)
+			total_chars = total_chars + (e_col - s_col + 1)
 		elseif l == s_line then
-			total_chars = total_chars + (#line_text - s_col + 1)
+			total_chars = total_chars + (vim.fn.strchars(text) - s_col + 1)
 		elseif l == e_line then
-			total_chars = total_chars + (e_col - 1)
+			total_chars = total_chars + e_col
 		else
-			total_chars = total_chars + #line_text
+			total_chars = total_chars + vim.fn.strchars(text)
 		end
 	end
 
-	return tostring(count_lines) .. "L, " .. tostring(total_chars) .. "C"
+	return string.format("%dL, %dC", lines, total_chars)
 end
 
 local function recording_macro()
