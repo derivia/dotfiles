@@ -11,6 +11,10 @@ export VISUAL="$EDITOR"
 export SUDO_EDITOR="$EDITOR"
 # END EDITOR
 
+# BEGIN COMP
+export PROTON_SAREK_DIR="$HOME/.local/share/Steam/compatibilitytools.d/Proton-Sarek10-11"
+# END COMP
+
 # BEGIN HISTORY
 export HISTSIZE=5000000
 export SAVEHIST=$HISTSIZE
@@ -63,7 +67,7 @@ export PYWAL_IMAGEMAGICK_COMMAND="magick"
 
 # kubernetes alias
 if command -v kubectl &> /dev/null; then
-  alias k=kubectl
+    alias k=kubectl
 fi
 
 # source aliases from external file
@@ -75,6 +79,16 @@ fi
 if command -v ng &> /dev/null; then
     source <(ng completion script)
 fi
+
+# Start session with target IP for CTF in TryHackMe
+starget() {
+    if [[ -z "$1" ]]; then
+        echo "Usage: starget <target_ip>"
+        return 1
+    fi
+
+    TARGET="$1" tmux new-session -s THM
+}
 
 # bun completions
 [ -s "/home/neo/.bun/_bun" ] && source "/home/neo/.bun/_bun"

@@ -2,15 +2,5 @@
 **/.tool-versions
 # python virtual environments
 **/.venv*
-**/httpie-reqs*
-**/pnotes.md*
-**/.python-version
-**/CLAUDE.md*
 **/.claude/
-**/AI-EXPLANATION.md*
-**/AI-DATA-CONVERSATION-*.md*
-**/AI-HOW*.md*
-**/httpie/
-**/*egg-info*/
-**/dev/
-**/IMPLEMENTATION-PLAN.md*
+**/*.db
