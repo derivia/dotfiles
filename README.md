@@ -30,13 +30,16 @@ git clone https://github.com/zsh-users/zsh-autosuggestions.git $ZSH_CUSTOM/plugi
 8. Pnpm:
 ```sh
 # install from pnpm docs
+# TODO: update to bun
+# TODO: say to install "active lts" node 
+# TODO: add uv
 pnpm env use --global lts # Fix for NodeJS & npm
 ```
 9. Rbenv:
 ```sh
 # install from rbenv docs & install ruby-build plugin for "install" subcommand
 # git clone https://github.com/rbenv/ruby-build.git "$(rbenv root)"/plugins/ruby-build
-rbenv install <version> # 3.4.1 (on 08/16/2025)
+rbenv install <version>
 rbenv global <version>
 ```
 10. Copy configuration files

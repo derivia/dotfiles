@@ -8,7 +8,7 @@ docker-compose dust exa fd ffmpeg fzf git gnu-netcat go gzip \
 htop httpie imagemagick jdk17-openjdk jdk21-openjdk jre8-openjdk \
 jq  ncurses5-compat-libs neofetch neovim ninja nmap nano pdftk python \
 python-pip rbenv ripgrep rsync rustup sed socat tar tmux traceroute tree \
-tree-sitter-cli unzip vim wget yt-dlp zip zsh
+tree-sitter-cli unzip vim wget yt-dlp zip zsh openssh 
 ```
 
 - For desktops:
