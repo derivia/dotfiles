@@ -276,12 +276,14 @@ oc() {
 
 # copy stdout to xclip, use as last stdout receiver to copy
 cpstd() {
-    if command -v xclip &>/dev/null; then
+    if [ -n "$WSLENV" ] && command -v clip.exe &>/dev/null; then
+        clip.exe
+    elif command -v xclip &>/dev/null; then
         xclip -selection clipboard
     elif command -v xsel &>/dev/null; then
         xsel --clipboard --input
     else
-        echo "Error: Neither xclip nor xsel is installed."
+        echo "Error: Neither xclip, xsel, nor clip.exe is available."
         return 1
     fi
 }
@@ -716,6 +718,17 @@ parquet2csv() {
     duckdb -c "COPY (SELECT * FROM '${parquet_file}') TO '${csv_file}' (HEADER, FORMAT 'csv');"
 }
 
+csv2parquet() {
+    if [ "$#" -ne 1 ]; then
+        echo "Usage: csv2parquet <file.csv>"
+        return 1
+    fi
+    local csv_file="$1"
+    local parquet_file="${csv_file##*/}"
+    parquet_file="${parquet_file%.csv}.parquet"
+    duckdb -c "COPY (SELECT * FROM read_csv_auto('${csv_file}')) TO '${parquet_file}' (FORMAT 'parquet');"
+}
+
 # adapted from https://github.com/dylanaraps/pure-bash-bible?tab=readme-ov-file#trim-leading-and-trailing-white-space-from-string
 trim_string () {
     local input_string
@@ -724,4 +737,12 @@ trim_string () {
     trimmed_string="${input_string#"${input_string%%[![:space:]]*}"}"
     trimmed_string="${trimmed_string%"${trimmed_string##*[![:space:]]}"}"
     printf '%s\n' "$trimmed_string"
+}
+
+svenv () {
+    if [[ ! -f ".venv/bin/activate" ]]; then
+        echo "Environment not found"
+        return 1
+    fi
+    source .venv/bin/activate
 }

@@ -10,10 +10,6 @@ declare -A FILES=(
     ["./configs/clang-format"]="$HOME/.clang-format"
     ["./configs/rubocop.yml"]="$HOME/.rubocop.yml"
     ["./configs/pack_ignore"]="$HOME/.pack_ignore"
-    ["./desktop/dunst/dunstrc"]="$HOME/.config/dunst/dunstrc"
-    ["./desktop/alacritty/alacritty.toml"]="$HOME/.config/alacritty/alacritty.toml"
-    ["./desktop/xprofile"]="$HOME/.xprofile"
-    ["./desktop/xinitrc"]="$HOME/.xinitrc"
 )
 
 for dest in "${!FILES[@]}"; do

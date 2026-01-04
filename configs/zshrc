@@ -34,6 +34,8 @@ setopt SHARE_HISTORY            # share history between all sessions
 unsetopt HIST_BEEP              # don't beep
 # END HISTORY
 
+export WSLENV=insidewsl
+
 # for wslutilities
 if [[ -n "$WSLENV" ]]; then
     export BROWSER="wslview"
