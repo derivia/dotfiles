@@ -27,28 +27,30 @@ git clone https://github.com/tmux-plugins/tpm $HOME/.tmux/plugins/tpm
 # install from ohmyzsh docs
 git clone https://github.com/zsh-users/zsh-autosuggestions.git $ZSH_CUSTOM/plugins/zsh-autosuggestions && git clone https://github.com/zsh-users/zsh-syntax-highlighting.git $ZSH_CUSTOM/plugins/zsh-syntax-highlighting
 ```
-8. Pnpm:
+8. Node.js LTS:
 ```sh
-# install from pnpm docs
-# TODO: update to bun
-# TODO: say to install "active lts" node 
-# TODO: add uv
-pnpm env use --global lts # Fix for NodeJS & npm
+# install most recent node-js-lts package and npm
 ```
-9. Rbenv:
+9. Bun:
+```sh
+curl -fsSL https://bun.sh/install | bash
+```
+10. Uv:
+# install uv from docs
+11. Rbenv:
 ```sh
 # install from rbenv docs & install ruby-build plugin for "install" subcommand
 # git clone https://github.com/rbenv/ruby-build.git "$(rbenv root)"/plugins/ruby-build
 rbenv install <version>
 rbenv global <version>
 ```
-10. Copy configuration files
-11. Generate ssh key pair
+12. Copy configuration files
+13. Generate ssh key pair
 ```sh
 # add where necessary after
 ssh-keygen -o -a 100 -t ed25519 -f ~/.ssh/id_ed25519 -C <email>
 ```
-12. Add git aliases:
+14. Add git aliases:
 ```sh
 git config --global alias.ls "log --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit"
 ```
