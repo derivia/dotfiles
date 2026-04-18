@@ -1,9 +1,8 @@
-# list all dirs on cwd
-cwdirs() {
-    for dir in $(find . -maxdepth 1 -type d | sed "1d"); do
-        echo "$dir"
-    done
-}
+alias hd='hexdump'
+alias ls='command ls --tabsize=0 --color=auto --human-readable --group-directories-first "$@"'
+alias tree='tree -v'
+alias t="tmux new-session -A -s main"
+alias gcan="git commit --amend --no-edit"
 
 # convert all files in current working directory from one extension to another using ImageMagick
 cvt() {
@@ -61,30 +60,6 @@ epub2pdf() {
     fi
 }
 
-# compare remote branches with local ones and echo differences
-unalias grbs 2>/dev/null
-grbs() {
-    original_dir=$(pwd)
-    trap "cd \"$original_dir\"; return" SIGINT
-
-    for dir in $(cwdirs); do
-        if [[ -d "$dir/.git" ]]; then
-            cd "$dir" || continue
-            echo "$dir:"
-            for branch in $(git branch --list | sed "s/*//"); do
-                for remote in $(git remote); do
-                    diff_count=$(git diff --stat "$branch" "$remote/$branch" | wc -l)
-                    if [[ $diff_count -gt 0 ]]; then
-                        echo "  $branch -> $remote/$branch [$diff_count]"
-                    fi
-                done
-            done
-            cd "$original_dir" || break
-        fi
-    done
-    cd "$original_dir"
-}
-
 # show git status for all repositories in current directory
 rgs() {
     find . -maxdepth 1 -type d -exec sh -c '
@@ -107,7 +82,7 @@ rsff() {
 
 # convert folder names to lowercase
 lcd() {
-    for dir in */; do
+    for dir in *; do
         dir="${dir%/}"
         lower_dir=$(echo "$dir" | tr "[:upper:]" "[:lower:]")
 
@@ -136,21 +111,6 @@ lcf() {
     done
 }
 
-# ls with better default options
-alias ls='command ls --tabsize=0 --color=auto --human-readable --group-directories-first "$@"'
-
-# human-readable tree by default
-alias tree='tree -v'
-
-# recursively find todos
-todos() {
-    rg --glob '!{.git,node_modules,cloned,dist,build}' -i '\@\bTODO\b' "$@"
-}
-
-fixmes() {
-    rg --glob '!{.git,node_modules,cloned,dist,build}' -i '\@\bFIXME\b' "$@"
-}
-
 # default irb to simple prompt
 irb() {
     command irb --simple-prompt "$@"
@@ -170,64 +130,6 @@ lfe() {
 
     ls -l | awk "{print \$9}" | grep "^.*\.$1" | cat
 }
-
-# multicat files by extension in current directory
-mcat() {
-    if [ "$#" -ne 1 ]; then
-        echo "Usage: mcat <extension>"
-        return 1
-    fi
-
-    for file in $(find . -maxdepth 1 -name "*.$1"); do
-        echo "--------------- ${file}"
-        cat "${file}"
-    done
-}
-
-# multicat files by extension recursively
-mcatr() {
-    if [ "$#" -lt 1 ] || [ "$#" -gt 2 ]; then
-        echo "Usage: mcatr <extension> [ignore-dir]"
-        return 1
-    fi
-
-    local find_args="-type f -name \"*.$1\""
-    if [ "$#" -eq 2 ]; then
-        find_args="$find_args -not -path \"*/$2/*\""
-    fi
-
-    eval "find . $find_args" | while read -r file; do
-        echo "--------------- ${file}"
-        cat "${file}"
-    done
-}
-
-# bat alternatives if bat is available
-if command -v bat &>/dev/null; then
-    mbat() {
-        if [ "$#" -ne 1 ]; then
-            echo "Usage: mbat <extension>"
-            return 1
-        fi
-
-        for file in $(find . -maxdepth 1 -name "*.$1"); do
-            echo "--------------- ${file}"
-            bat "${file}"
-        done
-    }
-
-    mbatr() {
-        if [ "$#" -ne 1 ]; then
-            echo "Usage: mbatr <extension>"
-            return 1
-        fi
-
-        for file in $(find . -type f -name "*.$1"); do
-            echo "--------------- ${file}"
-            bat "${file}"
-        done
-    }
-fi
 
 # pdf pages to png
 pdf2png() {
@@ -274,16 +176,16 @@ oc() {
     open_command "$@"
 }
 
-# copy stdout to xclip, use as last stdout receiver to copy
+# copy stdout to clipboard, use as last stdout receiver to copy
 cpstd() {
-    if [ -n "$WSLENV" ] && command -v clip.exe &>/dev/null; then
-        clip.exe
+    if [ -n "$WSLENV" ] && command -v win32yank.exe &>/dev/null; then
+        win32yank.exe -i --crlf
     elif command -v xclip &>/dev/null; then
         xclip -selection clipboard
     elif command -v xsel &>/dev/null; then
         xsel --clipboard --input
     else
-        echo "Error: Neither xclip, xsel, nor clip.exe is available."
+        echo "Error: Neither xclip, xsel, nor win32yank.exe is available."
         return 1
     fi
 }
@@ -296,86 +198,6 @@ git-purge() {
     fi
 
     git filter-branch --force --index-filter "git rm --cached --ignore-unmatch $1" --prune-empty --tag-name-filter cat -- --all
-}
-
-# update licenses to current year based on command `date`
-# only updates LICENSE files inside directories that have a .git folder
-licc() {
-    current_year=$(date +"%Y")
-
-    find . -type d -name ".git" -prune -exec dirname {} \; | while read -r git_dir; do
-        license_file="$git_dir/LICENSE"
-        if [[ -f "$license_file" ]]; then
-            if ! grep -qE "(^|[^0-9])$current_year([^0-9]|$) (\$|\[)" "$license_file"; then
-                sed -i "s/\([0-9]\{4\}\)/\1-$current_year/g" "$license_file"
-                echo "$git_dir/LICENSE updated"
-            fi
-        fi
-    done
-}
-
-
-# make extension-sized icons from png image
-mkicon() {
-    if [ "$#" -ne 1 ]; then
-        echo "Usage: mkicon <image_file>"
-        return 1
-    fi
-    for size in 16 48 128; do
-        magick "$1" -resize "${size}x${size}!" "$size.png"
-    done
-}
-
-# read `limit` lines from rockyou & `length` max-sized-lines
-headrock() {
-    if [ "$#" -lt 1 ]; then
-        echo "Usage: headrock <limit> [length]"
-        return 1
-    fi
-
-    if [ ! -f /usr/share/wordlists/rockyou.txt ]; then
-        echo "Error: rockyou.txt not found at /usr/share/wordlists/rockyou.txt"
-        return 1
-    fi
-
-    limit="$1"
-    length="$2"
-
-    if [ -z "$length" ]; then
-        head -n "$limit" /usr/share/wordlists/rockyou.txt
-    else
-        awk -v len="$length" 'length($0) == len' /usr/share/wordlists/rockyou.txt | head -n "$limit"
-    fi
-}
-
-# run and delete simple C file
-rcd() {
-    if [ "$#" -lt 1 ]; then
-        echo "Usage: rd <file-name>.c"
-        return 1
-    fi
-    filename="${1%.*}"
-    gcc "$1" -o "$filename" -lm -Wall -O2 && ./"$filename" && rm "$filename"
-}
-
-# multiple cat with file spacing
-zat() {
-    if [ "$#" -lt 1 ]; then
-        echo "Usage: zat <file1> [file2] ..."
-        return 1
-    fi
-    for file in "$@"; do
-        if [ ! -f "$file" ]; then
-            echo "Error: $file is not a valid file"
-            continue
-        fi
-        separator="------------------"
-        echo "$separator"
-        echo "- $file"
-        echo "$separator"
-        cat "$file"
-        echo "$separator"
-    done
 }
 
 # zip files password protected
@@ -391,23 +213,45 @@ pzip() {
 
 # download video and remux into mp4/mp3 from youtube
 ytdw() {
-    if [ "$#" -lt 1 ] || [ "$#" -gt 2 ]; then
-        echo "Usage: ytdw <url> [format]"
+    if [ "$#" -lt 1 ] || [ "$#" -gt 3 ]; then
+        echo "Usage: ytdw <url> [format] [quality]"
         echo "Format options: mp4 (default), mp3"
+        echo "Quality options (mp4 only): 360p, 720p, max (default)"
         return 1
     fi
 
     local url="$1"
     local format="${2:-mp4}"
+    local quality="${3:-max}"
 
     case "$format" in
         mp4)
-            yt-dlp -f "bestvideo[height<=720]+bestaudio[ext=m4a]" --merge-output-format mp4 \
+            case "$quality" in
+                360p)
+                    fmt="bestvideo[height<=360]+bestaudio[ext=m4a]"
+                    ;;
+                480p)
+                    fmt="bestvideo[height<=480]+bestaudio[ext=m4a]"
+                    ;;
+                720p)
+                    fmt="bestvideo[height<=720]+bestaudio[ext=m4a]"
+                    ;;
+                max)
+                    fmt="bestvideo+bestaudio"
+                    ;;
+                *)
+                    echo "Unsupported quality: $quality"
+                    echo "Supported qualities: 360p, 480p, 720p, max"
+                    return 1
+                    ;;
+            esac
+
+            yt-dlp -f "$fmt" --merge-output-format mp4 \
                 --postprocessor-args "ffmpeg:-vcodec libx264 -acodec aac" \
                 "$url"
             ;;
         mp3)
-            yt-dlp -f "bestaudio[ext=m4a]" -x --audio-format mp3 "$url"
+            yt-dlp -f "bestaudio" -x --audio-format mp3 "$url"
             ;;
         *)
             echo "Unsupported format: $format"
@@ -467,70 +311,6 @@ rcat() {
         cat "$file"
         echo
     done
-}
-
-# save code screenshot from file or stdout
-codegrim() {
-    local ext="" filename=""
-
-    if [[ "$1" == --ext=* ]]; then
-        ext="${1#*=}"
-        shift
-    fi
-
-    if [[ $# -gt 0 ]]; then
-        filename="$1"
-        outname="${filename##*/}"
-        outname="${outname%.*}"
-        freeze "$filename" -o "$HOME/downloads/$outname.png" -c user
-    else
-        if [[ -z "$ext" ]]; then
-            echo "Error: When using stdin, you must specify --ext=extension" >&2
-            return 1
-        fi
-
-        outname="$(date +%Y%m%d_%H%M%S)"
-        freeze - --language="$ext" -o "$HOME/downloads/$outname.png" -c user
-    fi
-}
-
-# count lines of code recursively by extension
-count_lines() {
-    if [[ -z "$1" ]]; then
-        echo "Usage: count_lines <extension> [-I <regex-directories>]"
-        return 1
-    fi
-
-    local extension="$1"
-    shift
-    local ignore_regex=""
-
-    while [[ "$#" -gt 0 ]]; do
-        case "$1" in
-            -I)
-                if [[ -n "$2" ]]; then
-                    ignore_regex="$2"
-                    shift
-                else
-                    echo "Error: -I requires a regular expression."
-                    return 1
-                fi
-                ;;
-            *)
-                echo "Error: Invalid option '$1'"
-                return 1
-                ;;
-        esac
-        shift
-    done
-
-    local fd_command="fd -e $extension"
-
-    if [[ -n "$ignore_regex" ]]; then
-        fd_command+=" -E \"$ignore_regex\""
-    fi
-
-    eval "$fd_command" | xargs cat 2>/dev/null | wc -l
 }
 
 # cut video file using ffmpeg with start and end times in mm:ss format
@@ -665,8 +445,6 @@ pack() {
     fi
 }
 
-alias hd='hexdump'
-
 # remove audio from mp4 file
 mp4_mute() {
     if [[ -z "$1" ]]; then
@@ -745,4 +523,254 @@ svenv () {
         return 1
     fi
     source .venv/bin/activate
+}
+
+# change commit date
+rlcd() {
+    local day=""
+    local time=""
+    local tz="$(date '+%z')"
+
+    while [[ $# -gt 0 ]]; do
+        case "$1" in
+            --day)
+                day="$2"
+                shift 2
+                ;;
+            --time)
+                time="$2"
+                shift 2
+                ;;
+            --tz)
+                tz="$2"
+                shift 2
+                ;;
+            *)
+                echo "Unknown option: $1"
+                echo 'Usage: rlcd [--day "YYYY-MM-DD"] [--time "HH:MM:SS"] [--tz "+ZZZZ"]'
+                return 1
+                ;;
+        esac
+    done
+
+    [[ -z "$day" ]]  && day="$(date '+%Y-%m-%d')"
+    [[ -z "$time" ]] && time="$(date '+%H:%M:%S')"
+
+    local date="$day $time $tz"
+
+    GIT_COMMITTER_DATE="$date" git commit --amend --no-edit --date="$date"
+}
+
+# show tip of remote and local
+rlb() {
+    emulate -L zsh
+    setopt LOCAL_OPTIONS NO_XTRACE NO_VERBOSE NO_WARN_CREATE_GLOBAL TYPESET_SILENT
+
+    local RED=$'\033[31m'
+    local GRN=$'\033[32m'
+    local YLW=$'\033[33m'
+    local PNK=$'\033[35m'
+    local DIM=$'\033[2m'
+    local RST=$'\033[0m'
+
+    local current_branch
+    current_branch=$(git symbolic-ref --short HEAD 2>/dev/null)
+
+    local -A branches
+    local b
+
+    for b in $(git for-each-ref --format='%(refname:short)' refs/heads); do
+        branches[$b]=1
+    done
+
+    for b in $(git for-each-ref --format='%(refname:lstrip=3)' refs/remotes/origin); do
+        [[ "$b" == "HEAD" ]] && continue
+        branches[$b]=1
+    done
+
+    local tmpfile
+    tmpfile=$(mktemp)
+
+    for b in ${(k)branches}; do
+        local l_time="" l_user=""
+        local r_time="" r_user=""
+
+        if git rev-parse --verify -q "refs/heads/$b" >/dev/null; then
+            l_time=$(git log -1 --format='%ct' "$b")
+            l_user=$(git log -1 --format='%an' "$b")
+        fi
+
+        if git rev-parse --verify -q "refs/remotes/origin/$b" >/dev/null; then
+            r_time=$(git log -1 --format='%ct' "origin/$b")
+            r_user=$(git log -1 --format='%an' "origin/$b")
+        fi
+
+        local sort_time=0
+        [[ -n "$l_time" && "$l_time" -gt "$sort_time" ]] && sort_time=$l_time
+        [[ -n "$r_time" && "$r_time" -gt "$sort_time" ]] && sort_time=$r_time
+
+        printf "%s|%s|%s|%s|%s|%s\n" \
+            "$sort_time" "$b" "$l_time" "$l_user" "$r_time" "$r_user" >> "$tmpfile"
+    done
+
+    sort -t'|' -nr "$tmpfile" | while IFS='|' read -r sort_time b l_time l_user r_time r_user; do
+        local l_str="-" r_str="-" st
+        local l_mark="" r_mark=""
+
+        [[ -n "$l_time" ]] && \
+            l_str="$(date -d "@$l_time" '+%Y-%m-%d %H:%M') • $l_user"
+
+        [[ -n "$r_time" ]] && \
+            r_str="$(date -d "@$r_time" '+%Y-%m-%d %H:%M') • $r_user"
+
+        # mark newer side
+        if [[ -n "$l_time" && -n "$r_time" ]]; then
+            if (( l_time > r_time )); then
+                l_mark=" ${PNK}[*]${RST}"
+            elif (( r_time > l_time )); then
+                r_mark=" ${PNK}[*]${RST}"
+            fi
+        fi
+
+        if [[ -n "$l_time" && -n "$r_time" ]]; then
+            local l_hash r_hash
+            l_hash=$(git rev-parse "$b")
+            r_hash=$(git rev-parse "origin/$b")
+
+            if [[ "$l_hash" == "$r_hash" ]]; then
+                st="${GRN}[=]${RST}"
+            else
+                st="${YLW}[≠]${RST}"
+            fi
+        elif [[ -n "$l_time" ]]; then
+            st="${RED}[∅]${RST}"
+            r_str="${DIM}-${RST}"
+        else
+            st="${RED}[∅]${RST}"
+            l_str="${DIM}-${RST}"
+        fi
+
+        local prefix=" "
+        [[ "$b" == "$current_branch" ]] && prefix="*"
+
+        printf "%s%s %b\n" "$prefix" "$b" "$st"
+        printf "    local  %s%s\n" "$l_str" "$l_mark"
+        printf "    remote %s%s\n\n" "$r_str" "$r_mark"
+    done
+
+    rm -f "$tmpfile"
+}
+
+# list pushed and local-only commits for each branch
+rlcl() {
+    emulate -L zsh
+    setopt LOCAL_OPTIONS TYPESET_SILENT NO_XTRACE
+    local since=""
+    local limit=5
+    local first=1
+    while [[ $# -gt 0 ]]; do
+        case "$1" in
+            --since)
+                since="$2"; shift 2 ;;
+            --hours)
+                since="$(date -d "-$2 hours" '+%Y-%m-%d %H:%M:%S')"
+                shift 2 ;;
+            -N|--limit)
+                limit="$2"; shift 2 ;;
+            *)
+                echo "Unknown option: $1"
+                return 1 ;;
+        esac
+    done
+    [[ -z "$since" ]] && since="$(date -d '-24 hours' '+%Y-%m-%d %H:%M:%S')"
+    local now="$(date '+%Y-%m-%d %H:%M:%S')"
+    echo "Showing commits since: $since"
+    local -a remotes
+    remotes=($(git remote))
+    typeset -A seen_hashes
+    seen_hashes=()
+    git for-each-ref --format='%(refname:short)' refs/heads | while read -r branch; do
+        typeset -A unpushed_data remote_has_branch
+        unpushed_data=()
+        remote_has_branch=()
+        for remote in "${remotes[@]}"; do
+            local remote_ref="refs/remotes/$remote/$branch"
+            if git rev-parse --verify -q "$remote_ref" >/dev/null; then
+                remote_has_branch[$remote]=1
+                local hashes
+                hashes="$(git rev-list "$branch" --not "$remote_ref" 2>/dev/null)"
+                unpushed_data[$remote]=" ${(j: :)${(f)hashes}} "
+            else
+                remote_has_branch[$remote]=0
+                unpushed_data[$remote]=""
+            fi
+        done
+        local branch_output=""
+        local nl=$'\n'
+        local raw
+        raw=$(git log "$branch" \
+                --since="$since" \
+                --until="$now" \
+                -n "$limit" \
+                --date=format:'%Y-%m-%d %H:%M' \
+            --pretty=format:'%H%x00%h%x00%ad%x00%an%x00%s%x00')
+        local -a records
+        records=(${(0)raw})
+        local i=1
+        while (( i + 4 <= ${#records} )); do
+            local full_hash="${records[i]}"
+            local short_hash="${records[i+1]}"
+            local date="${records[i+2]}"
+            local author="${records[i+3]}"
+            local subject="${records[i+4]}"
+            (( i += 5 ))
+            # Skip commits we've already displayed under a previous branch
+            if (( ${+seen_hashes[$full_hash]} )); then
+                continue
+            fi
+            seen_hashes[$full_hash]=1
+            local status_str=""
+            for remote in "${remotes[@]}"; do
+                local state
+                if [[ "${remote_has_branch[$remote]}" -eq 0 ]] ||
+                [[ "${unpushed_data[$remote]}" == *" $full_hash "* ]]; then
+                    state=$'\033[31m[L]\033[0m'
+                else
+                    state=$'\033[32m[P]\033[0m'
+                fi
+                status_str+="${status_str:+, }$remote $state"
+            done
+            branch_output+="${branch_output:+$nl}$(
+        printf '%s %s %s (%s) %s' \
+        "$short_hash" "$date" "$author" "$status_str" "$subject"
+      )"
+        done
+        if [[ -n "$branch_output" ]]; then
+            (( first == 0 )) && echo
+            first=0
+            echo "Branch: $branch"
+            print -r -- "$branch_output"
+        fi
+    done
+}
+
+gfh() {
+    if [[ -z "$1" ]]; then
+        echo "Usage: gfh <file>"
+        return 1
+    fi
+
+    git log --follow \
+        --pretty=format:'%C(yellow)%h%Creset | %Cgreen%ad%Creset | %Cblue%an%Creset | %s' \
+        --date=short -- "$1"
+}
+
+list_dirs() {
+    find -maxdepth 1 -type d | tail -n +2 | cut -c 3-
+}
+
+list_dirs_git () {
+    for d in */; do
+        [ -d "$d/.git" ] && printf '%s\n' "${d%/}"
+    done
 }
