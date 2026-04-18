@@ -56,6 +56,10 @@ compinit -C
 
 source $ZSH/oh-my-zsh.sh
 
+# use build kit on docker
+export DOCKER_BUILDKIT=1
+export BUILDKIT_PROGRESS=auto
+
 # use neovim as manpager
 export MANPAGER='nvim +Man!'
 
