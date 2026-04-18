@@ -8,12 +8,12 @@ end
 
 local plug_list = {
 	"colorizer",
-  "lsp",
+	"lsp",
 	"lualine",
 	"mason",
 	"mkdnflow",
 	"nvimtree",
-	"treesitter",
+	-- "treesitter",
 }
 
 for _, plugin in ipairs(plug_list) do

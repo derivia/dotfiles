@@ -41,9 +41,10 @@ local on_attach = function(client, bufnr)
 	if client.supports_method(methods.textDocument_implementation) then
 		keymap("gi", "<cmd>lua vim.lsp.buf.implementation()<CR>", "Go to implementation", "n")
 	end
-	if client.supports_method(methods.textDocument_codeAction) then
-		keymap("<leader>ca", "<cmd>lua vim.lsp.buf.code_action()<CR>", "Code actions", { "n", "x" })
-	end
+	-- if client.supports_method(methods.textDocument_codeAction) then
+	-- add code_action keymap regardless
+	keymap("<leader>ca", "<cmd>lua vim.lsp.buf.code_action()<CR>", "Code actions", { "n", "x" })
+	-- end
 	if client.supports_method(methods.textDocument_references) then
 		keymap("gr", "<cmd>lua vim.lsp.buf.references()<CR>", "See usage (references)", { "n", "x" })
 	end
@@ -165,17 +166,23 @@ vim.lsp.config("rust_analyzer", {
 })
 
 local enabled_servers = {
-	"lua_ls",
-	"clangd",
-	"solargraph",
-	"emmet_ls",
-	"cssls",
-	"pyright",
 	"angularls",
+	"clangd",
+	"cssls",
+	"emmet_ls",
+	"jdtls",
+	"lua_ls",
+	"pyright",
 	"rust_analyzer",
+	"solargraph",
 	"ts_ls",
 }
 
 for _, server in ipairs(enabled_servers) do
 	vim.lsp.enable({ server })
 end
+
+vim.lsp.config("*", {
+	capabilities = capabilities(),
+  on_attach = on_attach
+})

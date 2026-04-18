@@ -82,7 +82,7 @@ _.setup({
 			"nvim-lua/plenary.nvim",
 			{
 				"MeanderingProgrammer/render-markdown.nvim",
-				ft = { "" },
+				ft = { "codecompanion" },
 			},
 			{
 				"echasnovski/mini.diff",
@@ -94,6 +94,16 @@ _.setup({
 				end,
 			},
 		},
+	},
+
+	{
+		"iamcco/markdown-preview.nvim",
+		cmd = { "MarkdownPreviewToggle", "MarkdownPreview", "MarkdownPreviewStop" },
+		build = "cd app && bun install",
+		init = function()
+			vim.g.mkdp_filetypes = { "markdown" }
+		end,
+		ft = { "markdown" },
 	},
 
 	-- Copilot
@@ -113,7 +123,7 @@ _.setup({
 					copilot.setup({
 						suggestion = { enabled = false },
 						panel = { enabled = false },
-						copilot_model = "gpt-5-mini",
+						copilot_model = "gpt-41-copilot",
 						filetypes = {
 							["*"] = false,
 							["bash"] = true,
@@ -211,8 +221,12 @@ _.setup({
 		end,
 	},
 
-	-- Gruvbox colorscheme
-	{ "ellisonleao/gruvbox.nvim", priority = 1000, config = true },
+	-- Colorschemes
+	{
+		"olimorris/onedarkpro.nvim",
+		lazy = false,
+		priority = 1000,
+	},
 
 	-- Show hex colors
 	{
@@ -274,6 +288,11 @@ _.setup({
 				"<leader>fx",
 				"<cmd>Trouble diagnostics toggle<cr>",
 				desc = "Diagnostics (Trouble)",
+			},
+			{
+				"<leader>fX",
+				"<cmd>Trouble diagnostics toggle filter.buf=0<cr>",
+				desc = "Diagnostics for current buffer (Trouble)",
 			},
 			{
 				"<leader>fs",
@@ -405,8 +424,27 @@ _.setup({
 	{
 		"nvim-treesitter/nvim-treesitter",
 		build = ":TSUpdate",
-		dependencies = {
-			{ "nvim-treesitter/nvim-treesitter-textobjects" },
+		lazy = false,
+		branch = "main",
+		event = "BufRead",
+		opts = {
+			ensure_installed = {
+				"c",
+				"java",
+				"javascript",
+				"json",
+				"lua",
+				"markdown",
+				"markdown_inline",
+				"python",
+				"query",
+				"ruby",
+				"rust",
+				"tsx",
+				"typescript",
+				"vim",
+				"vimdoc",
+			},
 		},
 	},
 
@@ -554,13 +592,6 @@ _.setup({
 			},
 		},
 	},
-	{
-		"windwp/nvim-ts-autotag",
-		ft = { "javascript", "javascriptreact", "typescript", "typescriptreact", "svelte", "vue", "html" },
-		config = function()
-			require("nvim-ts-autotag").setup()
-		end,
-	},
 
 	-- Mini buffer removing plugin
 	{
@@ -623,7 +654,6 @@ _.setup({
 		},
 	},
 
-	-- Debug Adapter Protocol client
 	{
 		"mfussenegger/nvim-dap",
 		version = "*",
@@ -964,7 +994,7 @@ _.setup({
 					css = { "biome" },
 					graphql = { "biome" },
 					html = { "prettierd" },
-					java = { "clang_format" },
+					java = { "google-java-format" },
 					javascript = { "biome" },
 					javascriptreact = { "biome" },
 					json = { "biome" },
@@ -991,28 +1021,6 @@ _.setup({
 					})
 				end, { desc = "Format file | range" }),
 			})
-		end,
-	},
-
-	-- Preview markdown live on browser
-	{
-		"iamcco/markdown-preview.nvim",
-		cmd = { "MarkdownPreviewToggle", "MarkdownPreview", "MarkdownPreviewStop" },
-		build = "cd app && npm install",
-		keys = {
-			{ "<leader>mk", "<cmd>MarkdownPreviewToggle<cr>", desc = "Toggle markdown preview" },
-		},
-		init = function()
-			vim.g.mkdp_filetypes = { "markdown" }
-		end,
-		ft = { "markdown" },
-	},
-
-	-- Markdown autocmds
-	{
-		"jakewvincent/mkdnflow.nvim",
-		config = function()
-			require("mkdnflow").setup()
 		end,
 	},
 
