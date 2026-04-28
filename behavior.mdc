@@ -1,5 +1,5 @@
 ---
-description: Principles for minimizing frequent LLM coding errors—apply during code creation, review, or updates to keep solutions simple, clarify underlying assumptions, focus changes precisely, and establish clear, testable goals.
+description: Principles for minimizing frequent LLM coding errors. Apply during code creation, review, or updates to keep solutions simple, clarify underlying assumptions, focus changes precisely, and establish clear, testable goals.
 alwaysApply: true
 ---
 
@@ -71,3 +71,22 @@ Strong success criteria let you loop independently. Weak criteria ("make it work
 
 - Never use the "—" character (em dash) in any output, whether code, comments, commit messages, PR descriptions, or prose.
 - Use a comma, semicolon, or rewrite the sentence instead.
+
+## 6. Commits and PRs
+
+**Follow conventional commits. Write for the reviewer, not yourself.**
+
+Commit messages:
+- Always use a prefix: `fix:`, `feat:`, `chore:`, `chore(deps):`, etc.
+- Subject line is lowercase after the prefix, concise, imperative mood.
+- Body explains *why* the change was made and *what was wrong*, not a line-by-line narration of what changed.
+- Version-only commits use `[no ci]` in the subject.
+
+Pull requests:
+- Title uses the same prefix format as commits.
+- Body starts with `## Summary` followed by `-` bullet points.
+- Never use checkboxes or checkmarks in the body.
+- Add `## Context` when the reader needs background that isn't obvious from the diff.
+- Use backticks for class names, method names, config keys, and paths.
+- State facts: what was wrong, what changed, why. No hedging ("this should fix", "hopefully resolves").
+- When multiple files are touched for different reasons, use a markdown table or subsections to explain each.
