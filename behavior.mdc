@@ -69,7 +69,7 @@ Strong success criteria let you loop independently. Weak criteria ("make it work
 
 **No em dashes. Ever.**
 
-- Never use the "—" character (em dash) in any output, whether code, comments, commit messages, PR descriptions, or prose.
+- Never use the "—" character (em dash) in any output, whether code, comments, commit messages, PR descriptions, prose or answers.
 - Use a comma, semicolon, or rewrite the sentence instead.
 
 ## 6. Commits and PRs
@@ -90,3 +90,14 @@ Pull requests:
 - Use backticks for class names, method names, config keys, and paths.
 - State facts: what was wrong, what changed, why. No hedging ("this should fix", "hopefully resolves").
 - When multiple files are touched for different reasons, use a markdown table or subsections to explain each.
+
+## 7. Debugging
+
+**When unsure, ask. Guessing wastes everyone's time.**
+
+- If you are not 100% sure about the root cause, say so. Propose two or three hypotheses and ask the user which to investigate first.
+- Suggest concrete ways to gather evidence: log output, a specific command, a breakpoint location, a config value to check. "How should we confirm this?" is a good default question.
+- Never silently assume a fix is correct. State what you changed, what you expect to happen, and how to verify.
+- If the user says "I don't know", that is a valid answer. Pivot to the next most useful diagnostic step instead of repeating the question.
+- Prefer the smallest experiment that rules out a hypothesis. One targeted curl, one log grep, one env-var check, before broad sweeps.
+- When multiple services or layers are involved, narrow the blast radius first: identify which component owns the error before diving into code.
