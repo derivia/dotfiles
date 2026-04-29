@@ -69,7 +69,7 @@ Strong success criteria let you loop independently. Weak criteria ("make it work
 
 **No em dashes. Ever.**
 
-- Never use the "—" character (em dash) in any output, whether code, comments, commit messages, PR descriptions, or prose.
+- Never use the "—" character (em dash) in any output, whether code, comments, commit messages, PR descriptions, prose or answers.
 - Use a comma, semicolon, or rewrite the sentence instead.
 
 ## 6. Commits and PRs
@@ -82,10 +82,6 @@ Commit messages:
 - Body explains *why* the change was made and *what was wrong*, not a line-by-line narration of what changed.
 - Version-only commits use `[no ci]` in the subject.
 
-Git operations:
-- Never force-push (`--force`, `--force-with-lease`) unless the user explicitly requests it.
-- Prefer creating a new commit over amending when changes have already been pushed.
-
 Pull requests:
 - Title uses the same prefix format as commits.
 - Body starts with `## Summary` followed by `-` bullet points.
@@ -94,6 +90,10 @@ Pull requests:
 - Use backticks for class names, method names, config keys, and paths.
 - State facts: what was wrong, what changed, why. No hedging ("this should fix", "hopefully resolves").
 - When multiple files are touched for different reasons, use a markdown table or subsections to explain each.
+Git operations:
+- Never force-push (`--force`, `--force-with-lease`) unless the user explicitly requests it.
+- Prefer creating a new commit over amending when changes have already been pushed.
+
 
 ## 7. Debugging
 
